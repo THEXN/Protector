@@ -41,7 +41,7 @@ namespace Terraria.Plugins.CoderCow.Protector
           PluginTrace trace, PluginInfo pluginInfo, Configuration config, ServerMetadataHandler serverMetadataHandler,
           WorldMetadata worldMetadata, ProtectionManager protectionManager, ChestManager chestManager,
           PluginCooperationHandler pluginCooperationHandler, Func<Configuration> reloadConfigurationCallback
-        ) : base(trace)
+            ) : base(trace)
         {
             if (trace == null) throw new ArgumentNullException();
             if (!(!pluginInfo.Equals(PluginInfo.Empty))) throw new ArgumentException();
@@ -202,9 +202,9 @@ namespace Terraria.Plugins.CoderCow.Protector
             }
 
             string statsMessage = string.Format(
-                "您已经在当前世界中创建了 {0} 个保护，最多可以创建 {1} 个保护。",
-                playerProtectionCount,
-                this.Config.MaxProtectionsPerPlayerPerWorld
+                      "您已经在当前世界中创建了 {0} 个保护，最多可以创建 {1} 个保护。",
+                      playerProtectionCount,
+              this.Config.MaxProtectionsPerPlayerPerWorld
             );
             args.Player.SendMessage(statsMessage, Color.Yellow);
 
@@ -239,7 +239,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                           args.Player.Group.HasPermission(ProtectorPlugin.ChestSharing_Permission) ||
                           args.Player.Group.HasPermission(ProtectorPlugin.SwitchSharing_Permission) ||
                           args.Player.Group.HasPermission(ProtectorPlugin.OtherSharing_Permission)
-                        )
+                                      )
                         {
                             terms.Add("/share");
                             terms.Add("/unshare");
@@ -299,7 +299,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                         if (
                           !args.Player.Group.HasPermission(ProtectorPlugin.Utility_Permission) ||
                           !args.Player.Group.HasPermission(ProtectorPlugin.ProtectionMaster_Permission)
-                        )
+                                      )
                         {
                             args.Player.SendErrorMessage("您没有必要的权限执行此操作。");
                             return true;
@@ -362,7 +362,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                         if (
                           !args.Player.Group.HasPermission(ProtectorPlugin.Utility_Permission) ||
                           !args.Player.Group.HasPermission(ProtectorPlugin.ProtectionMaster_Permission)
-                        )
+                                      )
                         {
                             args.Player.SendErrorMessage("您没有必要的权限执行此操作。");
                             return true;
@@ -473,6 +473,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                             args.Player.SendMessage("从世界中移除所有空置且未受保护的钱箱。", Color.LightGray);
                             return true;
                         }
+
                         int cleanedUpChestsCount = 0;
                         int cleanedUpInvalidChestDataCount = 0;
                         for (int i = 0; i < Main.chest.Length; i++)
@@ -530,17 +531,17 @@ namespace Terraria.Plugins.CoderCow.Protector
                         if (args.Player != TSPlayer.Server)
                         {
                             args.Player.SendSuccessMessage(string.Format(
-                              "已移除 {0} 个空置且未受保护的钱箱。已移除 {1} 个无效的钱箱数据条目。",
+                                              "已移除 {0} 个空置且未受保护的钱箱。已移除 {1} 个无效的钱箱数据条目。",
                               cleanedUpChestsCount, cleanedUpInvalidChestDataCount
                             ));
                         }
-                            this.PluginTrace.WriteLineInfo(
-                              "已移除 {0} 个空置且未受保护的钱箱。已移除 {1} 个无效的钱箱数据条目。",
-                              cleanedUpChestsCount, cleanedUpInvalidChestDataCount
-                            );
+                        this.PluginTrace.WriteLineInfo(
+                                            "已移除 {0} 个空置且未受保护的钱箱。已移除 {1} 个无效的钱箱数据条目。",
+                          cleanedUpChestsCount, cleanedUpInvalidChestDataCount
+                        );
 
 
-                            return true;
+                        return true;
                     }
                 case "invalidate":
                 case "ensure":
@@ -613,40 +614,40 @@ namespace Terraria.Plugins.CoderCow.Protector
                         if (args.Player != TSPlayer.Server)
                         {
                             args.Player.SendInfoMessage(string.Format(
-                              "当前世界中共有 {0} 个钱箱（包括 {1} 个保护者钱箱）和 {2} 个告示牌（共 {3} 个）。",
-                              chestCount, protectorChestCount, signCount, Sign.maxSigns
+                                              "当前世界中共有 {0} 个钱箱（包括 {1} 个保护者钱箱）和 {2} 个告示牌（共 {3} 个）。",
+                                              chestCount, protectorChestCount, signCount, Sign.maxSigns
                             ));
                             args.Player.SendInfoMessage(string.Format(
-                              "共有 {0} 个保护完好无损，其中 {1} 个与其他玩家共享，",
+                                              "共有 {0} 个保护完好无损，其中 {1} 个与其他玩家共享，",
                               protectionsCount, sharedProtectionsCount
                             ));
                             args.Player.SendInfoMessage(string.Format(
-                              "已设置 {0} 个补充钱箱，有 {1} 个用户已达到他们的保护限制。",
+                                              "已设置 {0} 个补充钱箱，有 {1} 个用户已达到他们的保护限制。",
                               refillChestsCount, usersWhoReachedProtectionLimitCount
                             ));
                             args.Player.SendInfoMessage(string.Format(
-                              "数据库中记录有 {0} 个银行钱箱，其中 {1} 个在此世界中实例化。",
+                                              "数据库中记录有 {0} 个银行钱箱，其中 {1} 个在此世界中实例化。",
                               bankChestCount, bankChestInstancesCount
                             ));
 
                             this.PluginTrace.WriteLineInfo(string.Format(
-                              "当前世界中共有 {0} 个钱箱和 {2} 个告示牌。",
-                              chestCount, signCount
+                                                "当前世界中共有 {0} 个钱箱和 {2} 个告示牌。",
+                                                chestCount, signCount
                             ));
                             this.PluginTrace.WriteLineInfo(string.Format(
-                              "共有 {0} 个保护完好无损，其中 {1} 个与其他玩家共享，",
+                                                "共有 {0} 个保护完好无损，其中 {1} 个与其他玩家共享，",
                               protectionsCount, sharedProtectionsCount
                             ));
                             this.PluginTrace.WriteLineInfo(string.Format(
-                              "已设置 {0} 个补充钱箱，有 {1} 个用户已达到他们的保护限制。",
+                                                "已设置 {0} 个补充钱箱，有 {1} 个用户已达到他们的保护限制。",
                               refillChestsCount, usersWhoReachedProtectionLimitCount
                             ));
                             this.PluginTrace.WriteLineInfo(string.Format(
-                              "数据库中记录有 {0} 个银行钱箱，其中 {1} 个在此世界中实例化。",
+                                                "数据库中记录有 {0} 个银行钱箱，其中 {1} 个在此世界中实例化。",
                               bankChestCount, bankChestInstancesCount
                             ));
                         }
-                            return true;
+                        return true;
                     }
                 case "importinfinitechests":
                     {
@@ -692,22 +693,22 @@ namespace Terraria.Plugins.CoderCow.Protector
                     {
                         if (!args.Player.Group.HasPermission(ProtectorPlugin.Cfg_Permission))
                         {
-                            args.Player.SendErrorMessage("You do not have the necessary permission to do that.");
+                            args.Player.SendErrorMessage("您没有执行此操作所需的权限。");
                             return true;
                         }
 
                         if (args.Parameters.Count == 2 && args.Parameters[1].Equals("help", StringComparison.InvariantCultureIgnoreCase))
                         {
-                            args.Player.SendMessage("Command reference for /protector importinfinitesigns (Page 1 of 1)", Color.Lime);
+                            args.Player.SendMessage("/protector importinfinitesigns 命令参考（第 1 页，共 1 页）", Color.Lime);
                             args.Player.SendMessage("/protector importinfinitesigns", Color.White);
-                            args.Player.SendMessage("Attempts to import all sign data from the InfiniteSigns' database.", Color.LightGray);
-                            args.Player.SendMessage("The InfiniteSigns plugin must not be installed for this.", Color.LightGray);
-                            args.Player.SendMessage("Existing sign data will be overwritten.", Color.LightGray);
+                            args.Player.SendMessage("尝试从InfiniteSigns的数据库中导入所有告示牌数据。", Color.LightGray);
+                            args.Player.SendMessage("在进行此操作时，InfiniteSigns插件必须未安装。", Color.LightGray);
+                            args.Player.SendMessage("现有的告示牌数据将被覆盖。", Color.LightGray);
                             return true;
                         }
 
-                        args.Player.SendInfoMessage("Importing InfiniteSigns data...");
-                        this.PluginTrace.WriteLineInfo("Importing InfiniteSigns data...");
+                        args.Player.SendInfoMessage("正在导入InfiniteSigns数据...");
+                        this.PluginTrace.WriteLineInfo("正在导入InfiniteSigns数据...");
 
                         int importedSigns;
                         int protectFailures;
@@ -719,12 +720,10 @@ namespace Terraria.Plugins.CoderCow.Protector
                         }
                         catch (FileNotFoundException ex)
                         {
-                            args.Player.SendErrorMessage(string.Format("The \"{0}\" database file was not found.", ex.FileName));
+                            args.Player.SendErrorMessage(string.Format("未找到 \"{0}\" 数据库文件。", ex.FileName));
                             return true;
                         }
-
-                        args.Player.SendSuccessMessage(string.Format(
-                          "Imported {0} signs. Failed to protect {1} signs.", importedSigns, protectFailures
+                        args.Player.SendSuccessMessage(string.Format("已导入 {0} 个告示牌。未能保护 {1} 个告示牌。", importedSigns, protectFailures
                         ));
 
                         return true;
@@ -735,17 +734,17 @@ namespace Terraria.Plugins.CoderCow.Protector
                     {
                         if (!args.Player.Group.HasPermission(ProtectorPlugin.Cfg_Permission))
                         {
-                            args.Player.SendErrorMessage("You do not have the necessary permission to do that.");
+                            args.Player.SendErrorMessage("您没有执行此操作所需的权限。");
                             return true;
                         }
 
                         if (args.Parameters.Count == 2 && args.Parameters[1].Equals("help", StringComparison.InvariantCultureIgnoreCase))
                         {
-                            args.Player.SendMessage("Command reference for /protector reloadconfiguration (Page 1 of 1)", Color.Lime);
+                            args.Player.SendMessage("/protector reloadconfiguration 命令参考（第 1 页，共 1 页）", Color.Lime);
                             args.Player.SendMessage("/protector reloadconfiguration|reloadconfig|reloadcfg", Color.White);
-                            args.Player.SendMessage("Reloads Protector's configuration file and applies all new settings.", Color.LightGray);
-                            args.Player.SendMessage("If the limit of bank chests was decreased then existing bank chests going", Color.LightGray);
-                            args.Player.SendMessage("over this limit will still be accessible until the server is restarted.", Color.LightGray);
+                            args.Player.SendMessage("重新加载保护者的配置文件并应用所有新设置。", Color.LightGray);
+                            args.Player.SendMessage("如果银行钱箱的数量限制被降低，那么超过这个限制的现有银行钱箱", Color.LightGray);
+                            args.Player.SendMessage("在服务器重启之前仍然可以访问。", Color.LightGray);
                             return true;
                         }
 
@@ -834,7 +833,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                   editType != TileEditType.PlaceWall ||
                   editType != TileEditType.DestroyWall ||
                   editType != TileEditType.PlaceActuator
-                )
+                        )
                 {
                     this.TryCreateProtection(playerLocal, location);
 
@@ -929,7 +928,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                   editType != TileEditType.PlaceWall ||
                   editType != TileEditType.DestroyWall ||
                   editType != TileEditType.PlaceActuator
-                )
+                        )
                 {
                     this.TryRemoveProtection(playerLocal, location);
 
@@ -1023,7 +1022,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                   editType != TileEditType.PlaceWall ||
                   editType != TileEditType.DestroyWall ||
                   editType != TileEditType.PlaceActuator
-                )
+                        )
                 {
                     this.TryGetProtectionInfo(playerLocal, location);
 
@@ -1429,7 +1428,7 @@ namespace Terraria.Plugins.CoderCow.Protector
         private void StartShareCommandInteraction(
           TSPlayer player, bool isPersistent, bool isShareOrUnshare, bool isGroup, bool isShareAll,
           object shareTarget = null, string shareTargetName = null
-        )
+            )
         {
             CommandInteraction interaction = this.StartOrResetCommandInteraction(player);
             interaction.DoesNeverComplete = isPersistent;
@@ -1440,7 +1439,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                   editType != TileEditType.PlaceWall ||
                   editType != TileEditType.DestroyWall ||
                   editType != TileEditType.PlaceActuator
-                )
+                        )
                 {
                     this.TryAlterProtectionShare(playerLocal, location, isShareOrUnshare, isGroup, isShareAll, shareTarget, shareTargetName);
 
@@ -1512,7 +1511,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                   editType != TileEditType.PlaceWall ||
                   editType != TileEditType.DestroyWall ||
                   editType != TileEditType.PlaceActuator
-                )
+                        )
                 {
                     this.TryLockChest(playerLocal, location);
 
@@ -1596,7 +1595,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                   editType != TileEditType.PlaceWall ||
                   editType != TileEditType.DestroyWall ||
                   editType != TileEditType.PlaceActuator
-                )
+                        )
                 {
                     IChest newChest;
                     this.TrySwapChestData(playerLocal, location, out newChest);
@@ -1709,7 +1708,7 @@ namespace Terraria.Plugins.CoderCow.Protector
             {
                 if (!TimeSpanEx.TryParseShort(
                   args.ParamsToSingleString(0, args.Parameters.Count - timeParameters), out refillTime
-                ))
+                        ))
                 {
                     invalidSyntax = true;
                 }
@@ -1731,7 +1730,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                   editType != TileEditType.PlaceWall ||
                   editType != TileEditType.DestroyWall ||
                   editType != TileEditType.PlaceActuator
-                )
+                        )
                 {
                     this.TrySetUpRefillChest(playerLocal, location, refillTime, oneLootPerPlayer, lootLimit, autoLock, autoEmpty);
 
@@ -1876,7 +1875,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                 {
                     if (!TimeSpanEx.TryParseShort(
                       args.ParamsToSingleString(1, args.Parameters.Count - timeParameters - 1), out refillTime
-                    ))
+                              ))
                     {
                         invalidSyntax = true;
                     }
@@ -2030,7 +2029,7 @@ namespace Terraria.Plugins.CoderCow.Protector
             bool hasNoBankChestLimits = args.Player.Group.HasPermission(ProtectorPlugin.NoBankChestLimits_Permission);
             if (
               chestIndex < 1 || (chestIndex > this.Config.MaxBankChestsPerPlayer && !hasNoBankChestLimits)
-            )
+                  )
             {
                 string messageFormat;
                 if (!hasNoBankChestLimits)
@@ -2050,7 +2049,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                   editType != TileEditType.PlaceWall ||
                   editType != TileEditType.DestroyWall ||
                   editType != TileEditType.PlaceActuator
-                )
+                        )
                 {
                     this.TrySetUpBankChest(playerLocal, location, chestIndex);
 
@@ -2174,7 +2173,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                   editType != TileEditType.PlaceWall ||
                   editType != TileEditType.DestroyWall ||
                   editType != TileEditType.PlaceActuator
-                )
+                        )
                 {
                     dumpBankChest(playerLocal, location);
                     playerLocal.SendTileSquareCentered(location);
@@ -2313,7 +2312,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                   editType != TileEditType.PlaceWall ||
                   editType != TileEditType.DestroyWall ||
                   editType != TileEditType.PlaceActuator
-                )
+                        )
                 {
                     this.TrySetUpTradeChest(playerLocal, location, sellAmount, sellItem.netID, payAmount, payItemIdOrGroup, lootLimit);
 
@@ -2612,7 +2611,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                                 this.Config.AutoDeprotectEverythingOnDestruction &&
                                 player.Group.HasPermission(ProtectorPlugin.ProtectionMaster_Permission)
                               )
-                            )
+                                            )
                             {
                                 if (isChest)
                                 {
@@ -3291,7 +3290,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                 if (
                   this.Config.AllowRefillChestContentChanges &&
                   (refillChest.Owner == player.Account.ID || player.Group.HasPermission(ProtectorPlugin.ProtectionMaster_Permission))
-                )
+                        )
                 {
                     refillChest.RefillItems[slotIndex] = newItem;
 
@@ -3734,7 +3733,7 @@ namespace Terraria.Plugins.CoderCow.Protector
         private bool TryAlterProtectionShare(
           TSPlayer player, DPoint tileLocation, bool isShareOrUnshare, bool isGroup, bool isShareAll,
           object shareTarget, string shareTargetName, bool sendFailureMessages = true
-        )
+            )
         {
             if (!player.IsLoggedIn)
             {
@@ -4254,7 +4253,7 @@ namespace Terraria.Plugins.CoderCow.Protector
         public bool TrySetUpRefillChest(
           TSPlayer player, DPoint tileLocation, TimeSpan? refillTime, bool? oneLootPerPlayer, int? lootLimit, bool? autoLock,
           bool? autoEmpty, bool sendMessages = true
-        )
+            )
         {
             if (!player.IsLoggedIn)
             {
@@ -4274,7 +4273,7 @@ namespace Terraria.Plugins.CoderCow.Protector
             {
                 if (this.ChestManager.SetUpRefillChest(
                   player, tileLocation, refillTime, oneLootPerPlayer, lootLimit, autoLock, autoEmpty, false, true
-                ))
+                        ))
                 {
                     if (sendMessages)
                     {
@@ -4642,7 +4641,7 @@ namespace Terraria.Plugins.CoderCow.Protector
             if (
               !this.Config.AllowRefillChestContentChanges ||
               (player.Account.ID != refillChest.Owner && !player.Group.HasPermission(ProtectorPlugin.ProtectionMaster_Permission))
-            )
+                  )
             {
                 if (refillChest.RemainingLoots == 0)
                 {
