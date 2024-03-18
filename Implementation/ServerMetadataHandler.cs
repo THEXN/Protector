@@ -158,7 +158,7 @@ namespace Terraria.Plugins.CoderCow.Protector
         {
             BankChestMetadata bankChest = this.GetBankChestMetadata(key);
             if (bankChest == null)
-                throw new ArgumentException("未找到具有给定键的保险箱", "钥匙");
+                throw new ArgumentException("未找到具有给定键的银行箱", "钥匙");
 
             bankChest.Items[slotIndex] = newItem;
             this.AddOrUpdateBankChest(key, bankChest);

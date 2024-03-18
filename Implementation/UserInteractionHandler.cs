@@ -305,8 +305,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                         {
                             args.Player.SendMessage("/protector cleanup 命令参考（第 1 页，共 1 页）", Color.Lime);
                             args.Player.SendMessage("/protector cleanup", Color.White);
-                            args.Player.SendMessage("删除所有属于不存在于TShock中的用户ID的保护", Color.LightGray);
-                            args.Player.SendMessage("的数据库条目", Color.LightGray);
+                            args.Player.SendMessage("移除所有不再存在于TShock数据库中的用户所拥有的保护", Color.LightGray);
                             args.Player.SendMessage(string.Empty, Color.LightGray);
                             args.Player.SendMessage("-d = 不破坏设置保护时所在的图格。", Color.LightGray);
                             return true;
@@ -367,12 +366,14 @@ namespace Terraria.Plugins.CoderCow.Protector
                         if (args.Parameters.Count == 2 && args.Parameters[1].Equals("help", StringComparison.InvariantCultureIgnoreCase))
                         {
                             args.Player.SendMessage("/protector removeall 命令参考（第 1 页，共 1 页）", Color.Lime);
-                            args.Player.SendMessage("/protector removeall <区域 <区域名>|用户 <用户名>> [-d]", Color.White);
-                            args.Player.SendMessage("从给定的区域或指定的用户拥有的保护中移除所有保护。", Color.LightGray);
+                            args.Player.SendMessage("/protector removeall <region <区域名>|user <用户名>> [-d]", Color.White);
+                            args.Player.SendMessage("移除指定区域内或用户的所有保护。", Color.LightGray);
                             args.Player.SendMessage(string.Empty, Color.LightGray);
-                            args.Player.SendMessage("region <区域> = 移除<区域>内的所有保护。", Color.LightGray);
-                            args.Player.SendMessage("user <用户> = 移除此世界中<用户>拥有的所有保护。", Color.LightGray);
+                            args.Player.SendMessage("region <区域名> = 移除<区域>内的所有保护。", Color.LightGray);
+                            args.Player.SendMessage("user <用户名> = 移除此世界中<用户>拥有的所有保护。", Color.LightGray);
                             args.Player.SendMessage("-d = 不破坏设置保护时所在的图格（或方块）。", Color.LightGray);
+                            args.Player.SendMessage("示例：/protector removeall region 测试区域", Color.White);
+                            args.Player.SendMessage("示例：/protector removeall user 肝帝熙恩 -d", Color.White);
                             return true;
                         }
 
@@ -449,7 +450,7 @@ namespace Terraria.Plugins.CoderCow.Protector
 
                         if (args.Player != TSPlayer.Server)
                             args.Player.SendSuccessMessage("{0}个保护已被移除。", protectionsToRemove.Count);
-                        this.PluginTrace.WriteLineInfo("{{0}个保护已被移除。", protectionsToRemove.Count);
+                        this.PluginTrace.WriteLineInfo("{0}个保护已被移除。", protectionsToRemove.Count);
 
                         return true;
                     }
@@ -527,12 +528,12 @@ namespace Terraria.Plugins.CoderCow.Protector
                         if (args.Player != TSPlayer.Server)
                         {
                             args.Player.SendSuccessMessage(string.Format(
-              "移除了{0}个空的且未受保护的箱子。移除了{1}个无效的箱子数量。",
+                              "已移除 {0} 个空的且未受保护的箱子。已移除 {1} 个无效的箱子条目。",
                               cleanedUpChestsCount, cleanedUpInvalidChestDataCount
                             ));
                         }
                         this.PluginTrace.WriteLineInfo(
-                                            "已移除 {0} 个空置且未受保护的钱箱。已移除 {1} 个无效的钱箱数据条目。",
+                          "{0} 个空的且未受保护的箱子已被移除。 {1} 个无效的箱子条目已被移除。",
                           cleanedUpChestsCount, cleanedUpInvalidChestDataCount
                         );
 
@@ -572,7 +573,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                         {
                             args.Player.SendMessage("/protector summary 命令参考（第 1 页，共 1 页）", Color.Lime);
                             args.Player.SendMessage("/protector summary 或 stats", Color.White);
-                            args.Player.SendMessage("测量关于箱子、标志、保护和保险箱的全局世界信息。", Color.LightGray);
+                            args.Player.SendMessage("显示关于箱子、标志、保护和银行箱的全局世界信息。", Color.LightGray);
                             return true;
                         }
 
@@ -618,11 +619,11 @@ namespace Terraria.Plugins.CoderCow.Protector
                               protectionsCount, sharedProtectionsCount
                             ));
                             args.Player.SendInfoMessage(string.Format(
-                                              "已设置 {0} 个补充钱箱，有 {1} 个用户已达到他们的保护限制。",
+                                              "已设置 {0} 个补充箱子，有 {1} 个用户已达到他们的保护限制。",
                               refillChestsCount, usersWhoReachedProtectionLimitCount
                             ));
                             args.Player.SendInfoMessage(string.Format(
-                                              "数据库中记录有 {0} 个银行钱箱，其中 {1} 个在此世界中实例化。",
+                                              "数据库中记录有 {0} 个银行箱，其中 {1} 个在此世界中实例化。",
                               bankChestCount, bankChestInstancesCount
                             ));
                         }
@@ -631,7 +632,7 @@ namespace Terraria.Plugins.CoderCow.Protector
         chestCount, Main.chest.Length, signCount, Sign.maxSigns
                         ));
                         this.PluginTrace.WriteLineInfo(string.Format(
-        "{0}个保护是完整的，其中{1}个与其他玩家共享，",
+        "{0}个保护完好无损，其中{1}个与其他玩家共享，",
                           protectionsCount, sharedProtectionsCount
                         ));
                         this.PluginTrace.WriteLineInfo(string.Format(
@@ -639,7 +640,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                           refillChestsCount, usersWhoReachedProtectionLimitCount
                         ));
                         this.PluginTrace.WriteLineInfo(string.Format(
-        "数据库包含{0}个保险箱，其中{1}个已在本世界中实例化。",
+        "数据库包含{0}个银行箱，其中{1}个已在本世界中实例化。",
                           bankChestCount, bankChestInstancesCount
                         ));
 
@@ -738,11 +739,10 @@ namespace Terraria.Plugins.CoderCow.Protector
 
                         if (args.Parameters.Count == 2 && args.Parameters[1].Equals("help", StringComparison.InvariantCultureIgnoreCase))
                         {
-                            args.Player.SendMessage("/protector reloadconfiguration 命令参考（第 1 页，共 1 页）", Color.Lime);
-                            args.Player.SendMessage("/protector reloadconfiguration 或 reloadconfig 或 reloadcfg", Color.White);
-                            args.Player.SendMessage("重新加载Protector的配置文件并应用所有新设置。", Color.LightGray);
-                            args.Player.SendMessage("如果保险箱子的数量限制被减少了，那么现有的保险箱子将会...", Color.LightGray);
-                            args.Player.SendMessage("超过这个限制的现有保险箱子仍然可以访问，直到服务器重新启动。", Color.LightGray);
+                            args.Player.SendMessage("关于 /protector reloadconfiguration 命令的帮助信息（第 1 页，共 1 页）", Color.Lime);
+                            args.Player.SendMessage("/protector reloadconfiguration|reloadconfig|reloadcfg", Color.White);
+                            args.Player.SendMessage("重新加载 Protector 的配置文件并应用所有新的设置。", Color.LightGray);
+                            args.Player.SendMessage("如果银行箱的数量限制被减少，则超出此限制的现有银行箱仍然可以在服务器重新启动之前访问。", Color.LightGray);
                             return true;
                         }
 
@@ -781,20 +781,13 @@ namespace Terraria.Plugins.CoderCow.Protector
             switch (pageNumber)
             {
                 default:
-                    args.Player.SendMessage("Protector 概述（第 1 页，共 2 页）", Color.Lime);
-                    args.Player.SendMessage("这个插件为运行在TShock的Terraria服务器上的玩家提供了可能性", Color.LightGray);
-                    args.Player.SendMessage("来拥有某些物体或方块的所有权，以便其他玩家不能 更改或使用它们。", Color.LightGray);
-                    args.Player.SendMessage(string.Empty, Color.LightGray);
-                    args.Player.SendMessage("受保护的箱子中的内容不能被其他玩家更改", Color.LightGray);
-                    break;
-                case 2:
-                    args.Player.SendMessage("受保护的开关不会被其他玩家触发，告示牌不能被编辑，床不能被被使用，\n未使用的门甚至受保护的陶罐中的植物都不能被挖", Color.LightGray);
-                    args.Player.SendMessage("除非拥有这个陶罐，否则无法收获其中的植物。", Color.LightGray);
-                    args.Player.SendMessage(string.Empty, Color.LightGray);
-                    args.Player.SendMessage("如需更多信息和支持，请访问TShock论坛上的Protector版块。", Color.LightGray);
+                    args.Player.SendMessage("Protector 概述（第 1 页，共 1 页）", Color.Lime);
+                    args.Player.SendMessage("这个插件为运行在TShock的Terraria服务器上的玩家提供了可能性，来拥有某些物体或方块的所有权，以便其他玩家不能更改或使用它们。", Color.LightGray);
+                    args.Player.SendMessage("受保护的箱子中的内容不能被其他玩家更改。", Color.LightGray);
+                    args.Player.SendMessage("受保护的开关不会被其他玩家触发，告示牌不能被编辑，床不能被使用，未使用的门甚至受保护的粘土盆中的植物都不能被挖，除非拥有这个粘土盆，否则无法收获其中的植物。", Color.LightGray);
+                    args.Player.SendMessage("本中文版如果出现问题，可以去github或群/论坛寻求帮助", Color.LightGray);
                     break;
             }
-
             return true;
         }
         #endregion
@@ -979,7 +972,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                     break;
                 case 2:
                     args.Player.SendMessage("只有拥有者或管理员才能移除保护。如果选中的物体", Color.LightGray);
-                    args.Player.SendMessage("是一个保险箱子，那么这个保险箱子的实例将会从世界中移除，以便它可能会被重新实例化。", Color.LightGray);
+                    args.Player.SendMessage("是一个银行箱子，那么这个银行箱子的实例将会从世界中移除，以便它可能会被重新实例化。", Color.LightGray);
                     break;
             }
 
@@ -4578,9 +4571,9 @@ namespace Terraria.Plugins.CoderCow.Protector
                 if (invalidProtectionsCount > 0)
                     player.SendWarningMessage("已移除 {0} 个无效保护。", invalidProtectionsCount);
                 if (invalidRefillChestCount > 0)
-                    player.SendWarningMessage("已移除 {0} 个无效补充钱箱。", invalidRefillChestCount);
+                    player.SendWarningMessage("已移除 {0} 个无效补充箱子。", invalidRefillChestCount);
                 if (invalidBankChestCount > 0)
-                    player.SendWarningMessage("已移除 {0} 个无效银行钱箱实例。", invalidBankChestCount);
+                    player.SendWarningMessage("已移除 {0} 个无效银行箱实例。", invalidBankChestCount);
 
                 player.SendInfoMessage("已完成保护数据的确认。");
             }
@@ -4588,9 +4581,9 @@ namespace Terraria.Plugins.CoderCow.Protector
             if (invalidProtectionsCount > 0)
                 this.PluginTrace.WriteLineWarning("已移除 {0} 个无效保护。", invalidProtectionsCount);
             if (invalidRefillChestCount > 0)
-                this.PluginTrace.WriteLineWarning("已移除 {0} 个无效补充钱箱。", invalidRefillChestCount);
+                this.PluginTrace.WriteLineWarning("已移除 {0} 个无效补充箱子。", invalidRefillChestCount);
             if (invalidBankChestCount > 0)
-                this.PluginTrace.WriteLineWarning("已移除 {0} 个无效银行钱箱实例。", invalidBankChestCount);
+                this.PluginTrace.WriteLineWarning("已移除 {0} 个无效银行箱实例。", invalidBankChestCount);
 
             this.PluginTrace.WriteLineInfo("已完成保护数据的确认。");
         }

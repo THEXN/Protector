@@ -82,7 +82,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                         if (!File.Exists(sqliteDatabaseFilePath))
                             throw new FileNotFoundException("未找到 Sqlite 数据库文件。", sqliteDatabaseFilePath);
 
-                        dbConnection = new SqliteConnection(string.Format("数据源={0}", sqliteDatabaseFilePath));
+                        dbConnection = new SqliteConnection(string.Format("Data Source={0}", sqliteDatabaseFilePath));
 
                         break;
                     default:
