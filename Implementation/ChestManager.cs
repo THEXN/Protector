@@ -53,10 +53,10 @@ namespace Terraria.Plugins.CoderCow.Protector {
       this.RefillTimerCallbackHandler = this.RefillChestTimer_Callback;
     }
 
-/// <returns>  
+    /// <returns>
 ///   返回一个布尔值，如果在指定位置已经存在一个补充宝箱，并且只是更新了它的补充时间，则返回<c>false</c>；  
 ///   如果实际上创建了一个新的补充宝箱，则返回<c>true</c>。  
-/// </returns>
+    /// </returns>
     public bool SetUpRefillChest(
       TSPlayer player, DPoint tileLocation, TimeSpan? refillTime, bool? oneLootPerPlayer = null, int? lootLimit = null, 
       bool? autoLock = null, bool? autoEmpty = null, bool fairLoot = false, bool checkPermissions = false
