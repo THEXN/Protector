@@ -1146,8 +1146,8 @@ namespace Terraria.Plugins.CoderCow.Protector
 
             if (args.Parameters.Count < 1)
             {
-                args.Player.SendErrorMessage("Proper syntax: /unshare <player name>");
-                args.Player.SendErrorMessage("Type /unshare help to get more help to this command.");
+                args.Player.SendErrorMessage("正确语法: /unshare 玩家名字");
+                args.Player.SendErrorMessage("输入/unshare help 来获取这个命令的更多帮助。");
                 return;
             }
 
@@ -1183,16 +1183,16 @@ namespace Terraria.Plugins.CoderCow.Protector
             switch (pageNumber)
             {
                 default:
-                    args.Player.SendMessage("Command reference for /unshare (Page 1 of 2)", Color.Lime);
-                    args.Player.SendMessage("/unshare <player name>", Color.White);
-                    args.Player.SendMessage("Removes a player share from the selected protection.", Color.LightGray);
+                    args.Player.SendMessage("/unshare 命令参考（第1页，共2页）", Color.Lime);
+                    args.Player.SendMessage("/unshare 玩家名字", Color.White);
+                    args.Player.SendMessage("从选定的保护中移除玩家的共享权限。", Color.LightGray);
                     args.Player.SendMessage(string.Empty, Color.LightGray);
-                    args.Player.SendMessage("-p = Activates persistent mode. The command will stay persistent until it times", Color.LightGray);
-                    args.Player.SendMessage("     out or any other Protector command is entered.", Color.LightGray);
+                    args.Player.SendMessage("-p = 激活持久模式。该命令将保持持久性，直到它过期", Color.LightGray);
+                    args.Player.SendMessage("或输入其他保护者命令。", Color.LightGray);
                     break;
                 case 2:
-                    args.Player.SendMessage("player name = The name of the player to be added. Can either be an exact user", Color.LightGray);
-                    args.Player.SendMessage("name or part of the name of a player being currently online.", Color.LightGray);
+                    args.Player.SendMessage("玩家名称 = 要添加的玩家的名称。可以是确切的用户名称，", Color.LightGray);
+                    args.Player.SendMessage("或者是当前在线的玩家的名称的一部分。", Color.LightGray);
                     break;
             }
 
@@ -1215,8 +1215,8 @@ namespace Terraria.Plugins.CoderCow.Protector
                 }
                 else
                 {
-                    args.Player.SendErrorMessage("Proper syntax: /sharepublic [-p]");
-                    args.Player.SendInfoMessage("Type /sharepublic help to get more help to this command.");
+                    args.Player.SendErrorMessage("正确语法: /sharepublic [-p]");
+                    args.Player.SendInfoMessage("输入/sharepublic help 来获取这个命令的更多帮助。");
                     return;
                 }
             }
@@ -1236,12 +1236,12 @@ namespace Terraria.Plugins.CoderCow.Protector
             switch (pageNumber)
             {
                 default:
-                    args.Player.SendMessage("Command reference for /sharepublic (Page 1 of 1)", Color.Lime);
+                    args.Player.SendMessage("/sharepublic 命令参考（第1页，共1页）", Color.Lime);
                     args.Player.SendMessage("/sharepublic [-p]", Color.White);
-                    args.Player.SendMessage("Allows everyone to use the selected object.", Color.LightGray);
+                    args.Player.SendMessage("允许所有人使用选定的对象。", Color.LightGray);
                     args.Player.SendMessage(string.Empty, Color.LightGray);
-                    args.Player.SendMessage("-p = Activates persistent mode. The command will stay persistent until it times", Color.LightGray);
-                    args.Player.SendMessage("     out or any other protector command is entered.", Color.LightGray);
+                    args.Player.SendMessage("-p = 激活持久模式。该命令将保持持久性，直到它过期。", Color.LightGray);
+                    args.Player.SendMessage("或输入其他保护者命令。", Color.LightGray);
                     break;
             }
 
@@ -1264,8 +1264,8 @@ namespace Terraria.Plugins.CoderCow.Protector
                 }
                 else
                 {
-                    args.Player.SendErrorMessage("Proper syntax: /unsharepublic [-p]");
-                    args.Player.SendInfoMessage("Type /unsharepublic help to get more help to this command.");
+                    args.Player.SendErrorMessage("正确语法: /unsharepublic [-p]");
+                    args.Player.SendInfoMessage("输入/unsharepublic help 来获取这个命令的更多帮助。");
                     return;
                 }
             }
@@ -1285,12 +1285,12 @@ namespace Terraria.Plugins.CoderCow.Protector
             switch (pageNumber)
             {
                 default:
-                    args.Player.SendMessage("Command reference for /unsharepublic (Page 1 of 1)", Color.Lime);
+                    args.Player.SendMessage("/unsharepublic 命令参考（第1页，共1页）", Color.Lime);
                     args.Player.SendMessage("/unsharepublic [-p]", Color.White);
-                    args.Player.SendMessage("Revokes the permission for everyone to use the selected object.", Color.LightGray);
+                    args.Player.SendMessage("撤销了所有人使用选定对象的权限。", Color.LightGray);
                     args.Player.SendMessage(string.Empty, Color.LightGray);
-                    args.Player.SendMessage("-p = Activates persistent mode. The command will stay persistent until it times", Color.LightGray);
-                    args.Player.SendMessage("     out or any other protector command is entered.", Color.LightGray);
+                    args.Player.SendMessage("-p = 激活持久模式。该命令将保持持久性，直到它过期。", Color.LightGray);
+                    args.Player.SendMessage("或输入其他保护者命令。", Color.LightGray);
                     break;
             }
 
@@ -1306,8 +1306,8 @@ namespace Terraria.Plugins.CoderCow.Protector
 
             if (args.Parameters.Count < 1)
             {
-                args.Player.SendErrorMessage("Proper syntax: /sharegroup <group name>");
-                args.Player.SendErrorMessage("Type /sharegroup help to get more help to this command.");
+                args.Player.SendErrorMessage("正确语法: /sharegroup 用户组名");
+                args.Player.SendErrorMessage("输入/sharegroup help 来获取这个命令的更多帮助。");
                 return;
             }
 
@@ -1326,7 +1326,7 @@ namespace Terraria.Plugins.CoderCow.Protector
 
             if (TShock.Groups.GetGroupByName(groupName) == null)
             {
-                args.Player.SendErrorMessage($"The group \"{groupName}\" does not exist.");
+                args.Player.SendErrorMessage($"用户组“{groupName}”不存在。");
 
                 return;
             }
@@ -1346,15 +1346,15 @@ namespace Terraria.Plugins.CoderCow.Protector
             switch (pageNumber)
             {
                 default:
-                    args.Player.SendMessage("Command reference for /sharegroup (Page 1 of 2)", Color.Lime);
-                    args.Player.SendMessage("/sharegroup <group name> [-p]", Color.White);
-                    args.Player.SendMessage("Adds a group share to the selected protection.", Color.LightGray);
+                    args.Player.SendMessage("/sharegroup 命令参考（第1页，共2页）", Color.Lime);
+                    args.Player.SendMessage("/sharegroup 用户组名 [-p]", Color.White);
+                    args.Player.SendMessage("为选定的保护添加用户组共享权限。", Color.LightGray);
                     args.Player.SendMessage(string.Empty, Color.LightGray);
-                    args.Player.SendMessage("group name = The name of the TShock group to be added.", Color.LightGray);
-                    args.Player.SendMessage("-p = Activates persistent mode. The command will stay persistent until it times", Color.LightGray);
+                    args.Player.SendMessage("用户组组名称 = 要添加的TShock组的名称。", Color.LightGray);
+                    args.Player.SendMessage("-p = 激活持久模式。该命令将保持持久性，直到它过期。", Color.LightGray);
                     break;
                 case 2:
-                    args.Player.SendMessage("     out or any other Protector command is entered.", Color.LightGray);
+                    args.Player.SendMessage("或输入其他保护者命令。.", Color.LightGray);
                     break;
             }
 
@@ -1370,8 +1370,8 @@ namespace Terraria.Plugins.CoderCow.Protector
 
             if (args.Parameters.Count < 1)
             {
-                args.Player.SendErrorMessage("Proper syntax: /unsharegroup <groupname>");
-                args.Player.SendErrorMessage("Type /unsharegroup help to get more help to this command.");
+                args.Player.SendErrorMessage("正确语法: /unsharegroup 用户组名");
+                args.Player.SendErrorMessage("输入/unsharegroup help 来获取这个命令的更多帮助。");
                 return;
             }
 
@@ -1403,15 +1403,15 @@ namespace Terraria.Plugins.CoderCow.Protector
             switch (pageNumber)
             {
                 default:
-                    args.Player.SendMessage("Command reference for /unsharegroup (Page 1 of 2)", Color.Lime);
-                    args.Player.SendMessage("/unsharegroup <group name> [-p]", Color.White);
-                    args.Player.SendMessage("Removes a group share from the selected protection.", Color.LightGray);
+                    args.Player.SendMessage("/unsharegroup 命令参考（第1页，共2页）", Color.Lime);
+                    args.Player.SendMessage("/unsharegroup 用户组名 [-p]", Color.White);
+                    args.Player.SendMessage("从选定的保护中移除用户组共享权限。", Color.LightGray);
                     args.Player.SendMessage(string.Empty, Color.LightGray);
-                    args.Player.SendMessage("group name = The name of the TShock group to be removed.", Color.LightGray);
-                    args.Player.SendMessage("-p = Activates persistent mode. The command will stay persistent until it times", Color.LightGray);
+                    args.Player.SendMessage("用户组组名称 = 要添加的TShock组的名称。", Color.LightGray);
+                    args.Player.SendMessage("-p = 激活持久模式。该命令将保持持久性，直到它过期。", Color.LightGray);
                     break;
                 case 2:
-                    args.Player.SendMessage("     out or any other Protector command is entered.", Color.LightGray);
+                    args.Player.SendMessage("或输入其他保护者命令。.", Color.LightGray);
                     break;
             }
 
@@ -1464,15 +1464,15 @@ namespace Terraria.Plugins.CoderCow.Protector
             interaction.TimeExpiredCallback += (playerLocal) =>
             {
                 if (isShareOrUnshare)
-                    playerLocal.SendMessage("Waited too long. No protection will be shared.", Color.Red);
+                    playerLocal.SendMessage("等待时间过长。没有保护将被共享。", Color.Red);
                 else
-                    playerLocal.SendMessage("Waited too long. No protection will be unshared.", Color.Red);
+                    playerLocal.SendMessage("等待时间过长。没有保护将被共享。", Color.Red);
             };
 
             if (isShareOrUnshare)
-                player.SendInfoMessage("Hit or use the protected object or block you want to share.");
+                player.SendInfoMessage("点击或使用你想要共享的受保护对象或方块。");
             else
-                player.SendInfoMessage("Hit or use the protected object or block you want to unshare.");
+                player.SendInfoMessage("点击或使用你想要共享的受保护对象或方块。");
         }
         #endregion
 
@@ -1491,8 +1491,8 @@ namespace Terraria.Plugins.CoderCow.Protector
                 }
                 else
                 {
-                    args.Player.SendErrorMessage("Proper syntax: /lockchest [-p]");
-                    args.Player.SendInfoMessage("Type /lockchest help to get more help to this command.");
+                    args.Player.SendErrorMessage("正确语法: /lockchest [-p]");
+                    args.Player.SendInfoMessage("输入/lockchest help 来获取这个命令的更多帮助。");
                     return;
                 }
             }
@@ -1526,10 +1526,10 @@ namespace Terraria.Plugins.CoderCow.Protector
             };
             interaction.TimeExpiredCallback += (playerLocal) =>
             {
-                playerLocal.SendErrorMessage("Waited too long. The next hit or opened chest will not be locked.");
+                playerLocal.SendErrorMessage("等待时间过长。下一次点击或打开的箱子将不会被锁定。");
             };
 
-            args.Player.SendInfoMessage("Hit or open a chest to lock it.");
+            args.Player.SendInfoMessage("点击或打开一个箱子来锁定它。");
         }
 
         private bool LockChestCommand_HelpCallback(CommandArgs args)
@@ -1544,15 +1544,15 @@ namespace Terraria.Plugins.CoderCow.Protector
             switch (pageNumber)
             {
                 default:
-                    args.Player.SendMessage("Command reference for /lockchest (Page 1 of 2)", Color.Lime);
-                    args.Player.SendMessage("/lockchest|/lchest [-p]", Color.White);
-                    args.Player.SendMessage("Locks the selected chest so that a key is needed to open it.", Color.LightGray);
+                    args.Player.SendMessage("/lockchest 命令参考（第1页，共2页）", Color.Lime);
+                    args.Player.SendMessage("/lockchest或 /lchest [-p]", Color.White);
+                    args.Player.SendMessage("锁定选定的箱子，需要一把钥匙才能打开它.", Color.LightGray);
                     args.Player.SendMessage(string.Empty, Color.LightGray);
-                    args.Player.SendMessage("-p = Activates persistent mode. The command will stay persistent until it times", Color.LightGray);
-                    args.Player.SendMessage("     out or any other protector command is entered.", Color.LightGray);
+                    args.Player.SendMessage("-p = 激活持久模式。该命令将保持持久性，直到它过期。", Color.LightGray);
+                    args.Player.SendMessage("或输入其他保护者命令。", Color.LightGray);
                     break;
                 case 2:
-                    args.Player.SendMessage("Note that not all types of chests can be locked.", Color.LightGray);
+                    args.Player.SendMessage("请注意，并非所有类型的箱子都可以被锁定。", Color.LightGray);
                     break;
             }
 
@@ -1575,8 +1575,8 @@ namespace Terraria.Plugins.CoderCow.Protector
                 }
                 else
                 {
-                    args.Player.SendErrorMessage("Proper syntax: /swapchest [-p]");
-                    args.Player.SendInfoMessage("Type /swapchest help to get more help to this command.");
+                    args.Player.SendErrorMessage("正确语法: /swapchest [-p]");
+                    args.Player.SendInfoMessage("输入/swapchest help 来获取这个命令的更多帮助。");
                     return;
                 }
             }
@@ -1612,10 +1612,10 @@ namespace Terraria.Plugins.CoderCow.Protector
             };
             interaction.TimeExpiredCallback += (playerLocal) =>
             {
-                playerLocal.SendErrorMessage("Waited too long. The next hit or opened chest will not swapped.");
+                playerLocal.SendErrorMessage("等待时间过长。下一次点击或打开的箱子将不会被交换。");
             };
 
-            args.Player.SendInfoMessage("Hit or open a chest to swap its data storage.");
+            args.Player.SendInfoMessage("点击或打开一个箱子来交换其数据存储。");
         }
 
         private bool SwapChestCommand_HelpCallback(CommandArgs args)
@@ -1630,13 +1630,13 @@ namespace Terraria.Plugins.CoderCow.Protector
             switch (pageNumber)
             {
                 default:
-                    args.Player.SendMessage("Command reference for /swapchest (Page 1 of 1)", Color.Lime);
-                    args.Player.SendMessage("/swapchest|/schest [-p]", Color.White);
-                    args.Player.SendMessage("Swaps the data of the selected chest to the world's data or to Protector data.", Color.LightGray);
-                    args.Player.SendMessage("This will not change the content of the chest or its protection, its name will be removed though.", Color.LightGray);
+                    args.Player.SendMessage("输入/swapchest help 来获取这个命令的更多帮助。", Color.Lime);
+                    args.Player.SendMessage("/swapchest 或 /schest [-p]", Color.White);
+                    args.Player.SendMessage("将选定箱子的数据交换为世界数据或保护者数据。", Color.LightGray);
+                    args.Player.SendMessage("这不会改变箱子的内容或其保护状态，但会移除其名称。", Color.LightGray);
                     args.Player.SendMessage(string.Empty, Color.LightGray);
-                    args.Player.SendMessage("-p = Activates persistent mode. The command will stay persistent until it times", Color.LightGray);
-                    args.Player.SendMessage("     out or any other protector command is entered.", Color.LightGray);
+                    args.Player.SendMessage("-p = 激活持久模式。该命令将保持持久性，直到它过期。", Color.LightGray);
+                    args.Player.SendMessage("或输入其他保护者命令。", Color.LightGray);
                     break;
             }
 
@@ -1711,8 +1711,8 @@ namespace Terraria.Plugins.CoderCow.Protector
 
             if (invalidSyntax)
             {
-                args.Player.SendErrorMessage("Proper syntax: /refillchest [time] [+ot|-ot] [+ll amount|-ll] [+al|-al] [+ae|-ae] [-p]");
-                args.Player.SendErrorMessage("Type /refillchest help to get more help to this command.");
+                args.Player.SendErrorMessage("正确语法: /refillchest 时间 [±ot] [±ll 数量] [±al] [±ae] [-p]");
+                args.Player.SendErrorMessage("输入/refillchest help 来获取这个命令的更多帮助。");
                 return;
             }
 
@@ -1743,10 +1743,10 @@ namespace Terraria.Plugins.CoderCow.Protector
             };
             interaction.TimeExpiredCallback += (playerLocal) =>
             {
-                playerLocal.SendMessage("Waited too long. No refill chest will be created.", Color.Red);
+                playerLocal.SendMessage("等待时间过长。没有重新填充的箱子将被创建。", Color.Red);
             };
 
-            args.Player.SendInfoMessage("Open a chest to convert it into a refill chest.");
+            args.Player.SendInfoMessage("打开一个箱子将其转换为重新填充的箱子。");
         }
 
         private bool RefillChestCommand_HelpCallback(CommandArgs args)
@@ -1761,12 +1761,12 @@ namespace Terraria.Plugins.CoderCow.Protector
             switch (pageNumber)
             {
                 default:
-                    args.Player.SendMessage("Command reference for /refillchest (Page 1 of 5)", Color.Lime);
-                    args.Player.SendMessage("/refillchest|/rchest [time] [+ot|-ot] [+ll amount|-ll] [+al|-al] [+ae|-ae] [-p]", Color.White);
-                    args.Player.SendMessage("Converts a chest to a special chest which can automatically refill its content.", Color.LightGray);
+                    args.Player.SendMessage("/refillchest 命令参考（第1页，共5页）", Color.Lime);
+                    args.Player.SendMessage("/rchest 时间 [±ot] [±ll 数量] [±al] [±ae] [-p]", Color.White);
+                    args.Player.SendMessage("将一个箱子转换为特殊箱子，该箱子可以自动重新填充其内容。", Color.LightGray);
                     args.Player.SendMessage(string.Empty, Color.LightGray);
-                    args.Player.SendMessage("time = Examples: 2h, 2h30m, 2h30m10s, 1d6h etc.", Color.LightGray);
-                    args.Player.SendMessage("+ot = The chest can only be looted once per player.", Color.LightGray);
+                    args.Player.SendMessage("时间 = 示例：2h（2小时）、2h30m（2小时30分钟）、2h30m10s（2小时30分钟10秒）、1d6h（1天6小时）等。.", Color.LightGray);
+                    args.Player.SendMessage("+ot = 每个玩家只能掠夺这个箱子一次。", Color.LightGray);
                     break;
                 case 2:
                     args.Player.SendMessage("+ll amount = The chest can only be looted the given amount of times in total.", Color.LightGray);
