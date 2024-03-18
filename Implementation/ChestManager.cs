@@ -319,7 +319,7 @@ namespace Terraria.Plugins.CoderCow.Protector
         {
             IChest chest = this.ChestFromLocation(chestLocation);
             if (chest == null)
-                throw new InvalidOperationException("No chest data found at lcoation.");
+                throw new InvalidOperationException("在指定位置未找到宝箱数据。");
 
             return this.TryRefillChest(chest, refillChestData);
         }
@@ -419,7 +419,7 @@ namespace Terraria.Plugins.CoderCow.Protector
             ITile tile = TerrariaUtils.Tiles[chestLocation];
             if (!tile.active() || (tile.type != TileID.Containers && tile.type != TileID.Containers2 && tile.type != TileID.Dressers))
             {
-                reportToPlayer?.SendErrorMessage("There is no chest at this position.");
+                reportToPlayer?.SendErrorMessage("这个位置没有宝箱。");
                 return null;
             }
 

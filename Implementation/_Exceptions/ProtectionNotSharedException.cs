@@ -6,8 +6,8 @@ namespace Terraria.Plugins.CoderCow.Protector {
   public class ProtectionNotSharedException: Exception {
     public ProtectionNotSharedException(string message, Exception inner = null): base(message, inner) {}
 
-    public ProtectionNotSharedException(): base("A protection is not shared with the given user or group.") {}
+        public ProtectionNotSharedException() : base("保护没有与给定的用户或组共享。") { }
 
-    protected ProtectionNotSharedException(SerializationInfo info, StreamingContext context): base(info, context) {}
+        protected ProtectionNotSharedException(SerializationInfo info, StreamingContext context): base(info, context) {}
   }
 }
