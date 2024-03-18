@@ -76,7 +76,7 @@ namespace Terraria.Plugins.CoderCow.Protector
               new Version(1, 9, 1, 3),
               "",
               "CoderCow",
-              "Protects single blocks and objects from being changed."
+              "保护单个方块和对象不被更改。"
             );
 
             this.Order = 1;
@@ -136,9 +136,9 @@ namespace Terraria.Plugins.CoderCow.Protector
                 catch (Exception ex)
                 {
                     this.Trace.WriteLineError(
-            "Reading the configuration file failed. This plugin will be disabled. Exception details:\n{0}", ex
-          );
-                    this.Trace.WriteLineError("THIS PLUGIN IS DISABLED, EVERYTHING IS UNPROTECTED!");
+                      "读取配置文件失败。此插件将被禁用。异常详细信息：\n{0}", ex
+                    );
+                    this.Trace.WriteLineError("此插件已禁用，所有内容均未受保护！");
 
                     this.Dispose();
                     return false;
@@ -156,7 +156,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                 this.Config = Configuration.Read(ProtectorPlugin.ConfigFilePath);
             }
 
-            // 警告可能的配置设置不当
+            // Warn about possible unwanted configuration settings
             if (this.Config.ManuallyProtectableTiles[TileID.Sand] || this.Config.AutoProtectedTiles[TileID.Sand])
                 this.Trace.WriteLineWarning("保护器被配置为保护沙块，这通常不被推荐，因为保护不会随着沙子的下落而移动，从而导致无效的保护。.");
             if (this.Config.ManuallyProtectableTiles[TileID.Silt] || this.Config.AutoProtectedTiles[TileID.Silt])

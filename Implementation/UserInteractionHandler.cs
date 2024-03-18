@@ -532,7 +532,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                             ));
                         }
                         this.PluginTrace.WriteLineInfo(
-            "{0}个空的且未受保护的箱子已被移除。{1}个无效的箱子数量已被移除。",
+                                            "已移除 {0} 个空置且未受保护的钱箱。已移除 {1} 个无效的钱箱数据条目。",
                           cleanedUpChestsCount, cleanedUpInvalidChestDataCount
                         );
 
@@ -614,15 +614,15 @@ namespace Terraria.Plugins.CoderCow.Protector
               chestCount, Main.chest.Length + this.Config.MaxProtectorChests - 1, protectorChestCount, signCount, Sign.maxSigns
                             ));
                             args.Player.SendInfoMessage(string.Format(
-              "{0}个保护是完整的，其中{1}个与其他玩家共享，",
+                                              "共有 {0} 个保护完好无损，其中 {1} 个与其他玩家共享，",
                               protectionsCount, sharedProtectionsCount
                             ));
                             args.Player.SendInfoMessage(string.Format(
-              "已经设置了{0}个自动补充箱子，并且{1}个用户达到了他们的保护限制。",
+                                              "已设置 {0} 个补充钱箱，有 {1} 个用户已达到他们的保护限制。",
                               refillChestsCount, usersWhoReachedProtectionLimitCount
                             ));
                             args.Player.SendInfoMessage(string.Format(
-              "数据库包含{0}个保险箱，其中{1}个已在此世界中实例化。",
+                                              "数据库中记录有 {0} 个银行钱箱，其中 {1} 个在此世界中实例化。",
                               bankChestCount, bankChestInstancesCount
                             ));
                         }
