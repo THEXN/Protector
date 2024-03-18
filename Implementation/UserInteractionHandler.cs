@@ -1942,7 +1942,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                     }
                     catch (Exception ex)
                     {
-                        this.PluginTrace.WriteLineWarning($"Failed to create protection at {TShock.Utils.ColorTag(chestLocation.ToString(), Color.Red)}: \n{ex}");
+                        this.PluginTrace.WriteLineWarning($"在 {TShock.Utils.ColorTag(chestLocation.ToString(), Color.Red)} 位置创建保护失败： \n{ex}");
                     }
 
                     try
@@ -1954,11 +1954,11 @@ namespace Terraria.Plugins.CoderCow.Protector
                     }
                     catch (Exception ex)
                     {
-                        this.PluginTrace.WriteLineWarning($"Failed to create / update refill chest at {TShock.Utils.ColorTag(chestLocation.ToString(), Color.Red)}: \n{ex}");
+                        this.PluginTrace.WriteLineWarning($"在 {TShock.Utils.ColorTag(chestLocation.ToString(), Color.Red)} 位置创建/更新补充宝箱失败： \n{ex}");
                     }
                 }
 
-                args.Player.SendSuccessMessage($"{TShock.Utils.ColorTag(createdChestsCounter.ToString(), Color.Red)} refill chests were created / updated.");
+                args.Player.SendSuccessMessage($"{TShock.Utils.ColorTag(createdChestsCounter.ToString(), Color.Red)} 个补充宝箱被创建/更新。");
             }
         }
 
@@ -1974,31 +1974,31 @@ namespace Terraria.Plugins.CoderCow.Protector
             switch (pageNumber)
             {
                 default:
-                    args.Player.SendMessage("Command reference for /refillchestmany (Page 1 of 3)", Color.Lime);
-                    args.Player.SendMessage("/refillchestmany|/rchestmany <selector> [time] [+ot|-ot] [+ll amount|-ll] [+al|-al] [+ae|-ae] [+fl]", Color.White);
-                    args.Player.SendMessage("Converts all selected chests to refill chests or alters them.", Color.LightGray);
+                    args.Player.SendMessage("命令 /refillchestmany 的参考信息（第 1 页，共 3 页）", Color.Lime);
+                    args.Player.SendMessage("/refillchestmany|/rchestmany <选择器> [时间] [+ot|-ot] [+ll 数量|-ll] [+al|-al] [+ae|-ae] [+fl]", Color.White);
+                    args.Player.SendMessage("将所有选中的宝箱转换为补充宝箱或更改它们。", Color.LightGray);
                     args.Player.SendMessage(string.Empty, Color.LightGray);
-                    args.Player.SendMessage("selector = dungeon, sky, ocean, shadow, hardmodedungeon or pyramid", Color.LightGray);
-                    args.Player.SendMessage("time = Examples: 2h, 2h30m, 2h30m10s, 1d6h etc.", Color.LightGray);
+                    args.Player.SendMessage("选择器 = 地牢, 天堂, 海洋, 阴影, 困难地牢 或 金字塔", Color.LightGray);
+                    args.Player.SendMessage("时间 = 示例：2h, 2h30m, 2h30m10s, 1d6h 等。", Color.LightGray);
                     break;
                 case 2:
-                    args.Player.SendMessage("+ot = The chest can only be looted once per player.", Color.LightGray);
-                    args.Player.SendMessage("+ll = The chest can only be looted the given amount of times in total.", Color.LightGray);
-                    args.Player.SendMessage("+al = After being looted, the chest is automatically locked.", Color.LightGray);
-                    args.Player.SendMessage("+ae = After being looted, the chest is automatically emptied, regardless of contents.", Color.LightGray);
-                    args.Player.SendMessage("+fl = An item of the chest's own type will be placed inside the chest yielding in a fair loot.", Color.LightGray);
-                    args.Player.SendMessage("This command is expected to be used on a fresh world, the specified selector might", Color.LightGray);
-                    args.Player.SendMessage("also select player chests. This is how chest kinds are distinguished:", Color.LightGray);
+                    args.Player.SendMessage("+ot = 宝箱只能被每个玩家掠夺一次。", Color.LightGray);
+                    args.Player.SendMessage("+ll = 宝箱只能被总共掠夺给定的次数。", Color.LightGray);
+                    args.Player.SendMessage("+al = 被掠夺后，宝箱会自动锁定。", Color.LightGray);
+                    args.Player.SendMessage("+ae = 被掠夺后，宝箱会自动清空，无论内容如何。", Color.LightGray);
+                    args.Player.SendMessage("+fl = 宝箱内的物品类型会放入宝箱中，产生公平的掠夺。", Color.LightGray);
+                    args.Player.SendMessage("这个命令预期在全新的世界中使用，指定的选择器可能也会选择玩家宝箱。这是如何区分宝箱种类：", Color.LightGray);
                     break;
                 case 3:
-                    args.Player.SendMessage("Dungeon = Locked gold chest with natural dungeon walls behind.", Color.LightGray);
-                    args.Player.SendMessage("Sky = Locked gold chest above surface level.", Color.LightGray);
-                    args.Player.SendMessage("Ocean = Unlocked submerged gold chest in the ocean biome.", Color.LightGray);
-                    args.Player.SendMessage("Shadow = Locked shadow chest in the world's last seventh.", Color.LightGray);
+                    args.Player.SendMessage("地牢 = 被锁定的金宝箱，后面有自然地牢墙壁。", Color.LightGray);
+                    args.Player.SendMessage("天堂 = 被锁定的金宝箱，位于地表以上。", Color.LightGray);
+                    args.Player.SendMessage("海洋 = 未锁定的金宝箱，位于海洋生物群系的水下。", Color.LightGray);
+                    args.Player.SendMessage("阴影 = 世界最后七分之一区域锁定的阴影宝箱。", Color.LightGray);
                     args.Player.SendMessage(string.Empty, Color.LightGray);
-                    args.Player.SendMessage("For more information about refill chests and their parameters type /help rchest.", Color.LightGray);
+                    args.Player.SendMessage("要获取有关补充宝箱及其参数的更多信息，请输入 /help rchest。", Color.LightGray);
                     break;
             }
+
 
             return true;
         }
@@ -2009,18 +2009,17 @@ namespace Terraria.Plugins.CoderCow.Protector
         {
             if (args.Parameters.Count < 1)
             {
-                args.Player.SendErrorMessage("Proper syntax: /bankchest <number>");
-                args.Player.SendErrorMessage("Type /bankchest help to get more help to this command.");
+                args.Player.SendErrorMessage("正确的语法: /bankchest <编号>");
+                args.Player.SendErrorMessage("输入 /bankchest help 以获取更多关于这个命令的帮助。");
                 return;
             }
 
             int chestIndex;
             if (!int.TryParse(args.Parameters[0], out chestIndex))
             {
-                args.Player.SendErrorMessage("The given prameter is not a valid number.");
+                args.Player.SendErrorMessage("给定的参数不是一个有效的数字。");
                 return;
             }
-
             bool hasNoBankChestLimits = args.Player.Group.HasPermission(ProtectorPlugin.NoBankChestLimits_Permission);
             if (
               chestIndex < 1 || (chestIndex > this.Config.MaxBankChestsPerPlayer && !hasNoBankChestLimits)
@@ -2028,9 +2027,9 @@ namespace Terraria.Plugins.CoderCow.Protector
             {
                 string messageFormat;
                 if (!hasNoBankChestLimits)
-                    messageFormat = "The bank chest number must be between 1 to {0}.";
+                    messageFormat = "银行宝箱编号必须在 1 到 {0} 之间。";
                 else
-                    messageFormat = "The bank chest number must be greater than 1.";
+                    messageFormat = "银行宝箱编号必须大于 1。";
 
                 args.Player.SendErrorMessage(string.Format(messageFormat, this.Config.MaxBankChestsPerPlayer));
                 return;
@@ -2066,10 +2065,10 @@ namespace Terraria.Plugins.CoderCow.Protector
             };
             interaction.TimeExpiredCallback += (playerLocal) =>
             {
-                playerLocal.SendMessage("Waited too long. No bank chest will be created.", Color.Red);
+                playerLocal.SendMessage("等待时间过长。不会创建银行宝箱。", Color.Red);
             };
 
-            args.Player.SendInfoMessage("Open a chest to convert it into a bank chest.");
+            args.Player.SendInfoMessage("打开一个宝箱将其转换为银行宝箱。");
         }
 
         private bool BankChestCommand_HelpCallback(CommandArgs args)
@@ -2084,34 +2083,32 @@ namespace Terraria.Plugins.CoderCow.Protector
             switch (pageNumber)
             {
                 default:
-                    args.Player.SendMessage("Command reference for /bankchest (Page 1 of 5)", Color.Lime);
-                    args.Player.SendMessage("/bankchest|/bchest <number>", Color.White);
-                    args.Player.SendMessage("Converts a protected chest into a bank chest instance. Bank chests store their content in a separate", Color.LightGray);
-                    args.Player.SendMessage("non world related database - their content remains the same, no matter what world they are instanced in.", Color.LightGray);
-                    args.Player.SendMessage("They are basically like piggy banks, but server sided.", Color.LightGray);
+                    args.Player.SendMessage("命令 /bankchest 的参考信息（第 1 页，共 5 页）", Color.Lime);
+                    args.Player.SendMessage("/bankchest|/bchest <编号>", Color.White);
+                    args.Player.SendMessage("将一个受保护的宝箱转换为一个银行宝箱实例。银行宝箱将其内容存储在一个单独的", Color.LightGray);
+                    args.Player.SendMessage("与世界无关的数据库中 - 无论它们在世界中实例化在哪里，其内容保持不变。", Color.LightGray);
+                    args.Player.SendMessage("它们基本上就像存钱罐一样，但服务器端处理。", Color.LightGray);
                     break;
                 case 2:
-                    args.Player.SendMessage("number = A 1-based number to uniquely identify the bank chest.", Color.LightGray);
-                    args.Player.SendMessage("Usually, the number '1' is assigned to the first created bank chest, '2' for the next etc.", Color.LightGray);
+                    args.Player.SendMessage("编号 = 一个基于 1 的数字，用于唯一标识银行宝箱。", Color.LightGray);
+                    args.Player.SendMessage("通常，第一个创建的银行宝箱分配数字 '1'，下一个分配数字 '2' 等。", Color.LightGray);
                     args.Player.SendMessage(string.Empty, Color.LightGray);
-                    args.Player.SendMessage("In order to be converted to a bank chest, a chest must be protected and the player has to own it.", Color.LightGray);
-                    args.Player.SendMessage("Also, if this is the first instance of a bank chest ever created, the content of the chest will", Color.LightGray);
+                    args.Player.SendMessage("为了被转换为银行宝箱，一个宝箱必须受到保护，并且玩家必须拥有它。", Color.LightGray);
+                    args.Player.SendMessage("此外，如果这是银行宝箱的第一个实例，那么宝箱的内容将被视为新的银行宝箱内容。如果", Color.LightGray);
                     break;
                 case 3:
-                    args.Player.SendMessage("be considered as the new bank chest content. If the bank chest with that number was already instanced", Color.LightGray);
-                    args.Player.SendMessage("before though, then the chest has to be empty so that it can safely be overwritten by the bank chest's", Color.LightGray);
-                    args.Player.SendMessage("actual content.", Color.LightGray);
+                    args.Player.SendMessage("已经实例化过带有该编号的银行宝箱，那么宝箱必须为空，以便可以安全地被银行宝箱的内容覆盖。", Color.LightGray);
                     args.Player.SendMessage(string.Empty, Color.LightGray);
-                    args.Player.SendMessage("To remove a bank chest instance, simply /deprotect it.", Color.LightGray);
+                    args.Player.SendMessage("要移除一个银行宝箱实例，只需 /deprotect 它。", Color.LightGray);
                     break;
                 case 4:
-                    args.Player.SendMessage("The amount of bank chests a player can own is usually limited by configuration, also an additional permission", Color.LightGray);
-                    args.Player.SendMessage("is required to share a bank chest with other players.", Color.LightGray);
+                    args.Player.SendMessage("玩家可以拥有的银行宝箱数量通常受配置限制，还需要额外的权限", Color.LightGray);
+                    args.Player.SendMessage("来与其他玩家共享银行宝箱。", Color.LightGray);
                     args.Player.SendMessage(string.Empty, Color.LightGray);
-                    args.Player.SendMessage("Only one bank chest instance with the same number shall be present in one and the same world.", Color.White);
+                    args.Player.SendMessage("在一个世界中，只能存在一个具有相同编号的银行宝箱实例。", Color.White);
                     break;
                 case 5:
-                    args.Player.SendMessage("Example #1: Create a bank chest with the number 1:", Color.LightGray);
+                    args.Player.SendMessage("示例 #1：创建一个编号为 1 的银行宝箱：", Color.LightGray);
                     args.Player.SendMessage("  /bankchest 1", Color.White);
                     break;
             }
@@ -2135,8 +2132,8 @@ namespace Terraria.Plugins.CoderCow.Protector
                 }
                 else
                 {
-                    args.Player.SendErrorMessage("Proper syntax: /dumpbankchest [-p]");
-                    args.Player.SendInfoMessage("Type /dumpbankchest help to get more help to this command.");
+                    args.Player.SendErrorMessage("正确的语法: /dumpbankchest [-p]");
+                    args.Player.SendInfoMessage("输入 /dumpbankchest help 以获取更多关于这个命令的帮助。");
                     return;
                 }
             }
@@ -2147,16 +2144,16 @@ namespace Terraria.Plugins.CoderCow.Protector
                 {
                     if (protection.BankChestKey == BankChestDataKey.Invalid)
                     {
-                        args.Player.SendErrorMessage("This is not a bank chest.");
+                        args.Player.SendErrorMessage("这不是一个银行宝箱。");
                         return;
                     }
 
                     protection.BankChestKey = BankChestDataKey.Invalid;
-                    args.Player.SendSuccessMessage("The bank chest content was sucessfully dumped and the bank chest instance was removed.");
+                    args.Player.SendSuccessMessage("银行宝箱内容已成功卸载，银行宝箱实例已移除。");
                     return;
                 }
 
-                args.Player.SendErrorMessage("This chest is not protected by Protector at all.");
+                args.Player.SendErrorMessage("这个宝箱根本没有受到 Protector 的保护。");
             };
 
             CommandInteraction interaction = base.StartOrResetCommandInteraction(args.Player);
@@ -2186,9 +2183,9 @@ namespace Terraria.Plugins.CoderCow.Protector
             };
             interaction.TimeExpiredCallback += (player) =>
             {
-                player.SendErrorMessage("Waited too long, no bank chest will be dumped.");
+                player.SendErrorMessage("等待时间过长，不会卸载银行宝箱。");
             };
-            args.Player.SendInfoMessage("Open a bank chest to dump its content.");
+            args.Player.SendInfoMessage("打开一个银行宝箱以卸载其内容。");
         }
 
         private bool DumpBankChestCommand_HelpCallback(CommandArgs args)
@@ -2203,14 +2200,13 @@ namespace Terraria.Plugins.CoderCow.Protector
             switch (pageNumber)
             {
                 default:
-                    args.Player.SendMessage("Command reference for /dumpbankchest (Page 1 of 2)", Color.Lime);
+                    args.Player.SendMessage("命令 /dumpbankchest 的参考信息（第 1 页，共 2 页）", Color.Lime);
                     args.Player.SendMessage("/dumpbankchest|dbchest [-p]", Color.White);
-                    args.Player.SendMessage("Removes a bank chest instance but keeps its content in place actually duplicating all items.", Color.LightGray);
-                    args.Player.SendMessage("This allows you to use bank chests like chest-templates.", Color.LightGray);
+                    args.Player.SendMessage("移除一个银行宝箱实例但保留其内容，实际上是所有物品的复制。", Color.LightGray);
+                    args.Player.SendMessage("这使您能够将银行宝箱当作宝箱模板使用。", Color.LightGray);
                     break;
                 case 2:
-                    args.Player.SendMessage("-p = Activates persistent mode. The command will stay persistent until it times", Color.LightGray);
-                    args.Player.SendMessage("     out or any other protector command is entered.", Color.LightGray);
+                    args.Player.SendMessage("-p = 激活持久模式。该命令将持续有效，直到超时或输入了其他保护命令为止。", Color.LightGray);
                     break;
             }
 
@@ -2226,9 +2222,9 @@ namespace Terraria.Plugins.CoderCow.Protector
 
             if (args.Parameters.Count < 4)
             {
-                args.Player.SendErrorMessage("Proper syntax: /tradechest <sell amount> <sell item> <pay amount> <pay item or group> [limit]");
-                args.Player.SendErrorMessage("Example to sell 200 wood for 5 gold coins: /tradechest 200 Wood 5 \"Gold Coin\"");
-                args.Player.SendErrorMessage("Type /tradechest help to get more help to this command.");
+                args.Player.SendErrorMessage("正确的语法: /tradechest <出售数量> <出售物品> <支付数量> <支付物品或组> [限制]");
+                args.Player.SendErrorMessage("例如，出售200木头以换取5枚金币：/tradechest 200 Wood 5 \"Gold Coin\"");
+                args.Player.SendErrorMessage("输入 /tradechest help 以获取更多关于这个命令的帮助。");
                 return;
             }
 
@@ -2245,29 +2241,29 @@ namespace Terraria.Plugins.CoderCow.Protector
 
             if (!int.TryParse(sellAmountRaw, out sellAmount) || sellAmount <= 0)
             {
-                args.Player.SendErrorMessage($"Expected <sell amount> to be a postive number, but \"{sellAmountRaw}\" was given.");
+                args.Player.SendErrorMessage($"期望 <出售数量> 是一个正数，但 \"{sellAmountRaw}\" 被给予了。");
                 return;
             }
             if (!int.TryParse(payAmountRaw, out payAmount) || payAmount <= 0)
             {
-                args.Player.SendErrorMessage($"Expected <sell amount> to be a postive number, but \"{payAmountRaw}\" was given.");
+                args.Player.SendErrorMessage($"期望 <出售数量> 是一个正数，但 \"{payAmountRaw}\" 被给予了。");
                 return;
             }
             if (args.Parameters.Count > 4 && (!int.TryParse(args.Parameters[4], out lootLimit) || lootLimit <= 0))
             {
-                args.Player.SendErrorMessage($"Expected [limit] to be a postive number, but \"{args.Parameters[4]}\" was given.");
+                args.Player.SendErrorMessage($"期望 [限制] 是一个正数，但 \"{args.Parameters[4]}\" 被给予了。");
                 return;
             }
 
             List<Item> itemsToLookup = TShock.Utils.GetItemByIdOrName(sellItemRaw);
             if (itemsToLookup.Count == 0)
             {
-                args.Player.SendErrorMessage($"Unable to guess a valid item type from \"{sellItemRaw}\".");
+                args.Player.SendErrorMessage($"无法从 \"{sellItemRaw}\" 猜测一个有效的物品类型。");
                 return;
             }
             if (itemsToLookup.Count > 1)
             {
-                args.Player.SendErrorMessage("Found multiple matches for the given <sell item>: " + string.Join(", ", itemsToLookup));
+                args.Player.SendErrorMessage("为给定的 <出售物品> 找到了多个匹配项：" + string.Join(", ", itemsToLookup));
                 return;
             }
             sellItem = itemsToLookup[0];
