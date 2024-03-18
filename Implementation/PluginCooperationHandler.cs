@@ -73,13 +73,13 @@ namespace Terraria.Plugins.CoderCow.Protector {
           case "sqlite":
             string sqliteDatabaseFilePath = Path.Combine(TShock.SavePath, "chests.sqlite");
             if (!File.Exists(sqliteDatabaseFilePath))
-              throw new FileNotFoundException("Sqlite database file not found.", sqliteDatabaseFilePath);
+              throw new FileNotFoundException("未找到 Sqlite 数据库文件。", sqliteDatabaseFilePath);
 
-            dbConnection = new SqliteConnection(string.Format("Data Source={0}", sqliteDatabaseFilePath));
+            dbConnection = new SqliteConnection(string.Format("数据源={0}", sqliteDatabaseFilePath));
 
             break;
           default:
-            throw new NotImplementedException("Unsupported database.");
+            throw new NotImplementedException("不支持的数据库。");
         }
 
         using (QueryResult reader = dbConnection.QueryReader(
@@ -99,11 +99,11 @@ namespace Terraria.Plugins.CoderCow.Protector {
             DPoint chestLocation = new DPoint(rawX, rawY);
             ITile chestTile = TerrariaUtils.Tiles[chestLocation];
             if (!chestTile.active() || (chestTile.type != TileID.Containers && chestTile.type != TileID.Containers2 && chestTile.type != TileID.Dressers)) {
-              this.PluginTrace.WriteLineWarning($"Chest data at {chestLocation} could not be imported because no corresponding chest tiles exist in the world.");
+              this.PluginTrace.WriteLineWarning($"因为世界上不存在对应的宝箱图格，所以无法导入位于 {chestLocation} 的宝箱数据。");
               continue;
             }
 
-            // TSPlayer.All = chest will not be protected
+            // TSPlayer.All = 宝箱将不被保护
             TSPlayer owner = TSPlayer.All;
             if (!string.IsNullOrEmpty(rawAccount)) {
               UserAccount tUser = TShock.UserAccounts.GetUserAccountByName(rawAccount);
@@ -113,7 +113,7 @@ namespace Terraria.Plugins.CoderCow.Protector {
                 owner.Account.Name = tUser.Name;
                 owner.Group = TShock.Groups.GetGroupByName(tUser.Group);
               } else {
-                // The original owner of the chest does not exist anymore, so we just protect it for the server player.
+                // 宝箱的原始所有者已不存在，因此我们只为服务器玩家保护它。
                 owner = TSPlayer.Server;
               }
             }
@@ -124,7 +124,7 @@ namespace Terraria.Plugins.CoderCow.Protector {
               if (importedChest == null)
                 importedChest = this.ChestManager.CreateChestData(chestLocation);
             } catch (LimitEnforcementException) {
-              this.PluginTrace.WriteLineWarning($"Chest limit of {Main.chest.Length + this.Config.MaxProtectorChests - 1} has been reached!");
+              this.PluginTrace.WriteLineWarning($"已达到宝箱限制，上限为 {Main.chest.Length + this.Config.MaxProtectorChests - 1}！");
               break;
             }
             
@@ -150,7 +150,7 @@ namespace Terraria.Plugins.CoderCow.Protector {
                 if ((rawFlags & InfiniteChestsChestFlags.REFILL) != 0)
                   chestManager.SetUpRefillChest(owner, chestLocation, TimeSpan.FromSeconds(refillTime));
               } catch (Exception ex) {
-                this.PluginTrace.WriteLineWarning($"Failed to create protection or define refill chest at {chestLocation}:\n{ex}");
+                this.PluginTrace.WriteLineWarning($"在 {chestLocation} 处创建保护或定义填充宝箱失败：\n{ex}");
                 protectFailures++;
               }
             }
@@ -167,7 +167,7 @@ namespace Terraria.Plugins.CoderCow.Protector {
     ) {
       string sqliteDatabaseFilePath = Path.Combine(TShock.SavePath, "signs.sqlite");
       if (!File.Exists(sqliteDatabaseFilePath))
-        throw new FileNotFoundException("Sqlite database file not found.", sqliteDatabaseFilePath);
+        throw new FileNotFoundException("SQLite数据库文件未找到。", sqliteDatabaseFilePath);
 
       IDbConnection dbConnection = null;
       try {
@@ -191,7 +191,7 @@ namespace Terraria.Plugins.CoderCow.Protector {
 
             break;
           default:
-            throw new NotImplementedException("Unsupported database.");
+            throw new NotImplementedException("不支持的数据库。");
         }
 
         importedSigns = 0;
@@ -208,7 +208,7 @@ namespace Terraria.Plugins.CoderCow.Protector {
             if (!TerrariaUtils.Tiles.IsValidCoord(rawX, rawY))
               continue;
 
-            // TSPlayer.All means that the sign must not be protected at all.
+            // TSPlayer.All 意味着该标识不得被保护。
             TSPlayer owner = TSPlayer.All;
             if (!string.IsNullOrEmpty(rawAccount)) {
               UserAccount tUser = TShock.UserAccounts.GetUserAccountByName(rawAccount);
@@ -218,7 +218,7 @@ namespace Terraria.Plugins.CoderCow.Protector {
                 owner.Account.Name = tUser.Name;
                 owner.Group = TShock.Groups.GetGroupByName(tUser.Group);
               } else {
-                // The original owner of the sign does not exist anymore, so we just protect it for the server player.
+                // 该标识的原始所有者已不存在，因此我们只为服务器玩家保护它。
                 owner = TSPlayer.Server;
               }
             }
@@ -238,7 +238,7 @@ namespace Terraria.Plugins.CoderCow.Protector {
               ITile signTile = TerrariaUtils.Tiles[signLocation];
               if (!signTile.active() || (signTile.type != TileID.Signs && signTile.type != TileID.Tombstones)) {
                 this.PluginTrace.WriteLineWarning(
-                  $"The sign data on the location {signLocation} could not be imported because no corresponding sign does exist in the world.");
+                  $"因为世界上不存在对应的标识，所以无法导入位于 {signLocation} 的标识数据。");
                 continue;
               }
 
@@ -265,7 +265,7 @@ namespace Terraria.Plugins.CoderCow.Protector {
               try {
                 protectionManager.CreateProtection(owner, signLocation, true, false, false);
               } catch (Exception ex) {
-                this.PluginTrace.WriteLineWarning("Failed to create protection at {0}:\n{1}", signLocation, ex);
+                this.PluginTrace.WriteLineWarning("在 {0} 处创建保护失败：\n{1}", signLocation, ex);
                 protectFailures++;
               }
             }

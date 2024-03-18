@@ -72,7 +72,7 @@ namespace Terraria.Plugins.CoderCow.Protector {
 
         ItemData[] itemDataFromDB = this.StringToItemMetadata(reader.Get<string>("Content"));
         ItemData[] itemData = itemDataFromDB;
-        // Backward compatibility in case chests can now hold more items than before.
+        // 在箱子现在可以容纳比以前更多的物品的情况下，确保向后兼容性。
         if (itemDataFromDB.Length < Chest.maxItems) {
           itemData = new ItemData[Chest.maxItems];
           for (int i = 0; i < itemDataFromDB.Length; i++)
@@ -131,7 +131,7 @@ namespace Terraria.Plugins.CoderCow.Protector {
     private void UpdateBankChestItem(BankChestDataKey key, int slotIndex, ItemData newItem) {
       BankChestMetadata bankChest = this.GetBankChestMetadata(key);
       if (bankChest == null)
-        throw new ArgumentException("No bank chest with the given key found.", "key");
+        throw new ArgumentException("未找到具有给定键的保险箱", "钥匙");
 
       bankChest.Items[slotIndex] = newItem;
       this.AddOrUpdateBankChest(key, bankChest);

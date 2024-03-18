@@ -74,7 +74,7 @@ namespace Terraria.Plugins.CoderCow.Protector {
           if (this.WorldMetadata.Protections.TryGetValue(tileLocation, out protection))
             yield return protection;
 
-          // ** Enumerate Adjacent Object Protections **
+          // ** 枚举相邻对象的保护 **
           DPoint topTileLocation = new DPoint(tileLocation.X, tileLocation.Y - 1);
           DPoint leftTileLocation = new DPoint(tileLocation.X - 1, tileLocation.Y);
           DPoint rightTileLocation = new DPoint(tileLocation.X + 1, tileLocation.Y);
@@ -88,7 +88,7 @@ namespace Terraria.Plugins.CoderCow.Protector {
           TileObjectData rightTileData = TileObjectData.GetTileData(rightTile);
           TileObjectData bottomTileData = TileObjectData.GetTileData(bottomTile);
 
-          // Top tile is object and is object placed on top of this tile?
+          // 顶部的图格是对象，并且是对象放置在这个图格上面？
           if (topTileData != null && topTileData.AnchorBottom.type != AnchorType.None && topTile.type != TileID.Containers && topTile.type != TileID.Containers2 && topTile.type != TileID.Dressers) {
             ObjectMeasureData topObjectMeasureData = TerrariaUtils.Tiles.MeasureObject(topTileLocation);
             bool isObjectAllowingWallPlacement = (
@@ -107,12 +107,12 @@ namespace Terraria.Plugins.CoderCow.Protector {
                 yield return protection;
             }
 
-            // There may also be protected objects on top of the object.
+            // 在对象上面可能也有受保护的对象。
             foreach (ProtectionEntry topProtection in this.EnumProtectionEntriesOnTopOfObject(topObjectMeasureData))
               yield return topProtection;
           }
 
-          // Left tile is object and is object placed on the left edge of this tile?
+          // 左侧的图格是对象，并且对象被放置在这个图格的左侧边缘？
           if (leftTileData != null && leftTileData.AnchorRight.type != AnchorType.None) {
             ObjectMeasureData leftObjectMeasureData = TerrariaUtils.Tiles.MeasureObject(leftTileLocation);
             bool isObjectAllowingWallPlacement = (
@@ -131,7 +131,7 @@ namespace Terraria.Plugins.CoderCow.Protector {
             }
           }
 
-          // Right tile is object and is object placed on the right edge of this tile?
+          // 右侧的图格是对象，并且对象被放置在这个图格的右侧边缘?
           if (rightTileData != null && rightTileData.AnchorLeft.type != AnchorType.None) {
             ObjectMeasureData rightObjectMeasureData = TerrariaUtils.Tiles.MeasureObject(rightTileLocation);
             bool isObjectAllowingWallPlacement = (
@@ -150,7 +150,7 @@ namespace Terraria.Plugins.CoderCow.Protector {
             }
           }
 
-          // Bottom tile is object and is object placed on the bottom edge of this tile?
+          // 底部的图格是对象，并且对象被放置在这个图格的底部边缘?
           if (bottomTileData != null && bottomTileData.AnchorTop.type != AnchorType.None) {
             ObjectMeasureData bottomObjectMeasureData = TerrariaUtils.Tiles.MeasureObject(bottomTileLocation);
             bool isObjectAllowingWallPlacement = (
@@ -168,7 +168,7 @@ namespace Terraria.Plugins.CoderCow.Protector {
             }
           }
         } else {
-          // This tile represents a sprite, no solid block.
+          // 这个图格代表一个图像，不是实体方块。
           ObjectMeasureData measureData = TerrariaUtils.Tiles.MeasureObject(tileLocation);
         
           tileLocation = measureData.OriginTileLocation;
@@ -176,7 +176,7 @@ namespace Terraria.Plugins.CoderCow.Protector {
             yield return protection;
 
           if (tile.type >= TileID.ImmatureHerbs && tile.type <= TileID.BloomingHerbs) {
-            // Clay Pots and their plants have a special handling - the plant should not be removable if the pot is protected.
+            // 粘土罐及其植物有特殊的处理方式——如果罐子受到保护，则植物不应被移除。
             ITile tileBeneath = TerrariaUtils.Tiles[tileLocation.X, tileLocation.Y + 1];
             if (
               tileBeneath.type == TileID.ClayPot && 
@@ -185,7 +185,7 @@ namespace Terraria.Plugins.CoderCow.Protector {
               yield return protection;
             }
           } else {
-            // Check all tiles above the sprite, in case a protected sprite is placed upon it (like on a table).
+            // 检查图像上方的所有图格，以防有受保护的图像被放置在上面（例如放在桌子上）。
             foreach (ProtectionEntry protectionOnTop in this.EnumProtectionEntriesOnTopOfObject(measureData))
               yield return protectionOnTop;
           }
@@ -229,7 +229,7 @@ namespace Terraria.Plugins.CoderCow.Protector {
           return false;
         }
 
-        // If full access is not required, then there's no use in checking the adjacent blocks.
+        // 如果不需要完全访问权限，那么检查相邻的方块就没有意义了。
         if (!fullAccessRequired)
           return true;
       }
@@ -328,7 +328,7 @@ namespace Terraria.Plugins.CoderCow.Protector {
       try {
         this.ProtectionSharePreValidation(player, tileLocation, shareOrUnshare, checkPermissions, out protection);
       } catch (Exception) {
-        // Excludes the internal method from the callstack.
+        // 从调用堆栈中排除内部方法。
         throw;
       }
 
@@ -353,7 +353,7 @@ namespace Terraria.Plugins.CoderCow.Protector {
       try {
         this.ProtectionSharePreValidation(player, tileLocation, shareOrUnshare, checkPermissions, out protection);
       } catch (Exception) {
-        // Excludes the internal method from the callstack.
+        // 从调用堆栈中排除内部方法。
         throw;
       }
 
@@ -391,7 +391,7 @@ namespace Terraria.Plugins.CoderCow.Protector {
       try {
         this.ProtectionSharePreValidation(player, tileLocation, shareOrUnshare, checkPermissions, out protection);
       } catch (Exception) {
-        // Excludes the internal method from the callstack.
+        // 从调用堆栈中排除内部方法。
         throw;
       }
 

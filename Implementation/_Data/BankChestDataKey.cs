@@ -66,7 +66,7 @@ namespace Terraria.Plugins.CoderCow.Protector {
     }
 
     public override string ToString() {
-      return string.Format("{{用户ID = {0}，银行宝箱索引 = {1}}}", this.UserId, this.BankChestIndex);
+      return string.Format("{{用户ID = {0}，保险宝箱索引 = {1}}}", this.UserId, this.BankChestIndex);
     }
   }
 }

@@ -172,14 +172,14 @@ namespace Terraria.Plugins.CoderCow.Protector {
         checkPermissions && !player.Group.HasPermission(ProtectorPlugin.NoBankChestLimits_Permission)
       ) {
         if (bankChestIndex > this.Config.MaxBankChestsPerPlayer)
-          throw new ArgumentOutOfRangeException("bankChestIndex", this.Config.MaxBankChestsPerPlayer, "全局银行宝箱已达上限。");
+          throw new ArgumentOutOfRangeException("bankChestIndex", this.Config.MaxBankChestsPerPlayer, "全局保险宝箱已达上限。");
 
         int byGroupLimit;
         if (
           this.Config.MaxBankChests.TryGetValue(player.Group.Name, out byGroupLimit) &&
           bankChestIndex > byGroupLimit
         ) {
-          throw new ArgumentOutOfRangeException("bankChestIndex", byGroupLimit, "用户组银行宝箱已达上限。");
+          throw new ArgumentOutOfRangeException("bankChestIndex", byGroupLimit, "用户组保险宝箱已达上限。");
         }
       }
 
@@ -580,7 +580,7 @@ namespace Terraria.Plugins.CoderCow.Protector {
           return false;
         }
         
-        // Returning true would mean the Timer would repeat.
+        // 返回 true 意味着计时器将会重复。
         return false;
       }
     }

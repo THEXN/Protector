@@ -88,7 +88,7 @@ namespace Terraria.Plugins.CoderCow.Protector {
       resultingConfig.MaxProtectorChests = int.Parse(rootElement["最大保护宝箱数"].InnerXml);
       resultingConfig.TradeChestPayment = int.Parse(rootElement["交易宝箱支付"].InnerXml);
 
-      XmlElement maxBankChestsElement = rootElement["最大银行宝箱数"];
+      XmlElement maxBankChestsElement = rootElement["最大保险宝箱数"];
       resultingConfig.MaxBankChests = new Dictionary<string,int>();
       foreach (XmlNode node in maxBankChestsElement) {
         XmlElement limitElement = node as XmlElement;

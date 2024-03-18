@@ -17,13 +17,13 @@ namespace Terraria.Plugins.CoderCow.Protector {
       using (MemoryStream packetData = new MemoryStream(new byte[PacketSize])) {
         BinaryWriter writer = new BinaryWriter(packetData);
 
-        // Header
-        writer.Write(PacketSize); // Packet size
+        // 标题
+        writer.Write(PacketSize); // 数据包大小
         writer.Write((byte)PacketTypes.ChestItem);
 
         writer.Write((short)chestIndex);
 
-        // Re-write item data for each item and send the packet
+        // 为每个项目重新写入项目数据并发送数据包
         for (int i = 0; i < items.Count; i++) {
           ItemData item = items[i];
 
@@ -34,7 +34,7 @@ namespace Terraria.Plugins.CoderCow.Protector {
 
           player.SendRawData(packetData.ToArray());
 
-          // Rewind to write the item data of another item
+          // 倒带以写入另一个项目的项目数据
           packetData.Position -= ChestItemPacketSizeNoHeader;
         }
       }

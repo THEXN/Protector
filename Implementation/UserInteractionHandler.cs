@@ -266,7 +266,7 @@ namespace Terraria.Plugins.CoderCow.Protector {
 
           List<string> lines = PaginationTools.BuildLinesFromTerms(terms);
           PaginationTools.SendPage(args.Player, pageNumber, lines, new PaginationTools.Settings {
-            HeaderFormat = "Protector Commands (Page {0} of {1})",
+            HeaderFormat = "保护器命令（第 {0} 页，共 {1} 页）",
             LineTextColor = Color.LightGray,
           });
 
@@ -277,17 +277,17 @@ namespace Terraria.Plugins.CoderCow.Protector {
                           !args.Player.Group.HasPermission(ProtectorPlugin.Utility_Permission) ||
                           !args.Player.Group.HasPermission(ProtectorPlugin.ProtectionMaster_Permission)
           ) {
-            args.Player.SendErrorMessage("You do not have the necessary permission to do that.");
+            args.Player.SendErrorMessage("你没有执行此操作所需的权限。");
             return true;
           }
 
           if (args.Parameters.Count == 2 && args.Parameters[1].Equals("help", StringComparison.InvariantCultureIgnoreCase)) {
-            args.Player.SendMessage("Command reference for /protector cleanup (Page 1 of 1)", Color.Lime);
+            args.Player.SendMessage("/protector cleanup 命令参考（第 1 页，共 1 页）", Color.Lime);
             args.Player.SendMessage("/protector cleanup", Color.White);
-            args.Player.SendMessage("Removes all protections owned by user ids which do not exists in the TShock", Color.LightGray);
-            args.Player.SendMessage("database anymore.", Color.LightGray);
+            args.Player.SendMessage("删除所有属于不存在于TShock中的用户ID的保护", Color.LightGray);
+            args.Player.SendMessage("的数据库条目", Color.LightGray);
             args.Player.SendMessage(string.Empty, Color.LightGray);
-            args.Player.SendMessage("-d = Does not destroy the tiles where the protections were set for.", Color.LightGray);
+            args.Player.SendMessage("-d = 不破坏设置保护时所在的图格。", Color.LightGray);
             return true;
           }
 
@@ -296,8 +296,8 @@ namespace Terraria.Plugins.CoderCow.Protector {
             if (args.Parameters[1].Equals("-d", StringComparison.InvariantCultureIgnoreCase)) {
               destroyRelatedTiles = false;
             } else {
-              args.Player.SendErrorMessage("Proper syntax: /protector cleanup [-d]");
-              args.Player.SendErrorMessage("Type /protector cleanup help to get more help to this command.");
+              args.Player.SendErrorMessage("正确的语法：/protector cleanup [-d]");
+              args.Player.SendErrorMessage("输入/protector cleanup help以获取此命令的更多帮助。");
               return true;
             }
           }
@@ -320,8 +320,8 @@ namespace Terraria.Plugins.CoderCow.Protector {
             }
           }
           if (args.Player != TSPlayer.Server)
-            args.Player.SendSuccessMessage("{0} protections removed.", protectionsToRemove.Count);
-          this.PluginTrace.WriteLineInfo("{0} protections removed.", protectionsToRemove.Count);
+            args.Player.SendSuccessMessage("移除了 {0} 个保护。", protectionsToRemove.Count);
+          this.PluginTrace.WriteLineInfo("移除了 {0} 个保护。", protectionsToRemove.Count);
 
           return true;
         }
@@ -330,18 +330,18 @@ namespace Terraria.Plugins.CoderCow.Protector {
                           !args.Player.Group.HasPermission(ProtectorPlugin.Utility_Permission) ||
                           !args.Player.Group.HasPermission(ProtectorPlugin.ProtectionMaster_Permission)
           ) {
-            args.Player.SendErrorMessage("You do not have the necessary permission to do that.");
+            args.Player.SendErrorMessage("你没有执行此操作所需的权限。");
             return true;
           }
 
           if (args.Parameters.Count == 2 && args.Parameters[1].Equals("help", StringComparison.InvariantCultureIgnoreCase)) {
-            args.Player.SendMessage("Command reference for /protector removeall (Page 1 of 1)", Color.Lime);
-            args.Player.SendMessage("/protector removeall <region <region>|user <user>> [-d]", Color.White);
-            args.Player.SendMessage("Removes all protections either from the given region or owned by the given user.", Color.LightGray);
+            args.Player.SendMessage("/protector removeall 命令参考（第 1 页，共 1 页）", Color.Lime);
+            args.Player.SendMessage("/protector removeall <区域 <区域名>|用户 <用户名>> [-d]", Color.White);
+            args.Player.SendMessage("从给定的区域或指定的用户拥有的保护中移除所有保护。", Color.LightGray);
             args.Player.SendMessage(string.Empty, Color.LightGray);
-            args.Player.SendMessage("region <region> = Removes all protections inside <region>.", Color.LightGray);
-            args.Player.SendMessage("user <user> = Removes all protections owned by <user> in this world.", Color.LightGray);
-            args.Player.SendMessage("-d = Does not destroy the tiles where the protections were set for.", Color.LightGray);
+            args.Player.SendMessage("region <区域> = 移除<区域>内的所有保护。", Color.LightGray);
+            args.Player.SendMessage("user <用户> = 移除此世界中<用户>拥有的所有保护。", Color.LightGray);
+            args.Player.SendMessage("-d = 不破坏设置保护时所在的图格（或方块）。", Color.LightGray);
             return true;
           }
 
@@ -368,8 +368,8 @@ namespace Terraria.Plugins.CoderCow.Protector {
             }
           }
           if (invalidSyntax) {
-            args.Player.SendErrorMessage("Proper syntax: /protector removeall <region <region>|user <user>> [-d]");
-            args.Player.SendErrorMessage("Type /protector removeall help to get more help to this command.");
+            args.Player.SendErrorMessage("正确的语法：/protector removeall <region <区域名>|user <用户名>> [-d]");
+            args.Player.SendErrorMessage("输入 /protector removeall help 以获取此命令的更多帮助。");
             return true;
           }
 
@@ -378,7 +378,7 @@ namespace Terraria.Plugins.CoderCow.Protector {
             if (regionMode) {
               TShockAPI.DB.Region tsRegion = TShock.Regions.GetRegionByName(target);
               if (tsRegion == null) {
-                args.Player.SendErrorMessage("Region \"{0}\" does not exist.", target);
+                args.Player.SendErrorMessage("区域“{0}”不存在。", target);
                 return true;
               }
 
@@ -407,22 +407,22 @@ namespace Terraria.Plugins.CoderCow.Protector {
           }
 
           if (args.Player != TSPlayer.Server)
-            args.Player.SendSuccessMessage("{0} protections removed.", protectionsToRemove.Count);
-          this.PluginTrace.WriteLineInfo("{0} protections removed.", protectionsToRemove.Count);
+            args.Player.SendSuccessMessage("{0}个保护已被移除。", protectionsToRemove.Count);
+          this.PluginTrace.WriteLineInfo("{{0}个保护已被移除。", protectionsToRemove.Count);
 
           return true;
         }
         case "removeemptychests":
         case "cleanupchests": {
           if (!args.Player.Group.HasPermission(ProtectorPlugin.Utility_Permission)) {
-            args.Player.SendErrorMessage("You do not have the necessary permission to do that.");
+            args.Player.SendErrorMessage("你没有执行此操作所需的权限。");
             return true;
           }
 
           if (args.Parameters.Count == 2 && args.Parameters[1].Equals("help", StringComparison.InvariantCultureIgnoreCase)) {
-            args.Player.SendMessage("Command reference for /protector removeemptychests (Page 1 of 1)", Color.Lime);
-            args.Player.SendMessage("/protector removeemptychests|cleanupchests", Color.White);
-            args.Player.SendMessage("Removes all empty and unprotected chests from the world.", Color.LightGray);
+            args.Player.SendMessage("/protector removeemptychests 命令参考（第 1 页，共 1 页）", Color.Lime);
+            args.Player.SendMessage("/protector removeemptychests 或 cleanupchests", Color.White);
+            args.Player.SendMessage("从世界中移除所有空的且未受保护的箱子。", Color.LightGray);
                             return true;
                         }
 
@@ -472,12 +472,12 @@ namespace Terraria.Plugins.CoderCow.Protector {
 
           if (args.Player != TSPlayer.Server) {
                             args.Player.SendSuccessMessage(string.Format(
-              "{0} empty and unprotected chests were removed. {1} invalid chest entries were removed.", 
+              "移除了{0}个空的且未受保护的箱子。移除了{1}个无效的箱子数量。", 
                               cleanedUpChestsCount, cleanedUpInvalidChestDataCount
                             ));
                         }
                         this.PluginTrace.WriteLineInfo(
-            "{0} empty and unprotected chests were removed. {1} invalid chest entries were removed.",
+            "{0}个空的且未受保护的箱子已被移除。{1}个无效的箱子数量已被移除。",
                           cleanedUpChestsCount, cleanedUpInvalidChestDataCount
                         );
 
@@ -487,14 +487,14 @@ namespace Terraria.Plugins.CoderCow.Protector {
                 case "invalidate":
         case "ensure": {
           if (!args.Player.Group.HasPermission(ProtectorPlugin.Utility_Permission)) {
-            args.Player.SendErrorMessage("You do not have the necessary permission to do that.");
+            args.Player.SendErrorMessage("你没有执行此操作所需的权限。");
             return true;
           }
 
           if (args.Parameters.Count > 1 && args.Parameters[1].Equals("help", StringComparison.InvariantCultureIgnoreCase)) {
-            args.Player.SendMessage("Command reference for /protector invalidate (Page 1 of 1)", Color.Lime);
-            args.Player.SendMessage("/protector invalidate|ensure", Color.White);
-            args.Player.SendMessage("Removes or fixes all invalid protections of the current world.", Color.LightGray);
+            args.Player.SendMessage("/protector invalidate 命令参考（第 1 页，共 1 页）", Color.Lime);
+            args.Player.SendMessage("/protector invalidate 或 ensure", Color.White);
+            args.Player.SendMessage("移除或修复当前世界中所有无效的保护。", Color.LightGray);
             return true;
           }
 
@@ -504,14 +504,14 @@ namespace Terraria.Plugins.CoderCow.Protector {
         case "summary":
         case "stats": {
           if (!args.Player.Group.HasPermission(ProtectorPlugin.Utility_Permission)) {
-            args.Player.SendErrorMessage("You do not have the necessary permission to do that.");
+            args.Player.SendErrorMessage("你没有执行此操作所需的权限。");
             return true;
           }
 
           if (args.Parameters.Count == 2 && args.Parameters[1].Equals("help", StringComparison.InvariantCultureIgnoreCase)) {
-            args.Player.SendMessage("Command reference for /protector summary (Page 1 of 1)", Color.Lime);
-            args.Player.SendMessage("/protector summary|stats", Color.White);
-            args.Player.SendMessage("Measures global world information regarding chests, signs, protections and bank chests.", Color.LightGray);
+            args.Player.SendMessage("/protector summary 命令参考（第 1 页，共 1 页）", Color.Lime);
+            args.Player.SendMessage("/protector summary 或 stats", Color.White);
+            args.Player.SendMessage("测量关于箱子、标志、保护和保险箱的全局世界信息。", Color.LightGray);
             return true;
           }
 
@@ -545,36 +545,36 @@ namespace Terraria.Plugins.CoderCow.Protector {
           
           if (args.Player != TSPlayer.Server) {
                             args.Player.SendInfoMessage(string.Format(
-              "There are {0} of {1} chests ({2} Protector chests) and {3} of {4} signs in this world.", 
+              "这个世界中有 {0}/{1} 个箱子（{2} 个保护箱）和 {3}/{4} 个标志。", 
               chestCount, Main.chest.Length + this.Config.MaxProtectorChests - 1, protectorChestCount, signCount, Sign.maxSigns
                             ));
                             args.Player.SendInfoMessage(string.Format(
-              "{0} protections are intact, {1} of them are shared with other players,",
+              "{0}个保护是完整的，其中{1}个与其他玩家共享，",
                               protectionsCount, sharedProtectionsCount
                             ));
                             args.Player.SendInfoMessage(string.Format(
-              "{0} refill chests have been set up and {1} users reached their protection limit.",
+              "已经设置了{0}个自动补充箱子，并且{1}个用户达到了他们的保护限制。",
                               refillChestsCount, usersWhoReachedProtectionLimitCount
                             ));
                             args.Player.SendInfoMessage(string.Format(
-              "The database holds {0} bank chests, {1} of them are instanced in this world.",
+              "数据库包含{0}个保险箱，其中{1}个已在此世界中实例化。",
                               bankChestCount, bankChestInstancesCount
                             ));
           }
                             this.PluginTrace.WriteLineInfo(string.Format(
-            "There are {0} of {1} chests and {2} of {3} signs in this world.", 
+            "这个世界中有 {0}/{1} 个箱子和 {2}/{3} 个标志。", 
             chestCount, Main.chest.Length, signCount, Sign.maxSigns
                             ));
                             this.PluginTrace.WriteLineInfo(string.Format(
-            "{0} protections are intact, {1} of them are shared with other players,",
+            "{0}个保护是完整的，其中{1}个与其他玩家共享，",
                               protectionsCount, sharedProtectionsCount
                             ));
                             this.PluginTrace.WriteLineInfo(string.Format(
-            "{0} refill chests have been set up and {1} users reached their protection limit.",
+            "已经设置了{0}个自动填充箱子，并且有{1}个用户达到了他们的保护限制。",
                               refillChestsCount, usersWhoReachedProtectionLimitCount
                             ));
                             this.PluginTrace.WriteLineInfo(string.Format(
-            "The database holds {0} bank chests, {1} of them are instanced in this world.",
+            "数据库包含{0}个保险箱，其中{1}个已在本世界中实例化。",
                               bankChestCount, bankChestInstancesCount
                             ));
 

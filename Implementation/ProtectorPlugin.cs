@@ -73,7 +73,7 @@ namespace Terraria.Plugins.CoderCow.Protector {
         new Version(1,9,1,3),
         "",
         "CoderCow",
-        "Protects single blocks and objects from being changed."
+        "保护单个方块和对象不被更改。"
       );
 
       this.Order = 1;
@@ -126,9 +126,9 @@ namespace Terraria.Plugins.CoderCow.Protector {
           this.Config = Configuration.Read(ProtectorPlugin.ConfigFilePath);
         } catch (Exception ex) {
           this.Trace.WriteLineError(
-            "Reading the configuration file failed. This plugin will be disabled. Exception details:\n{0}", ex
+            "读取配置文件失败。此插件将被禁用。异常详细信息：\n{0}", ex
           );
-          this.Trace.WriteLineError("THIS PLUGIN IS DISABLED, EVERYTHING IS UNPROTECTED!");
+          this.Trace.WriteLineError("此插件已禁用，所有内容均未受保护！");
 
           this.Dispose();
           return false;
@@ -146,11 +146,11 @@ namespace Terraria.Plugins.CoderCow.Protector {
 
       // Warn about possible unwanted configuration settings
       if (this.Config.ManuallyProtectableTiles[TileID.Sand] || this.Config.AutoProtectedTiles[TileID.Sand])
-        this.Trace.WriteLineWarning("Protector is configured to protect sand blocks, this is generally not recommended as protections will not move with falling sand and thus cause invalid protections.");
+        this.Trace.WriteLineWarning("保护器被配置为保护沙块，这通常不被推荐，因为保护不会随着沙子的下落而移动，从而导致无效的保护。.");
       if (this.Config.ManuallyProtectableTiles[TileID.Silt] || this.Config.AutoProtectedTiles[TileID.Silt])
-        this.Trace.WriteLineWarning("Protector is configured to protect silt blocks, this is generally not recommended as protections will not move with falling silt and thus cause invalid protections.");
+        this.Trace.WriteLineWarning("保护器被配置为保护淤泥块，这通常不被推荐，因为保护不会随着淤泥的落下而移动，从而导致保护失效。");
       if (this.Config.ManuallyProtectableTiles[TileID.MagicalIceBlock] || this.Config.AutoProtectedTiles[TileID.MagicalIceBlock])
-        this.Trace.WriteLineWarning("Protector is configured to protect ice blocks, this is generally not recommended as protections will not be automatically removed when the ice block disappears.");
+        this.Trace.WriteLineWarning("保护器被配置为保护雪泥块，这通常不被推荐，因为当冰块消失时，保护不会自动移除。");
 
       return true;
     }
@@ -162,9 +162,9 @@ namespace Terraria.Plugins.CoderCow.Protector {
         this.ServerMetadataHandler.EstablishConnection();
       } catch (Exception ex) {
         this.Trace.WriteLineError(
-          "An error occured while opening the database connection. This plugin will be disabled. Exception details: \n" + ex
+          "在打开数据库连接时发生错误。此插件将被禁用。异常详细信息：\n" + ex
         );
-        this.Trace.WriteLineError("THIS PLUGIN IS DISABLED, EVERYTHING IS UNPROTECTED!");
+        this.Trace.WriteLineError("此插件已禁用，所有内容均未受保护！");
 
         this.Dispose();
         return false;
@@ -174,9 +174,9 @@ namespace Terraria.Plugins.CoderCow.Protector {
         this.ServerMetadataHandler.EnsureDataStructure();
       } catch (Exception ex) {
         this.Trace.WriteLineError(
-          "An error occured while ensuring the database structure. This plugin will be disabled. Exception details: \n" + ex
+          "在确保数据库结构时发生错误。此插件将被禁用。异常详细信息：\n" + ex
         );
-        this.Trace.WriteLineError("THIS PLUGIN IS DISABLED, EVERYTHING IS UNPROTECTED!");
+        this.Trace.WriteLineError("这个插件已被禁用，所有内容均未受保护！");
 
         this.Dispose();
         return false;
@@ -191,8 +191,8 @@ namespace Terraria.Plugins.CoderCow.Protector {
       try {
         this.WorldMetadataHandler.InitOrReadMetdata();
       } catch (Exception ex) {
-        this.Trace.WriteLineError("Failed initializing or reading metdata or its backup. This plugin will be disabled. Exception details:\n" + ex);
-        this.Trace.WriteLineError("THIS PLUGIN IS DISABLED, EVERYTHING IS UNPROTECTED!");
+        this.Trace.WriteLineError("初始化或读取元数据或其备份失败。此插件将被禁用。异常详细信息：\n" + ex);
+        this.Trace.WriteLineError("这个插件已被禁用，所有内容均未受保护！");
 
         this.Dispose();
         return false;
@@ -219,9 +219,9 @@ namespace Terraria.Plugins.CoderCow.Protector {
 
     private void AddHooks() {
       if (this.GetDataHookHandler != null)
-        throw new InvalidOperationException("Hooks already registered.");
+        throw new InvalidOperationException("钩子已注册。");
       
-      // this handler should ideally be registered BEFORE all other plugins
+      // 这个处理器最好在所有其他插件之前注册
       this.GetDataHookHandler = new GetDataHookHandler(this, true);
       this.GetDataHookHandler.TileEdit += this.Net_TileEdit;
       this.GetDataHookHandler.SignEdit += this.Net_SignEdit;
@@ -236,7 +236,7 @@ namespace Terraria.Plugins.CoderCow.Protector {
       this.GetDataHookHandler.DoorUse += this.Net_DoorUse;
       this.GetDataHookHandler.QuickStackNearby += this.Net_QuickStackNearby;     
       
-      // this handler should ideally be registered AFTER all other plugins
+      // 这个处理器最好在所有其他插件之后注册。
       this.GetDataHookHandlerLate = new GetDataHookHandler(this, true, -100);
       this.GetDataHookHandlerLate.TileEdit += this.Net_TileEditLate;
       this.GetDataHookHandlerLate.ObjectPlacement += this.Net_ObjectPlacement;
@@ -372,7 +372,7 @@ namespace Terraria.Plugins.CoderCow.Protector {
       try {
         this.ChestManager.HandleGameSecondUpdate();
       } catch (Exception ex) {
-        this.Trace.WriteLineError("Unhandled exception in GameUpdate handler:\n" + ex);
+        this.Trace.WriteLineError("游戏更新处理器中发生未处理的异常：\n" + ex);
       }
     }
 
@@ -388,14 +388,14 @@ namespace Terraria.Plugins.CoderCow.Protector {
           Console.WriteLine(File.GetLastWriteTime(Main.worldPathName));
           watch.Stop();
 
-          string format = "Serializing the protection data took {0}ms.";
+          string format = "序列化保护数据用时 {0} 毫秒.";
           if (watch.ElapsedMilliseconds == 0)
-            format = "Serializing the protection data took less than 1ms.";
+            format = "序列化保护数据用时不到1毫秒。";
 
           this.Trace.WriteLineInfo(format, watch.ElapsedMilliseconds);
         }
       } catch (Exception ex) {
-        this.Trace.WriteLineError("Unhandled exception in SaveWorld handler:\n" + ex);
+        this.Trace.WriteLineError("保存世界处理器中发生未处理的异常：\n" + ex);
       }
     }
 
