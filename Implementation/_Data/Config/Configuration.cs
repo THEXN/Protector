@@ -61,55 +61,55 @@ namespace Terraria.Plugins.CoderCow.Protector
             if (fileVersionRaw != Configuration.CurrentVersion)
             {
                 throw new FormatException(string.Format(
-                  "配置文件已过时或太新。预期版本为：｛0｝。文件版本为：｛1｝",
+                  "配置文件已过时或太新,预期版本为：｛0｝文件版本为：｛1｝",
                   Configuration.CurrentVersion, fileVersionRaw
                 ));
             }
 
-            Configuration resultingConfig = new Configuration();
-            Configuration.UpdateTileIdArrayByString(resultingConfig.ManuallyProtectableTiles, rootElement["手动保护图格"].InnerXml);
-            Configuration.UpdateTileIdArrayByString(resultingConfig.AutoProtectedTiles, rootElement["自动保护图格"].InnerXml);
-            Configuration.UpdateTileIdArrayByString(resultingConfig.NotDeprotectableTiles, rootElement["不可取消保护的图格"].InnerXml);
-            resultingConfig.MaxProtectionsPerPlayerPerWorld = int.Parse(rootElement["每个世界每个玩家的最大保护"].InnerText);
-            resultingConfig.MaxBankChestsPerPlayer = int.Parse(rootElement["每个玩家的最大钱箱数"].InnerXml);
+      Configuration resultingConfig = new Configuration();
+      Configuration.UpdateTileIdArrayByString(resultingConfig.ManuallyProtectableTiles, rootElement["ManuallyProtectableTiles"].InnerXml);
+      Configuration.UpdateTileIdArrayByString(resultingConfig.AutoProtectedTiles, rootElement["AutoProtectedTiles"].InnerXml);
+      Configuration.UpdateTileIdArrayByString(resultingConfig.NotDeprotectableTiles, rootElement["NotDeprotectableTiles"].InnerXml);
+      resultingConfig.MaxProtectionsPerPlayerPerWorld = int.Parse(rootElement["MaxProtectionsPerPlayerPerWorld"].InnerText);
+      resultingConfig.MaxBankChestsPerPlayer = int.Parse(rootElement["MaxBankChestsPerPlayer"].InnerXml);
 
-            XmlElement subElement = rootElement["允许重新填充宝箱内容变化"];
-            if (subElement == null)
-                resultingConfig.AllowRefillChestContentChanges = true;
-            else
-                resultingConfig.AllowRefillChestContentChanges = BoolEx.ParseEx(subElement.InnerXml);
+      XmlElement subElement = rootElement["AllowRefillChestContentChanges"];
+      if (subElement == null)
+        resultingConfig.AllowRefillChestContentChanges = true;
+      else
+        resultingConfig.AllowRefillChestContentChanges = BoolEx.ParseEx(subElement.InnerXml);
 
-            resultingConfig.EnableBedSpawnProtection = BoolEx.ParseEx(rootElement["开启床出生点保护"].InnerXml);
-            resultingConfig.LoginRequiredForChestUsage = BoolEx.ParseEx(rootElement["使用宝箱需要登录"].InnerXml);
-            resultingConfig.AutoShareRefillChests = BoolEx.ParseEx(rootElement["自动共享可重新填充的宝箱"].InnerXml);
-            resultingConfig.AllowChainedSharing = BoolEx.ParseEx(rootElement["允许链式共享"].InnerXml);
-            resultingConfig.AllowChainedShareAltering = BoolEx.ParseEx(rootElement["允许链式共享更改"].InnerXml);
-            resultingConfig.AllowWiringProtectedBlocks = BoolEx.ParseEx(rootElement["允许对受保护的方块进行接线"].InnerXml);
-            resultingConfig.AutoDeprotectEverythingOnDestruction = BoolEx.ParseEx(rootElement["在破坏时自动取消对所有物品的保护"].InnerXml);
-            resultingConfig.NotifyAutoProtections = BoolEx.ParseEx(rootElement["通知自动保护"].InnerXml);
-            resultingConfig.NotifyAutoDeprotections = BoolEx.ParseEx(rootElement["通知自动取消保护"].InnerXml);
-            resultingConfig.DungeonChestProtection = BoolEx.ParseEx(rootElement["地牢宝箱保护"].InnerXml);
-            resultingConfig.QuickStackNearbyRange = float.Parse(rootElement["快速堆叠附近范围"].InnerXml);
-            resultingConfig.MaxProtectorChests = int.Parse(rootElement["最大保护宝箱数"].InnerXml);
-            resultingConfig.TradeChestPayment = int.Parse(rootElement["交易宝箱支付"].InnerXml);
+      resultingConfig.EnableBedSpawnProtection = BoolEx.ParseEx(rootElement["EnableBedSpawnProtection"].InnerXml);
+      resultingConfig.LoginRequiredForChestUsage = BoolEx.ParseEx(rootElement["LoginRequiredForChestUsage"].InnerXml);
+      resultingConfig.AutoShareRefillChests = BoolEx.ParseEx(rootElement["AutoShareRefillChests"].InnerXml);
+      resultingConfig.AllowChainedSharing = BoolEx.ParseEx(rootElement["AllowChainedSharing"].InnerXml);
+      resultingConfig.AllowChainedShareAltering = BoolEx.ParseEx(rootElement["AllowChainedShareAltering"].InnerXml);
+      resultingConfig.AllowWiringProtectedBlocks = BoolEx.ParseEx(rootElement["AllowWiringProtectedBlocks"].InnerXml);
+      resultingConfig.AutoDeprotectEverythingOnDestruction = BoolEx.ParseEx(rootElement["AutoDeprotectEverythingOnDestruction"].InnerXml);
+      resultingConfig.NotifyAutoProtections = BoolEx.ParseEx(rootElement["NotifyAutoProtection"].InnerXml);
+      resultingConfig.NotifyAutoDeprotections = BoolEx.ParseEx(rootElement["NotifyAutoDeprotection"].InnerXml);
+      resultingConfig.DungeonChestProtection = BoolEx.ParseEx(rootElement["DungeonChestProtection"].InnerXml);
+      resultingConfig.QuickStackNearbyRange = float.Parse(rootElement["QuickStackNearbyRange"].InnerXml);
+      resultingConfig.MaxProtectorChests = int.Parse(rootElement["MaxProtectorChests"].InnerXml);
+      resultingConfig.TradeChestPayment = int.Parse(rootElement["TradeChestPayment"].InnerXml);
 
-            XmlElement maxBankChestsElement = rootElement["最大保险宝箱数"];
+            XmlElement maxBankChestsElement = rootElement["MaxBankChests"];
             resultingConfig.MaxBankChests = new Dictionary<string, int>();
             foreach (XmlNode node in maxBankChestsElement)
             {
                 XmlElement limitElement = node as XmlElement;
                 if (limitElement != null)
-                    resultingConfig.MaxBankChests.Add(limitElement.GetAttribute("组"), int.Parse(limitElement.InnerXml));
+                    resultingConfig.MaxBankChests.Add(limitElement.GetAttribute("Groups"), int.Parse(limitElement.InnerXml));
             }
 
-            XmlElement tradeChestItemGroupsElement = rootElement["交易宝箱物品组"];
+            XmlElement tradeChestItemGroupsElement = rootElement["TradeChestItemGroups"];
             resultingConfig.TradeChestItemGroups = new Dictionary<string, HashSet<int>>();
             foreach (XmlNode node in tradeChestItemGroupsElement)
             {
                 XmlElement itemGroupElement = node as XmlElement;
                 if (itemGroupElement != null)
                 {
-                    string groupName = itemGroupElement.GetAttribute("用户组名").ToLowerInvariant();
+                    string groupName = itemGroupElement.GetAttribute("Name").ToLowerInvariant();
                     var itemIds = new HashSet<int>(itemGroupElement.InnerText.Split(',').Select(idRaw => int.Parse(idRaw)));
                     resultingConfig.TradeChestItemGroups.Add(groupName, itemIds);
                 }

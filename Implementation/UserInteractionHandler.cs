@@ -4366,14 +4366,14 @@ namespace Terraria.Plugins.CoderCow.Protector
             if (!player.IsLoggedIn)
             {
                 if (sendMessages)
-                    player.SendErrorMessage("You have to be logged in in order to set up bank chests.");
+                    player.SendErrorMessage("您必须登录才能设置银行宝箱。");
 
                 return false;
             }
 
             if (!this.ProtectionManager.CheckBlockAccess(player, tileLocation, true) && !player.Group.HasPermission(ProtectorPlugin.ProtectionMaster_Permission))
             {
-                player.SendErrorMessage("You don't own the protection of this chest.");
+                player.SendErrorMessage("您不拥有这个宝箱的保护权。");
                 return false;
             }
 
@@ -4382,7 +4382,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                 this.ChestManager.SetUpBankChest(player, tileLocation, bankChestIndex, true);
 
                 player.SendSuccessMessage(string.Format(
-                  $"This chest is now an instance of your bank chest with the number {TShock.Utils.ColorTag(bankChestIndex.ToString(), Color.Red)}."
+                  $"这个宝箱现在是您的银行宝箱实例，编号为 {TShock.Utils.ColorTag(bankChestIndex.ToString(), Color.Red)}。"
                 ));
 
                 return true;
@@ -4392,7 +4392,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                 if (ex.ParamName == "tileLocation")
                 {
                     if (sendMessages)
-                        player.SendErrorMessage("There is no chest here.");
+                        player.SendErrorMessage("这里没有宝箱。");
 
                     return false;
                 }
@@ -4403,9 +4403,9 @@ namespace Terraria.Plugins.CoderCow.Protector
                     {
                         string messageFormat;
                         if (!player.Group.HasPermission(ProtectorPlugin.NoBankChestLimits_Permission))
-                            messageFormat = "The bank chest number must be between 1 and {0}.";
+                            messageFormat = "银行宝箱编号必须在 1 和 {0} 之间。";
                         else
-                            messageFormat = "The bank chest number must be greater than 1.";
+                            messageFormat = "银行宝箱编号必须大于 1。";
 
                         player.SendErrorMessage(string.Format(messageFormat, actualEx.ActualValue));
                     }
@@ -4418,42 +4418,42 @@ namespace Terraria.Plugins.CoderCow.Protector
             catch (MissingPermissionException)
             {
                 if (sendMessages)
-                    player.SendErrorMessage("You are not allowed to define bank chests.");
+                    player.SendErrorMessage("您不允许定义银行宝箱。");
 
                 return false;
             }
             catch (InvalidBlockTypeException)
             {
                 if (sendMessages)
-                    player.SendErrorMessage("Only chests can be converted to bank chests.");
+                    player.SendErrorMessage("只有宝箱可以转换为银行宝箱。");
 
                 return false;
             }
             catch (NoProtectionException)
             {
                 if (sendMessages)
-                    player.SendErrorMessage("The chest must be protected first.");
+                    player.SendErrorMessage("宝箱必须先受保护。");
 
                 return false;
             }
             catch (ChestNotEmptyException)
             {
                 if (sendMessages)
-                    player.SendErrorMessage("The chest has to be empty in order to restore a bank chest here.");
+                    player.SendErrorMessage("宝箱必须为空才能在这里恢复银行宝箱。");
 
                 return false;
             }
             catch (ChestTypeAlreadyDefinedException)
             {
                 if (sendMessages)
-                    player.SendErrorMessage("The chest is already a bank chest.");
+                    player.SendErrorMessage("这个宝箱已经是银行宝箱了。");
 
                 return false;
             }
             catch (ChestIncompatibilityException)
             {
                 if (sendMessages)
-                    player.SendErrorMessage("A bank chest can not be a refill- or trade chest at the same time.");
+                    player.SendErrorMessage("银行宝箱不能同时是补充宝箱或交易宝箱。");
 
                 return false;
             }
@@ -4461,8 +4461,8 @@ namespace Terraria.Plugins.CoderCow.Protector
             {
                 if (sendMessages)
                 {
-                    player.SendErrorMessage("Error: There are no chest data for this chest available. This world's data might be");
-                    player.SendErrorMessage("corrupted.");
+                    player.SendErrorMessage("错误：没有这个宝箱的宝箱数据可用。这个世界的数据可能已损坏。");
+                    player.SendErrorMessage("");
                 }
 
                 return false;
@@ -4471,8 +4471,8 @@ namespace Terraria.Plugins.CoderCow.Protector
             {
                 if (sendMessages)
                 {
-                    player.SendErrorMessage($"There is already an instance of your bank chest with the index {bankChestIndex} in");
-                    player.SendErrorMessage("this world.");
+                    player.SendErrorMessage($"这个世界中已经有编号为 {bankChestIndex} 的您的银行宝箱实例。");
+                    player.SendErrorMessage("");
                 }
 
                 return false;
@@ -4484,14 +4484,14 @@ namespace Terraria.Plugins.CoderCow.Protector
             if (!player.IsLoggedIn)
             {
                 if (sendMessages)
-                    player.SendErrorMessage("You have to be logged in in order to set up trade chests.");
+                    player.SendErrorMessage("您必须登录才能设置交易宝箱。");
 
                 return false;
             }
 
             if (!this.ProtectionManager.CheckBlockAccess(player, tileLocation, true) && !player.Group.HasPermission(ProtectorPlugin.ProtectionMaster_Permission))
             {
-                player.SendErrorMessage("You don't own the protection of this chest.");
+                player.SendErrorMessage("您不拥有这个宝箱的保护权。");
                 return false;
             }
 
@@ -4499,13 +4499,13 @@ namespace Terraria.Plugins.CoderCow.Protector
             {
                 this.ChestManager.SetUpTradeChest(player, tileLocation, sellAmount, sellItemId, payAmount, payItemIdOrGroup, lootLimit, true);
 
-                player.SendSuccessMessage("Trade chest was successfully created / updated.");
+                player.SendSuccessMessage("交易宝箱已成功创建/更新。");
                 return true;
             }
             catch (ArgumentOutOfRangeException)
             {
                 if (sendMessages)
-                    player.SendErrorMessage("Invalid item amount given.");
+                    player.SendErrorMessage("提供的物品数量无效。");
 
                 return false;
             }
@@ -4514,7 +4514,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                 if (ex.ParamName == "tileLocation")
                 {
                     if (sendMessages)
-                        player.SendErrorMessage("There is no chest here.");
+                        player.SendErrorMessage("这里没有宝箱。");
 
                     return false;
                 }
@@ -4524,37 +4524,37 @@ namespace Terraria.Plugins.CoderCow.Protector
             catch (MissingPermissionException)
             {
                 if (sendMessages)
-                    player.SendErrorMessage("You are not allowed to define trade chests.");
+                    player.SendErrorMessage("您不允许定义交易宝箱。");
 #if SEconomy
-      } catch (PaymentException ex) {
+    } catch (PaymentException ex) {
         if (sendMessages)
-          player.SendErrorMessage("You don't have the necessary amount of {0} {1} to set up a trade chest!", ex.PaymentAmount, this.PluginCooperationHandler.Seconomy_MoneyName());
+            player.SendErrorMessage("您没有足够的 {0} {1} 来设置一个交易宝箱！", ex.PaymentAmount, this.PluginCooperationHandler.Seconomy_MoneyName());
 #endif
             }
             catch (InvalidBlockTypeException)
             {
                 if (sendMessages)
-                    player.SendErrorMessage("Only chests can be converted to trade chests.");
+                    player.SendErrorMessage("只能将宝箱转换为交易宝箱。");
             }
             catch (NoProtectionException)
             {
                 if (sendMessages)
-                    player.SendErrorMessage("The chest must be protected first.");
+                    player.SendErrorMessage("宝箱必须先受保护。");
             }
             catch (ChestTypeAlreadyDefinedException)
             {
                 if (sendMessages)
-                    player.SendErrorMessage("The chest is already a trade chest.");
+                    player.SendErrorMessage("这个宝箱已经是交易宝箱了。");
             }
             catch (ChestIncompatibilityException)
             {
                 if (sendMessages)
-                    player.SendErrorMessage("A trade chest can not be a bank chest at the same time.");
+                    player.SendErrorMessage("交易宝箱不能同时是银行宝箱。");
             }
             catch (NoChestDataException)
             {
                 if (sendMessages)
-                    player.SendErrorMessage("Error: There are no chest data for this chest available. This world's data might be corrupted.");
+                    player.SendErrorMessage("错误：没有这个宝箱的宝箱数据可用。这个世界可能已损坏。");
             }
 
             return false;
@@ -4572,23 +4572,23 @@ namespace Terraria.Plugins.CoderCow.Protector
             if (player != TSPlayer.Server)
             {
                 if (invalidProtectionsCount > 0)
-                    player.SendWarningMessage("{0} invalid protections removed.", invalidProtectionsCount);
+                    player.SendWarningMessage("已移除 {0} 个无效保护。", invalidProtectionsCount);
                 if (invalidRefillChestCount > 0)
-                    player.SendWarningMessage("{0} invalid refill chests removed.", invalidRefillChestCount);
+                    player.SendWarningMessage("已移除 {0} 个无效补充钱箱。", invalidRefillChestCount);
                 if (invalidBankChestCount > 0)
-                    player.SendWarningMessage("{0} invalid bank chest instances removed.", invalidBankChestCount);
+                    player.SendWarningMessage("已移除 {0} 个无效银行钱箱实例。", invalidBankChestCount);
 
-                player.SendInfoMessage("Finished ensuring protection data.");
+                player.SendInfoMessage("已完成保护数据的确认。");
             }
 
             if (invalidProtectionsCount > 0)
-                this.PluginTrace.WriteLineWarning("{0} invalid protections removed.", invalidProtectionsCount);
+                this.PluginTrace.WriteLineWarning("已移除 {0} 个无效保护。", invalidProtectionsCount);
             if (invalidRefillChestCount > 0)
-                this.PluginTrace.WriteLineWarning("{0} invalid refill chests removed.", invalidRefillChestCount);
+                this.PluginTrace.WriteLineWarning("已移除 {0} 个无效补充钱箱。", invalidRefillChestCount);
             if (invalidBankChestCount > 0)
-                this.PluginTrace.WriteLineWarning("{0} invalid bank chest instances removed.", invalidBankChestCount);
+                this.PluginTrace.WriteLineWarning("已移除 {0} 个无效银行钱箱实例。", invalidBankChestCount);
 
-            this.PluginTrace.WriteLineInfo("Finished ensuring protection data.");
+            this.PluginTrace.WriteLineInfo("已完成保护数据的确认。");
         }
 
         private void DestroyBlockOrObject(DPoint tileLocation)
@@ -4613,7 +4613,7 @@ namespace Terraria.Plugins.CoderCow.Protector
             if (!player.IsLoggedIn && (refillChest.OneLootPerPlayer || refillChest.RemainingLoots != -1))
             {
                 if (sendReasonMessages)
-                    player.SendErrorMessage("You have to be logged in in order to use this chest.");
+                    player.SendErrorMessage("您必须登录才能使用这个宝箱。");
 
                 return false;
             }
@@ -4626,7 +4626,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                 if (refillChest.RemainingLoots == 0)
                 {
                     if (sendReasonMessages)
-                        player.SendErrorMessage("This chest has a loot limit attached to it and can't be looted anymore.");
+                        player.SendErrorMessage("这个宝箱附有限制每人只能掠夺一次的限制，因此不能再被掠夺了。");
 
                     return false;
                 }
@@ -4640,8 +4640,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                     if (refillChest.Looters.Contains(player.Account.ID))
                     {
                         if (sendReasonMessages)
-                            player.SendErrorMessage("This chest can be looted only once per player.");
-
+                            player.SendErrorMessage("每个玩家只能掠夺这个宝箱一次。");
                         return false;
                     }
                 }

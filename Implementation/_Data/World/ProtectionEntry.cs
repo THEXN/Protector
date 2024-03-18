@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using DPoint = System.Drawing.Point;
-
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 using TShockAPI;
-
 using Terraria.Plugins.Common;
 using Terraria.Plugins.Common.Collections;
 
@@ -83,7 +80,7 @@ namespace Terraria.Plugins.CoderCow.Protector
 
         public override string ToString()
         {
-            return string.Format("{{所有者={0} 图格位置={1}}}", this.Owner, this.TileLocation);
+            return string.Format("{{Owner={0} TileLocation={1}}}", this.Owner, this.TileLocation);
         }
     }
 }

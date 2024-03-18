@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-
-using Terraria.Plugins.Common;
-
 using TShockAPI;
-using Newtonsoft.Json;
 
 namespace Terraria.Plugins.CoderCow.Protector
 {
