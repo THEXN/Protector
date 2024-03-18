@@ -748,22 +748,20 @@ namespace Terraria.Plugins.CoderCow.Protector
                             return true;
                         }
 
-                        this.PluginTrace.WriteLineInfo("Reloading configuration file.");
+                        this.PluginTrace.WriteLineInfo("正在重新加载配置文件。");
                         try
                         {
                             this.Config = this.ReloadConfigurationCallback();
-                            this.PluginTrace.WriteLineInfo("Configuration file successfully reloaded.");
+                            this.PluginTrace.WriteLineInfo("配置文件已成功重新加载。");
 
                             if (args.Player != TSPlayer.Server)
-                                args.Player.SendSuccessMessage("Configuration file successfully reloaded.");
+                                args.Player.SendSuccessMessage("配置文件已成功重新加载。");
                         }
                         catch (Exception ex)
                         {
                             this.PluginTrace.WriteLineError(
-                              "Reloading the configuration file failed. Keeping old configuration. Exception details:\n{0}", ex
-                            );
+                              "重新加载配置文件失败。保留旧配置。异常详细信息：\n{0}", ex.Message);
                         }
-
                         return true;
                     }
             }
@@ -783,19 +781,17 @@ namespace Terraria.Plugins.CoderCow.Protector
             switch (pageNumber)
             {
                 default:
-                    args.Player.SendMessage("Protector Overview (Page 1 of 2)", Color.Lime);
-                    args.Player.SendMessage("This plugin provides players on TShock driven Terraria servers the possibility", Color.LightGray);
-                    args.Player.SendMessage("of taking ownership of certain objects or blocks, so that other players can not ", Color.LightGray);
-                    args.Player.SendMessage("change or use them.", Color.LightGray);
+                    args.Player.SendMessage("保护者概览 (第 1 页，共 2 页)", Color.Lime);
+                    args.Player.SendMessage("此插件为TShock驱动的泰拉瑞亚服务器上的玩家提供了拥有某些物体或方块的所有权的能力，", Color.LightGray);
+                    args.Player.SendMessage("这样其他玩家就不能更改或使用它们。", Color.LightGray);
                     args.Player.SendMessage(string.Empty, Color.LightGray);
-                    args.Player.SendMessage("The content of a protected chest can not be altered by other players, protected ", Color.LightGray);
+                    args.Player.SendMessage("受保护的钱箱内容不能被其他玩家更改，受保护的", Color.LightGray);
                     break;
                 case 2:
-                    args.Player.SendMessage("switches can not be hit by other players, signs can not be edited, beds can not ", Color.LightGray);
-                    args.Player.SendMessage("be used, doors not used and even plants in protected clay pots can not be ", Color.LightGray);
-                    args.Player.SendMessage("harvested without owning the clay pot.", Color.LightGray);
+                    args.Player.SendMessage("开关不能被其他玩家击中，告示牌不能被编辑，床不能被使用，门不能被使用，甚至在受保护的黏土罐中的植物也不能被", Color.LightGray);
+                    args.Player.SendMessage("收获，除非拥有黏土罐。", Color.LightGray);
                     args.Player.SendMessage(string.Empty, Color.LightGray);
-                    args.Player.SendMessage("For more information and support visit Protector's thread on the TShock forums.", Color.LightGray);
+                    args.Player.SendMessage("更多信息和支持，请访问TShock论坛上的保护者帖子。", Color.LightGray);
                     break;
             }
 
@@ -818,8 +814,8 @@ namespace Terraria.Plugins.CoderCow.Protector
                 }
                 else
                 {
-                    args.Player.SendErrorMessage("Proper syntax: /protect [-p]");
-                    args.Player.SendInfoMessage("Type /protect help to get more help to this command.");
+                    args.Player.SendErrorMessage("正确的语法: /protect [-p]");
+                    args.Player.SendInfoMessage("输入 /protect help 以获取更多关于此命令的帮助。");
                     return;
                 }
             }
@@ -842,8 +838,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                 }
                 else if (editType == TileEditType.DestroyWall)
                 {
-                    playerLocal.SendErrorMessage("Walls can not be protected.");
-
+                    playerLocal.SendErrorMessage("墙壁无法被保护。");
                     playerLocal.SendTileSquareCentered(location);
                     return new CommandInteractionResult { IsHandled = true, IsInteractionCompleted = true };
                 }
@@ -867,10 +862,10 @@ namespace Terraria.Plugins.CoderCow.Protector
             };
             interaction.TimeExpiredCallback += (playerLocal) =>
             {
-                playerLocal.SendErrorMessage("Waited too long. The next hit object or block will not be protected.");
+                playerLocal.SendErrorMessage("等待时间过长。下一次击中或使用的物体或方块将不会被保护。");
             };
 
-            args.Player.SendInfoMessage("Hit or use an object or block to protect it.");
+            args.Player.SendInfoMessage("击中或使用一个物体或方块以保护它。");
         }
 
         private bool ProtectCommand_HelpCallback(CommandArgs args)
@@ -885,15 +880,14 @@ namespace Terraria.Plugins.CoderCow.Protector
             switch (pageNumber)
             {
                 default:
-                    args.Player.SendMessage("Command reference for /protect (Page 1 of 1)", Color.Lime);
+                    args.Player.SendMessage("/protect 命令参考（第 1 页，共 1 页）", Color.Lime);
                     args.Player.SendMessage("/protect|pt [-p]", Color.White);
-                    args.Player.SendMessage("Protects the selected object or block.", Color.LightGray);
+                    args.Player.SendMessage("保护选定的物体或方块。", Color.LightGray);
                     args.Player.SendMessage(string.Empty, Color.LightGray);
-                    args.Player.SendMessage("-p = Activates persistent mode. The command will stay persistent until it times", Color.LightGray);
-                    args.Player.SendMessage("     out or any other protector command is entered.", Color.LightGray);
+                    args.Player.SendMessage("-p = 激活持久模式。该命令将持续有效，直到超时或输入了其他保护命令为止。", Color.LightGray);
+                    args.Player.SendMessage("    （如果持久模式被激活，则无需再次输入 /protect 命令来保持保护状态）", Color.LightGray);
                     break;
             }
-
             return true;
         }
         #endregion
@@ -913,8 +907,8 @@ namespace Terraria.Plugins.CoderCow.Protector
                 }
                 else
                 {
-                    args.Player.SendErrorMessage("Proper syntax: /deprotect [-p]");
-                    args.Player.SendInfoMessage("Type /deprotect help to get more help to this command.");
+                    args.Player.SendErrorMessage("正确的语法: /deprotect [-p]");
+                    args.Player.SendInfoMessage("输入 /deprotect help 以获取更多关于此命令的帮助。");
                     return;
                 }
             }
@@ -956,10 +950,10 @@ namespace Terraria.Plugins.CoderCow.Protector
             };
             interaction.TimeExpiredCallback += (playerLocal) =>
             {
-                playerLocal.SendMessage("Waited too long. The next hit object or block will not be deprotected anymore.", Color.Red);
+                playerLocal.SendMessage("等待时间过长。下一次击中或使用的物体或方块将不会被解除保护。", Color.Red);
             };
 
-            args.Player.SendInfoMessage("Hit or use a protected object or block to deprotect it.");
+            args.Player.SendInfoMessage("击中或使用一个受保护的物体或方块以解除保护。");
         }
 
         private bool DeprotectCommand_HelpCallback(CommandArgs args)
