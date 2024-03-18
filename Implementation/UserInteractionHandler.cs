@@ -1743,10 +1743,10 @@ namespace Terraria.Plugins.CoderCow.Protector
             };
             interaction.TimeExpiredCallback += (playerLocal) =>
             {
-                playerLocal.SendMessage("Waited too long. No refill chest will be created.", Color.Red);
+                playerLocal.SendMessage("等待时间过长。不会创建补充宝箱。", Color.Red);
             };
 
-            args.Player.SendInfoMessage("Open a chest to convert it into a refill chest.");
+            args.Player.SendInfoMessage("打开一个宝箱将其转换为补充宝箱。");
         }
 
         private bool RefillChestCommand_HelpCallback(CommandArgs args)
@@ -1761,37 +1761,36 @@ namespace Terraria.Plugins.CoderCow.Protector
             switch (pageNumber)
             {
                 default:
-                    args.Player.SendMessage("Command reference for /refillchest (Page 1 of 5)", Color.Lime);
-                    args.Player.SendMessage("/refillchest|/rchest [time] [+ot|-ot] [+ll amount|-ll] [+al|-al] [+ae|-ae] [-p]", Color.White);
-                    args.Player.SendMessage("Converts a chest to a special chest which can automatically refill its content.", Color.LightGray);
+                    args.Player.SendMessage("命令 /refillchest 的参考信息（第 1 页，共 5 页）", Color.Lime);
+                    args.Player.SendMessage("/refillchest|/rchest [时间] [+ot|-ot] [+ll 数量|-ll] [+al|-al] [+ae|-ae] [-p]", Color.White);
+                    args.Player.SendMessage("将一个宝箱转换为一个特殊的宝箱，可以自动补充其内容。", Color.LightGray);
                     args.Player.SendMessage(string.Empty, Color.LightGray);
-                    args.Player.SendMessage("time = Examples: 2h, 2h30m, 2h30m10s, 1d6h etc.", Color.LightGray);
-                    args.Player.SendMessage("+ot = The chest can only be looted once per player.", Color.LightGray);
+                    args.Player.SendMessage("时间 = 示例：2h, 2h30m, 2h30m10s, 1d6h 等。", Color.LightGray);
+                    args.Player.SendMessage("+ot = 宝箱只能被每个玩家掠夺一次。", Color.LightGray);
                     break;
                 case 2:
-                    args.Player.SendMessage("+ll amount = The chest can only be looted the given amount of times in total.", Color.LightGray);
-                    args.Player.SendMessage("+al = After being looted, the chest is automatically locked.", Color.LightGray);
-                    args.Player.SendMessage("+ae = After being looted, the chest is automatically emptied, regardless of content.", Color.LightGray);
-                    args.Player.SendMessage("-p = Activates persistent mode. The command will stay persistent until it times", Color.LightGray);
-                    args.Player.SendMessage("     out or any other protector command is entered.", Color.LightGray);
-                    args.Player.SendMessage("If +ot or +ll is applied, a player must be logged in in order to loot it.", Color.LightGray);
+                    args.Player.SendMessage("+ll 数量 = 宝箱只能被总共掠夺给定的次数。", Color.LightGray);
+                    args.Player.SendMessage("+al = 被掠夺后，宝箱会自动锁定。", Color.LightGray);
+                    args.Player.SendMessage("+ae = 被掠夺后，宝箱会自动清空，无论内容如何。", Color.LightGray);
+                    args.Player.SendMessage("-p = 激活持久模式。该命令将持续有效，直到超时或输入了其他保护命令为止。", Color.LightGray);
+                    args.Player.SendMessage("如果应用了 +ot 或 +ll，玩家必须登录才能掠夺它。", Color.LightGray);
                     break;
                 case 3:
-                    args.Player.SendMessage("To remove a feature from an existing refill chest, put a '-' before it:", Color.LightGray);
+                    args.Player.SendMessage("要从现有的补充宝箱中移除一个特性，请在它前面加上 '-'：", Color.LightGray);
                     args.Player.SendMessage("  /refillchest -ot", Color.White);
-                    args.Player.SendMessage("Removes the 'ot' feature from the selected chest.", Color.LightGray);
-                    args.Player.SendMessage("To remove the timer, simply leave the time parameter away.", Color.LightGray);
-                    args.Player.SendMessage("Example #1: Make a chest refill its contents after one hour and 30 minutes:", Color.LightGray);
+                    args.Player.SendMessage("从选定的宝箱中移除 'ot' 特性。", Color.LightGray);
+                    args.Player.SendMessage("要移除定时器，只需省略时间参数。", Color.LightGray);
+                    args.Player.SendMessage("示例 #1：让一个宝箱在1小时30分钟后补充其内容：", Color.LightGray);
                     break;
                 case 4:
                     args.Player.SendMessage("  /refillchest 1h30m", Color.White);
-                    args.Player.SendMessage("Example #2: Make a chest one time lootable per player without a refill timer:", Color.LightGray);
+                    args.Player.SendMessage("示例 #2：让一个宝箱每个玩家只能掠夺一次，没有补充定时器：", Color.LightGray);
                     args.Player.SendMessage("  /refillchest +ot", Color.White);
-                    args.Player.SendMessage("Example #3: Make a chest one time lootable per player with a 30 minutes refill timer:", Color.LightGray);
+                    args.Player.SendMessage("示例 #3：让一个宝箱每个玩家只能掠夺一次，带有30分钟的补充定时器：", Color.LightGray);
                     args.Player.SendMessage("  /refillchest 30m +ot", Color.White);
                     break;
                 case 5:
-                    args.Player.SendMessage("Example #4: Make a chest one time lootable per player and 10 times lootable in total:", Color.LightGray);
+                    args.Player.SendMessage("示例 #4：让一个宝箱每个玩家只能掠夺一次，总共只能掠夺10次：", Color.LightGray);
                     args.Player.SendMessage("  /refillchest +ot +ll 10", Color.White);
                     break;
             }
@@ -1808,7 +1807,7 @@ namespace Terraria.Plugins.CoderCow.Protector
 
             if (!args.Player.Group.HasPermission(ProtectorPlugin.SetRefillChests_Permission))
             {
-                args.Player.SendErrorMessage("You do not have the permission to set up refill chests.");
+                args.Player.SendErrorMessage("您没有设置补充宝箱的权限。");
                 return;
             }
 
@@ -1905,8 +1904,8 @@ namespace Terraria.Plugins.CoderCow.Protector
 
             if (invalidSyntax)
             {
-                args.Player.SendErrorMessage("Proper syntax: /refillchestmany <selector> [time] [+ot|-ot] [+ll amount|-ll] [+al|-al] [+ae|-ae] [+fl]");
-                args.Player.SendErrorMessage("Type /refillchestmany help to get more help to this command.");
+                args.Player.SendErrorMessage("正确的语法: /refillchestmany <选择器> [时间] [+ot|-ot] [+ll 数量|-ll] [+al|-al] [+ae|-ae] [+fl]");
+                args.Player.SendErrorMessage("输入 /refillchestmany help 以获取更多关于这个命令的帮助。");
                 return;
             }
 
@@ -1936,7 +1935,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                     {
                         if (!this.ProtectionManager.CheckBlockAccess(args.Player, chestLocation, true) && !args.Player.Group.HasPermission(ProtectorPlugin.ProtectionMaster_Permission))
                         {
-                            args.Player.SendWarningMessage($"You did not have access to convert chest {TShock.Utils.ColorTag(chestLocation.ToString(), Color.Red)} into a refill chest.");
+                            args.Player.SendWarningMessage($"您没有权限将宝箱 {TShock.Utils.ColorTag(chestLocation.ToString(), Color.Red)} 转换为补充宝箱。");
                             continue;
                         }
                     }
