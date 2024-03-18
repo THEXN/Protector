@@ -7,12 +7,14 @@ using System.Threading.Tasks;
 using Terraria.Plugins.Common;
 using DPoint = System.Drawing.Point;
 
-namespace Terraria.Plugins.CoderCow.Protector {
-  public interface IChest {
-    bool IsWorldChest { get; }
-    string Name { get; set; }
-    DPoint Location { get; }
-    int Index { get; }
-    IList<ItemData> Items { get; }
-  }
+namespace Terraria.Plugins.CoderCow.Protector
+{
+    public interface IChest
+    {
+        bool IsWorldChest { get; }
+        string Name { get; set; }
+        DPoint Location { get; }
+        int Index { get; }
+        IList<ItemData> Items { get; }
+    }
 }
