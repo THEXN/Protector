@@ -1,124 +1,89 @@
-Protector Plugin
-================================
- 
-### About
-
-This plugin provides players on TShock driven Terraria servers the possibility of taking ownership of certain objects or blocks, so that other players can not change or use them.
-The content of a protected chest can not be viewed or altered by other players, protected switches can not be hit by other players, signs can not be edited, beds can not be used, doors not opened and even plants in protected clay pots can not be harvested without owning the clay pot.
-
-And if a player wants to access items of a friend's chest, then the owner of it shall share it with them. Protector offers sharing of protections directly to specific users, to TShock user groups or just to everyone - and it's the owner of the protection doing that, no administrative actions required.
-
-Stay in control, you define which blocks or objects can be protected, are automatically protected on placement, can be deprotected, how many protections a player can create in general and what can be shared or not.
-
-Furthermore, one might make use of Protector's special chest related features, like powerful Refill Chests allowing a timed refill of their content, restrict players from looting them more than one time or allowing only X times of lootings in total. 
-Also, if your server happens to change worlds frequently or if you just want to offer your players to use chests which can be easily transported including their content, then you can allow the usage of so called Bank Chests storing their content world independently - imagine them as server sided piggy banks.
-
-Usually Terraria worlds are limited to a maximum of 1000 chests. By using Protector you may bypass this limitation, check out the comments in the configuration file to see how this is done.
-
-Releases of this plugin use [Semantic Versioning](http://semver.org/).
-
-### How to Install
-
-Note: This plugin requires [TerrariaAPI-Server](https://github.com/NyxStudios/TerrariaAPI-Server) and [TShock](https://github.com/NyxStudios/TShock) in order to work. You can't use this with a vanilla Terraria server.
-
-Grab the latest release and put the _.dll_ files into your server's _ServerPlugins_ directory. Also put the contents of the _tshock/_ folder into your server's _tshock_ folder. You may change the configuration options to your needs by editing the _tshock/Protector/Config.xml_ file.
-
-### Commands
-
+### 关于
+这个插件为 TShock 驱动的泰拉瑞亚服务器上的玩家提供了拥有某些物体或方块的所有权的能力，这样其他玩家就不能更改或使用它们。
+受保护的钱箱内容不能被其他玩家查看或更改，受保护的开关不能被其他玩家击中，告示牌不能被编辑，床不能被使用，门不能被打开，甚至在受保护的黏土罐中的植物也不能在没有黏土罐所有权的情况下被收获。
+如果一个玩家想要访问朋友宝箱中的物品，那么宝箱的拥有者应该与他们共享。Protector 提供了将保护直接共享给特定用户、TShock 用户组或与所有人共享的功能——这是保护的拥有者做的，不需要管理员操作。
+保持控制，您可以定义哪些方块或物体可以受到保护，哪些在放置时会自动受到保护，可以解除保护，玩家总体上可以创建多少保护，以及可以共享什么或不可以共享。
+此外，您可以利用 Protector 的特殊宝箱相关功能，例如强大的补充宝箱，允许定时补充其内容，限制玩家掠夺的次数超过一次或允许总共掠夺 X 次。另外，如果您的服务器经常更换世界，或者您只是想为您玩家提供可以使用包括其内容的易于运输的宝箱，那么您可以允许使用所谓的银行宝箱，它们存储的内容与世界无关——想象它们是服务器端的存钱罐。
+通常，泰拉瑞亚世界最多只能有 1000 个宝箱。通过使用 Protector，您可以绕过这个限制，在配置文件中查看注释了解如何实现。
+此插件的版本使用 [语义版本控制](http://semver.org/)。
+### 如何安装
+注意：此插件需要 [TerrariaAPI-Server](https://github.com/NyxStudios/TerrariaAPI-Server) 和 [TShock](https://github.com/NyxStudios/TShock) 才能工作。您不能在没有 TShock 的泰拉瑞亚服务器上使用它。
+获取最新版本，并将 `.dll` 文件放入您服务器的 `ServerPlugins` 目录中。还将 `tshock/` 文件夹的内容放入您服务器的 `tshock/` 文件夹中。您可以通过编辑 `tshock/Protector/Config.xml` 文件来根据需要更改配置选项。
+### 命令
 * `/protect [-p]`
 * `/deprotect [-p]`
 * `/protectioninfo [-p]`
-* `/share <player name> [-p]`
-* `/unshare <player name> [-p]`
-* `/sharegroup <group name> [-p]`
-* `/unsharegroup <group name> [-p]`
+* `/share <玩家名称> [-p]`
+* `/unshare <玩家名称> [-p]`
+* `/sharegroup <组名称> [-p]`
+* `/unsharegroup <组名称> [-p]`
 * `/sharepublic [-p]`
 * `/unsharepublic [-p]`
-* `/bankchest <number>`
+* `/bankchest <编号>`
 * `/dumpbankchest`
-* `/refillchest [time] [+ot|-ot] [+ll amount|-ll] [+al|-al] [-p]`
-* `/refillchestmany <selector> [time] [+ot|-ot] [+ll amount|-ll] [+al|-al] [-p]`
+* `/refillchest [时间] [+ot|-ot] [+ll 数量|-ll] [+al|-al] [-p]`
+* `/refillchestmany <选择器> [时间] [+ot|-ot] [+ll 数量|-ll] [+al|-al] [-p]`
 * `/lockchest [-p]`
 * `/swapchest [-p]`
-* `/tradechest <sell amount> <sell item> <pay amount> <pay item or group> [limit]`
+* `/tradechest <出售数量> <出售物品> <支付数量> <支付物品或组> [限制]`
 * `/protector`
 * `/protector commands`
 * `/protector removeemptychests`
 * `/protector summary`
 * `/protector cleanup [-d]`
-* `/protector removeall <region <region>|user <user>> [-d]`
+* `/protector removeall <区域 <区域>|用户 <用户>> [-d]`
 * `/protector importinfinitechests`
 * `/protector importinfinitesigns`
 * `/protector reloadconfig|reloadcfg`
-
-To get more information about a command type `/<command> help` ingame.
-
-### Permissions
-
+要获取有关命令的更多信息，请在上游戏中输入 `/<命令> help`。
+### 权限
 * **prot.manualprotect**
-  Can manually create protections (not required for auto protection).
+  可以手动创建保护（自动保护不需要）。
 * **prot.manualdeprotect**
-  Can manually remove owned protections (not required for auto deprotection).
+  可以手动移除拥有的保护（自动解除保护不需要）。
 * **prot.chestshare**
-  Can share Chests.
+  可以共享宝箱。
+### 权限
 * **prot.switchshare**
-  Can share Switches / Levers / Pressure Plates / Timers / Music Boxes.
+  可以共享开关/拉杆/压力板/计时器/音乐盒。
 * **prot.othershare**
-  Can share Signs, Tombstones and Beds.
+  可以共享告示牌、墓碑和床。
 * **prot.sharewithgroups**
-  Can share protections with TShock Groups.
+  可以与 TShock 组共享保护。
 * **prot.setbankchest**
-  Can set up bank chests.
+  可以设置银行宝箱。
 * **prot.bankchestshare**
-  Can share bank chests.
+  可以共享银行宝箱。
 * **prot.nobankchestlimits**
-  Can set up unlimited bank chests.
+  可以设置无限制的银行宝箱。
 * **prot.dumpbankchest**
-  Can dump bank chest content (Warning: duplicates the bank chest's items).
+  可以倾倒银行宝箱内容（警告：会复制银行宝箱的物品）。
 * **prot.nolimits**
-  Can create an unlimited amount of protections.
+  可以创建无限数量的保护。
 * **prot.viewall**
-  Can view all information of all protections. Usually only owners or shared
-  players can view extended information of a protection.
+  可以查看所有保护的详细信息。通常只有所有者或共享玩家才能查看保护的扩展信息。
 * **prot.useeverything**
-  Can use and any Chest, Sign, Switch, Lever, Pressure Plate etc. (does 
-  not include removing them though).
+  可以使用和操作任何宝箱、告示牌、开关、拉杆、压力板等（不包括移除它们）。
 * **prot.protectionmaster**
-  Can modify or remove any protection, can also alter any refill chest if 
-  "prot_setrefillchest" is also given.
+  可以修改或移除任何保护，也可以更改任何补充宝箱（如果也提供了 "prot_setrefillchest"）。
 * **prot.setrefillchest**
-  Can set up a chest to automatically refill its content.
+  可以设置一个自动补充其内容的宝箱。
 * **prot.settradechest**
-  Can set up a trade chest to trade items with other players.
+  可以设置一个与其他玩家交易的交易宝箱。
 * **prot.freetradechests**
-  Doesn't have to pay SEconomy money to set up a trade chest.
+  设置交易宝箱时不需要支付 SEconomy 货币。
 * **prot.utility**
-  Can display a summary about all chests, signs and protections of a world, can 
-  lock chests, can convert all dungeon chests, sky island chests, ocean chests, 
-  hell shadow chests to refill chests (also requires "prot_setrefillchest"), can 
-  remove all empty non protected chests of the world, can swap chest data storage.
+  可以显示有关世界中所有宝箱、告示牌和保护的摘要，可以锁定宝箱，可以将所有地牢宝箱、天空岛屿宝箱、海洋宝箱、地狱阴影宝箱转换为补充宝箱（也需要 "prot_setrefillchest"），可以移除世界中所有空置的非保护宝箱，可以交换宝箱数据存储。
 * **prot.cfg**
-  Can import Infinite Chests' data or Infinite Signs' database files, can 
-  reload Protector's configuration file.
+  可以导入 Infinite Chests 的数据或 Infinite Signs 的数据库文件，可以重新加载 Protector 的配置文件。
 * **prot.regionsonlyprotections**
-  Can only create protections in regions with build permissions.
+  只能在具有建筑权限的区域创建保护。
+### 数据导入和兼容性
+此插件可以导入 Infinite Chests 和 Infinite Signs 插件的钱箱和告示牌数据。在使用此功能之前，确保创建世界备份，因为这些更改否则无法撤销。
+注意，导入功能并没有很好地测试，特别是与插件的较新版本。
+它也仅限于常规补充宝箱。银行宝箱不会被导入。另外，区域宝箱保护和宝箱密码也不被 Protector 支持。
+如果您的无限宝箱数据库中有超过 999 个宝箱，所有超过的宝箱**应该**成为 Protector 宝箱。
+不要尝试在 Protector 中同时使用任何宝箱功能和 Infinite Chests，因为这会导致世界文件和宝箱数据库中的物品数据混合。
+### 致谢
+图标由 [freepik](http://www.freepik.com/) 制作。
 
-### Data Import and Compatibility
-
-This plugin can import chest and sign data from the Infinite Chests and Infinite
-Signs plugins. Make SURE you create world backups before using this functionality
-as those changes can otherwise not be revoked. 
-Note that the import features aren't very well tested, especially not with more
-recent versions of the plugins.
-
-It's also limited to regular- and refill chests. Bank chests will not be imported. 
-Also, region chest protection and chest passwords are not supported by Protector.
-If your infinite chests database holds more than 999 chests, all exceeding chests
-**should** become protector chests.
-
-Do NOT try to use any chest features of Protector together with Infinite Chests 
-as this will cause mixed item data in the world file and the chest database.
-
-### Credits
-
-Icon made by [freepik](http://www.freepik.com/)
