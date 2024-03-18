@@ -33,7 +33,7 @@ namespace Terraria.Plugins.CoderCow.Protector
         protected ProtectionManager ProtectionManager { get; }
         public PluginCooperationHandler PluginCooperationHandler { get; }
         protected Func<Configuration> ReloadConfigurationCallback { get; private set; }
-        // Which player has currently opened which chest and the other way round for faster lookup.
+        // 哪个玩家当前打开了哪个宝箱，并且反向查找以加快检索速度。
         protected Dictionary<int, DPoint> PlayerIndexChestDictionary { get; }
         protected Dictionary<DPoint, int> ChestPlayerIndexDictionary { get; }
 
@@ -41,7 +41,7 @@ namespace Terraria.Plugins.CoderCow.Protector
           PluginTrace trace, PluginInfo pluginInfo, Configuration config, ServerMetadataHandler serverMetadataHandler,
           WorldMetadata worldMetadata, ProtectionManager protectionManager, ChestManager chestManager,
           PluginCooperationHandler pluginCooperationHandler, Func<Configuration> reloadConfigurationCallback
-            ) : base(trace)
+    ) : base(trace)
         {
             if (trace == null) throw new ArgumentNullException();
             if (!(!pluginInfo.Equals(PluginInfo.Empty))) throw new ArgumentException();
@@ -202,16 +202,12 @@ namespace Terraria.Plugins.CoderCow.Protector
             }
 
             string statsMessage = string.Format(
-                      "您已经在当前世界中创建了 {0} 个保护，最多可以创建 {1} 个保护。",
-                      playerProtectionCount,
+        "到目前为止，您已经创建了{0}种可能的保护中的{1}种。", playerProtectionCount,
               this.Config.MaxProtectionsPerPlayerPerWorld
             );
             args.Player.SendMessage(statsMessage, Color.Yellow);
-
-            args.Player.SendMessage("输入 \"/protector commands\" 以获取可用命令列表。", Color.Yellow);
-            args.Player.SendMessage("输入 \"/protector help\" 以获取有关本插件的更多信息。", Color.Yellow);
-
-
+            args.Player.SendMessage("输入“/protector commands”以获取可用命令列表。", Color.Yellow);
+            args.Player.SendMessage("要获取有关此插件的更多一般信息，请输入“/protector help”。", Color.Yellow);
         }
 
         private bool TryExecuteSubCommand(string commandNameLC, CommandArgs args)
@@ -224,7 +220,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                         int pageNumber = 1;
                         if (args.Parameters.Count > 1 && (!int.TryParse(args.Parameters[1], out pageNumber) || pageNumber < 1))
                         {
-                            args.Player.SendErrorMessage($"\"{args.Parameters[1]}\" 不是一个有效的页码。");
+                            args.Player.SendErrorMessage($"\"{args.Parameters[1]}\"不是一个有效的页码。");
                             return true;
                         }
 
@@ -239,7 +235,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                           args.Player.Group.HasPermission(ProtectorPlugin.ChestSharing_Permission) ||
                           args.Player.Group.HasPermission(ProtectorPlugin.SwitchSharing_Permission) ||
                           args.Player.Group.HasPermission(ProtectorPlugin.OtherSharing_Permission)
-                                      )
+          )
                         {
                             terms.Add("/share");
                             terms.Add("/unshare");
@@ -288,7 +284,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                         List<string> lines = PaginationTools.BuildLinesFromTerms(terms);
                         PaginationTools.SendPage(args.Player, pageNumber, lines, new PaginationTools.Settings
                         {
-                            HeaderFormat = "保护者命令 (第 {0} 页，共 {1} 页)",
+                            HeaderFormat = "保护器命令（第 {0} 页，共 {1} 页）",
                             LineTextColor = Color.LightGray,
                         });
 
@@ -299,20 +295,20 @@ namespace Terraria.Plugins.CoderCow.Protector
                         if (
                           !args.Player.Group.HasPermission(ProtectorPlugin.Utility_Permission) ||
                           !args.Player.Group.HasPermission(ProtectorPlugin.ProtectionMaster_Permission)
-                                      )
+          )
                         {
-                            args.Player.SendErrorMessage("您没有必要的权限执行此操作。");
+                            args.Player.SendErrorMessage("你没有执行此操作所需的权限。");
                             return true;
                         }
 
                         if (args.Parameters.Count == 2 && args.Parameters[1].Equals("help", StringComparison.InvariantCultureIgnoreCase))
                         {
-                            args.Player.SendMessage("保护者命令 /protector cleanup 的参考 (第 1 页，共 1 页)", Color.Lime);
+                            args.Player.SendMessage("/protector cleanup 命令参考（第 1 页，共 1 页）", Color.Lime);
                             args.Player.SendMessage("/protector cleanup", Color.White);
-                            args.Player.SendMessage("移除所有属于不再存在于TShock数据库中的用户ID的保护。", Color.LightGray);
-                            args.Player.SendMessage("数据库。", Color.LightGray);
+                            args.Player.SendMessage("删除所有属于不存在于TShock中的用户ID的保护", Color.LightGray);
+                            args.Player.SendMessage("的数据库条目", Color.LightGray);
                             args.Player.SendMessage(string.Empty, Color.LightGray);
-                            args.Player.SendMessage("-d = 不销毁设置保护的瓷砖。", Color.LightGray);
+                            args.Player.SendMessage("-d = 不破坏设置保护时所在的图格。", Color.LightGray);
                             return true;
                         }
 
@@ -325,8 +321,8 @@ namespace Terraria.Plugins.CoderCow.Protector
                             }
                             else
                             {
-                                args.Player.SendErrorMessage("正确的语法: /protector cleanup [-d]");
-                                args.Player.SendErrorMessage("输入 /protector cleanup help 以获取更多关于此命令的帮助。");
+                                args.Player.SendErrorMessage("正确的语法：/protector cleanup [-d]");
+                                args.Player.SendErrorMessage("输入/protector cleanup help以获取此命令的更多帮助。");
                                 return true;
                             }
                         }
@@ -352,8 +348,8 @@ namespace Terraria.Plugins.CoderCow.Protector
                             }
                         }
                         if (args.Player != TSPlayer.Server)
-                            args.Player.SendSuccessMessage("已移除 {0} 个保护。", protectionsToRemove.Count);
-                        this.PluginTrace.WriteLineInfo("已移除 {0} 个保护。", protectionsToRemove.Count);
+                            args.Player.SendSuccessMessage("移除了 {0} 个保护。", protectionsToRemove.Count);
+                        this.PluginTrace.WriteLineInfo("移除了 {0} 个保护。", protectionsToRemove.Count);
 
                         return true;
                     }
@@ -362,21 +358,21 @@ namespace Terraria.Plugins.CoderCow.Protector
                         if (
                           !args.Player.Group.HasPermission(ProtectorPlugin.Utility_Permission) ||
                           !args.Player.Group.HasPermission(ProtectorPlugin.ProtectionMaster_Permission)
-                                      )
+          )
                         {
-                            args.Player.SendErrorMessage("您没有必要的权限执行此操作。");
+                            args.Player.SendErrorMessage("你没有执行此操作所需的权限。");
                             return true;
                         }
 
                         if (args.Parameters.Count == 2 && args.Parameters[1].Equals("help", StringComparison.InvariantCultureIgnoreCase))
                         {
-                            args.Player.SendMessage("/protector removeall 命令参考 (第 1 页，共 1 页)", Color.Lime);
-                            args.Player.SendMessage("/protector removeall <region <区域>|user <用户>> [-d]", Color.White);
-                            args.Player.SendMessage("移除给定区域内的所有保护，或者移除由给定用户拥有的所有保护。", Color.LightGray);
+                            args.Player.SendMessage("/protector removeall 命令参考（第 1 页，共 1 页）", Color.Lime);
+                            args.Player.SendMessage("/protector removeall <区域 <区域名>|用户 <用户名>> [-d]", Color.White);
+                            args.Player.SendMessage("从给定的区域或指定的用户拥有的保护中移除所有保护。", Color.LightGray);
                             args.Player.SendMessage(string.Empty, Color.LightGray);
-                            args.Player.SendMessage("region <区域> = 移除 <区域> 内的所有保护。", Color.LightGray);
-                            args.Player.SendMessage("user <用户> = 移除在此世界中由 <用户> 拥有的所有保护。", Color.LightGray);
-                            args.Player.SendMessage("-d = 不销毁设置保护的瓷砖。", Color.LightGray);
+                            args.Player.SendMessage("region <区域> = 移除<区域>内的所有保护。", Color.LightGray);
+                            args.Player.SendMessage("user <用户> = 移除此世界中<用户>拥有的所有保护。", Color.LightGray);
+                            args.Player.SendMessage("-d = 不破坏设置保护时所在的图格（或方块）。", Color.LightGray);
                             return true;
                         }
 
@@ -407,8 +403,8 @@ namespace Terraria.Plugins.CoderCow.Protector
                         }
                         if (invalidSyntax)
                         {
-                            args.Player.SendErrorMessage("正确的语法: /protector removeall <region <区域>|user <用户>> [-d]");
-                            args.Player.SendErrorMessage("输入 /protector removeall help 以获取更多关于此命令的帮助。");
+                            args.Player.SendErrorMessage("正确的语法：/protector removeall <region <区域名>|user <用户名>> [-d]");
+                            args.Player.SendErrorMessage("输入 /protector removeall help 以获取此命令的更多帮助。");
                             return true;
                         }
 
@@ -420,7 +416,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                                 TShockAPI.DB.Region tsRegion = TShock.Regions.GetRegionByName(target);
                                 if (tsRegion == null)
                                 {
-                                    args.Player.SendErrorMessage("区域 \"{0}\" 不存在。", target);
+                                    args.Player.SendErrorMessage("区域“{0}”不存在。", target);
                                     return true;
                                 }
 
@@ -452,8 +448,8 @@ namespace Terraria.Plugins.CoderCow.Protector
                         }
 
                         if (args.Player != TSPlayer.Server)
-                            args.Player.SendSuccessMessage("已移除 {0} 个保护。", protectionsToRemove.Count);
-                        this.PluginTrace.WriteLineInfo("已移除 {0} 个保护。", protectionsToRemove.Count);
+                            args.Player.SendSuccessMessage("{0}个保护已被移除。", protectionsToRemove.Count);
+                        this.PluginTrace.WriteLineInfo("{{0}个保护已被移除。", protectionsToRemove.Count);
 
                         return true;
                     }
@@ -462,15 +458,15 @@ namespace Terraria.Plugins.CoderCow.Protector
                     {
                         if (!args.Player.Group.HasPermission(ProtectorPlugin.Utility_Permission))
                         {
-                            args.Player.SendErrorMessage("您没有必要的权限执行此操作。");
+                            args.Player.SendErrorMessage("你没有执行此操作所需的权限。");
                             return true;
                         }
 
                         if (args.Parameters.Count == 2 && args.Parameters[1].Equals("help", StringComparison.InvariantCultureIgnoreCase))
                         {
-                            args.Player.SendMessage("/protector removeemptychests 命令参考 (第 1 页，共 1 页)", Color.Lime);
-                            args.Player.SendMessage("/protector removeemptychests|cleanupchests", Color.White);
-                            args.Player.SendMessage("从世界中移除所有空置且未受保护的钱箱。", Color.LightGray);
+                            args.Player.SendMessage("/protector removeemptychests 命令参考（第 1 页，共 1 页）", Color.Lime);
+                            args.Player.SendMessage("/protector removeemptychests 或 cleanupchests", Color.White);
+                            args.Player.SendMessage("从世界中移除所有空的且未受保护的箱子。", Color.LightGray);
                             return true;
                         }
 
@@ -531,7 +527,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                         if (args.Player != TSPlayer.Server)
                         {
                             args.Player.SendSuccessMessage(string.Format(
-                                              "已移除 {0} 个空置且未受保护的钱箱。已移除 {1} 个无效的钱箱数据条目。",
+              "移除了{0}个空的且未受保护的箱子。移除了{1}个无效的箱子数量。",
                               cleanedUpChestsCount, cleanedUpInvalidChestDataCount
                             ));
                         }
@@ -548,15 +544,15 @@ namespace Terraria.Plugins.CoderCow.Protector
                     {
                         if (!args.Player.Group.HasPermission(ProtectorPlugin.Utility_Permission))
                         {
-                            args.Player.SendErrorMessage("您没有必要的权限执行此操作。");
+                            args.Player.SendErrorMessage("你没有执行此操作所需的权限。");
                             return true;
                         }
 
                         if (args.Parameters.Count > 1 && args.Parameters[1].Equals("help", StringComparison.InvariantCultureIgnoreCase))
                         {
-                            args.Player.SendMessage("/protector invalidate 命令参考 (第 1 页，共 1 页)", Color.Lime);
-                            args.Player.SendMessage("/protector invalidate|ensure", Color.White);
-                            args.Player.SendMessage("移除或修复当前世界中的所有无效保护。", Color.LightGray);
+                            args.Player.SendMessage("/protector invalidate 命令参考（第 1 页，共 1 页）", Color.Lime);
+                            args.Player.SendMessage("/protector invalidate 或 ensure", Color.White);
+                            args.Player.SendMessage("移除或修复当前世界中所有无效的保护。", Color.LightGray);
                             return true;
                         }
 
@@ -568,15 +564,15 @@ namespace Terraria.Plugins.CoderCow.Protector
                     {
                         if (!args.Player.Group.HasPermission(ProtectorPlugin.Utility_Permission))
                         {
-                            args.Player.SendErrorMessage("您没有必要的权限执行此操作。");
+                            args.Player.SendErrorMessage("你没有执行此操作所需的权限。");
                             return true;
                         }
 
                         if (args.Parameters.Count == 2 && args.Parameters[1].Equals("help", StringComparison.InvariantCultureIgnoreCase))
                         {
-                            args.Player.SendMessage("/protector summary 命令参考 (第 1 页，共 1 页)", Color.Lime);
-                            args.Player.SendMessage("/protector summary|stats", Color.White);
-                            args.Player.SendMessage("收集关于钱箱、告示牌、保护以及银行钱箱的全球世界信息。", Color.LightGray);
+                            args.Player.SendMessage("/protector summary 命令参考（第 1 页，共 1 页）", Color.Lime);
+                            args.Player.SendMessage("/protector summary 或 stats", Color.White);
+                            args.Player.SendMessage("测量关于箱子、标志、保护和保险箱的全局世界信息。", Color.LightGray);
                             return true;
                         }
 
@@ -614,8 +610,8 @@ namespace Terraria.Plugins.CoderCow.Protector
                         if (args.Player != TSPlayer.Server)
                         {
                             args.Player.SendInfoMessage(string.Format(
-                                              "当前世界中共有 {0} 个钱箱（包括 {1} 个保护者钱箱）和 {2} 个告示牌（共 {3} 个）。",
-                                              chestCount, protectorChestCount, signCount, Sign.maxSigns
+              "这个世界中有 {0}/{1} 个箱子（{2} 个保护箱）和 {3}/{4} 个标志。",
+              chestCount, Main.chest.Length + this.Config.MaxProtectorChests - 1, protectorChestCount, signCount, Sign.maxSigns
                             ));
                             args.Player.SendInfoMessage(string.Format(
                                               "共有 {0} 个保护完好无损，其中 {1} 个与其他玩家共享，",
@@ -629,31 +625,31 @@ namespace Terraria.Plugins.CoderCow.Protector
                                               "数据库中记录有 {0} 个银行钱箱，其中 {1} 个在此世界中实例化。",
                               bankChestCount, bankChestInstancesCount
                             ));
-
-                            this.PluginTrace.WriteLineInfo(string.Format(
-                                                "当前世界中共有 {0} 个钱箱和 {2} 个告示牌。",
-                                                chestCount, signCount
-                            ));
-                            this.PluginTrace.WriteLineInfo(string.Format(
-                                                "共有 {0} 个保护完好无损，其中 {1} 个与其他玩家共享，",
-                              protectionsCount, sharedProtectionsCount
-                            ));
-                            this.PluginTrace.WriteLineInfo(string.Format(
-                                                "已设置 {0} 个补充钱箱，有 {1} 个用户已达到他们的保护限制。",
-                              refillChestsCount, usersWhoReachedProtectionLimitCount
-                            ));
-                            this.PluginTrace.WriteLineInfo(string.Format(
-                                                "数据库中记录有 {0} 个银行钱箱，其中 {1} 个在此世界中实例化。",
-                              bankChestCount, bankChestInstancesCount
-                            ));
                         }
+                        this.PluginTrace.WriteLineInfo(string.Format(
+        "这个世界中有 {0}/{1} 个箱子和 {2}/{3} 个标志。",
+        chestCount, Main.chest.Length, signCount, Sign.maxSigns
+                        ));
+                        this.PluginTrace.WriteLineInfo(string.Format(
+        "{0}个保护是完整的，其中{1}个与其他玩家共享，",
+                          protectionsCount, sharedProtectionsCount
+                        ));
+                        this.PluginTrace.WriteLineInfo(string.Format(
+        "已经设置了{0}个自动填充箱子，并且有{1}个用户达到了他们的保护限制。",
+                          refillChestsCount, usersWhoReachedProtectionLimitCount
+                        ));
+                        this.PluginTrace.WriteLineInfo(string.Format(
+        "数据库包含{0}个保险箱，其中{1}个已在本世界中实例化。",
+                          bankChestCount, bankChestInstancesCount
+                        ));
+
                         return true;
                     }
                 case "importinfinitechests":
                     {
                         if (!args.Player.Group.HasPermission(ProtectorPlugin.Cfg_Permission))
                         {
-                            args.Player.SendErrorMessage("您没有执行此操作所需的权限。");
+                            args.Player.SendErrorMessage("你没有执行此操作所需的权限。");
                             return true;
                         }
 
@@ -661,10 +657,10 @@ namespace Terraria.Plugins.CoderCow.Protector
                         {
                             args.Player.SendMessage("/protector importinfinitechests 命令参考（第 1 页，共 1 页）", Color.Lime);
                             args.Player.SendMessage("/protector importinfinitechests", Color.White);
-                            args.Player.SendMessage("尝试从InfiniteChests的数据库中导入所有钱箱数据。", Color.LightGray);
-                            args.Player.SendMessage("在进行此操作时，InfiniteChests插件必须未安装。", Color.LightGray);
-                            args.Player.SendMessage("现有的钱箱数据将被覆盖，导入的补充钱箱将", Color.LightGray);
-                            args.Player.SendMessage("丢失它们的计时器。", Color.LightGray);
+                            args.Player.SendMessage("尝试从InfiniteChests的数据库中导入所有箱子数据.", Color.LightGray);
+                            args.Player.SendMessage("这个操作要求未安装InfiniteChests插件。", Color.LightGray);
+                            args.Player.SendMessage("现有的箱子数据将被覆盖，导入的自动填充箱子将会", Color.LightGray);
+                            args.Player.SendMessage("失去它们的计时器.", Color.LightGray);
                             return true;
                         }
 
@@ -681,11 +677,11 @@ namespace Terraria.Plugins.CoderCow.Protector
                         }
                         catch (FileNotFoundException ex)
                         {
-                            args.Player.SendErrorMessage($"未找到 \"{ex.FileName}\" 数据库文件。");
+                            args.Player.SendErrorMessage($"“{ex.FileName}”数据库文件未找到。");
                             return true;
                         }
 
-                        args.Player.SendSuccessMessage($"已导入 {importedChests} 个钱箱。未能保护 {protectFailures} 个钱箱。");
+                        args.Player.SendSuccessMessage($"导入了{importedChests}个箱子。未能保护{protectFailures}个箱子。");
 
                         return true;
                     }
@@ -693,7 +689,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                     {
                         if (!args.Player.Group.HasPermission(ProtectorPlugin.Cfg_Permission))
                         {
-                            args.Player.SendErrorMessage("您没有执行此操作所需的权限。");
+                            args.Player.SendErrorMessage("你没有执行此操作所需的权限。");
                             return true;
                         }
 
@@ -701,9 +697,9 @@ namespace Terraria.Plugins.CoderCow.Protector
                         {
                             args.Player.SendMessage("/protector importinfinitesigns 命令参考（第 1 页，共 1 页）", Color.Lime);
                             args.Player.SendMessage("/protector importinfinitesigns", Color.White);
-                            args.Player.SendMessage("尝试从InfiniteSigns的数据库中导入所有告示牌数据。", Color.LightGray);
-                            args.Player.SendMessage("在进行此操作时，InfiniteSigns插件必须未安装。", Color.LightGray);
-                            args.Player.SendMessage("现有的告示牌数据将被覆盖。", Color.LightGray);
+                            args.Player.SendMessage("尝试从InfiniteSigns的数据库中导入所有标志数据。", Color.LightGray);
+                            args.Player.SendMessage("这个操作要求未安装InfiniteSigns插件。", Color.LightGray);
+                            args.Player.SendMessage("现有的标志数据将被覆盖。", Color.LightGray);
                             return true;
                         }
 
@@ -720,11 +716,13 @@ namespace Terraria.Plugins.CoderCow.Protector
                         }
                         catch (FileNotFoundException ex)
                         {
-                            args.Player.SendErrorMessage(string.Format("未找到 \"{0}\" 数据库文件。", ex.FileName));
+                            args.Player.SendErrorMessage(string.Format("“{0}”数据库文件未找到.", ex.FileName));
                             return true;
                         }
-                        args.Player.SendSuccessMessage(string.Format("已导入 {0} 个告示牌。未能保护 {1} 个告示牌。", importedSigns, protectFailures
-                        ));
+
+                        args.Player.SendSuccessMessage(string.Format(
+                          "导入了{0}个标志。未能保护{1}个标志。", importedSigns, protectFailures
+                                      ));
 
                         return true;
                     }
@@ -734,21 +732,21 @@ namespace Terraria.Plugins.CoderCow.Protector
                     {
                         if (!args.Player.Group.HasPermission(ProtectorPlugin.Cfg_Permission))
                         {
-                            args.Player.SendErrorMessage("您没有执行此操作所需的权限。");
+                            args.Player.SendErrorMessage("你没有执行此操作所需的权限。");
                             return true;
                         }
 
                         if (args.Parameters.Count == 2 && args.Parameters[1].Equals("help", StringComparison.InvariantCultureIgnoreCase))
                         {
                             args.Player.SendMessage("/protector reloadconfiguration 命令参考（第 1 页，共 1 页）", Color.Lime);
-                            args.Player.SendMessage("/protector reloadconfiguration|reloadconfig|reloadcfg", Color.White);
-                            args.Player.SendMessage("重新加载保护者的配置文件并应用所有新设置。", Color.LightGray);
-                            args.Player.SendMessage("如果银行钱箱的数量限制被降低，那么超过这个限制的现有银行钱箱", Color.LightGray);
-                            args.Player.SendMessage("在服务器重启之前仍然可以访问。", Color.LightGray);
+                            args.Player.SendMessage("/protector reloadconfiguration 或 reloadconfig 或 reloadcfg", Color.White);
+                            args.Player.SendMessage("重新加载Protector的配置文件并应用所有新设置。", Color.LightGray);
+                            args.Player.SendMessage("如果保险箱子的数量限制被减少了，那么现有的保险箱子将会...", Color.LightGray);
+                            args.Player.SendMessage("超过这个限制的现有保险箱子仍然可以访问，直到服务器重新启动。", Color.LightGray);
                             return true;
                         }
 
-                        this.PluginTrace.WriteLineInfo("正在重新加载配置文件。");
+                        this.PluginTrace.WriteLineInfo("重新加载配置文件。");
                         try
                         {
                             this.Config = this.ReloadConfigurationCallback();
@@ -760,8 +758,10 @@ namespace Terraria.Plugins.CoderCow.Protector
                         catch (Exception ex)
                         {
                             this.PluginTrace.WriteLineError(
-                              "重新加载配置文件失败。保留旧配置。异常详细信息：\n{0}", ex.Message);
+                              "重新加载配置文件失败。保留旧配置。异常详情：\n{0}", ex
+                            );
                         }
+
                         return true;
                     }
             }
@@ -781,17 +781,17 @@ namespace Terraria.Plugins.CoderCow.Protector
             switch (pageNumber)
             {
                 default:
-                    args.Player.SendMessage("保护者概览 (第 1 页，共 2 页)", Color.Lime);
-                    args.Player.SendMessage("此插件为TShock驱动的泰拉瑞亚服务器上的玩家提供了拥有某些物体或方块的所有权的能力，", Color.LightGray);
-                    args.Player.SendMessage("这样其他玩家就不能更改或使用它们。", Color.LightGray);
+                    args.Player.SendMessage("Protector 概述（第 1 页，共 2 页）", Color.Lime);
+                    args.Player.SendMessage("这个插件为运行在TShock的Terraria服务器上的玩家提供了可能性", Color.LightGray);
+                    args.Player.SendMessage("来拥有某些物体或方块的所有权，以便其他玩家不能 更改或使用它们。", Color.LightGray);
                     args.Player.SendMessage(string.Empty, Color.LightGray);
-                    args.Player.SendMessage("受保护的钱箱内容不能被其他玩家更改，受保护的", Color.LightGray);
+                    args.Player.SendMessage("受保护的箱子中的内容不能被其他玩家更改", Color.LightGray);
                     break;
                 case 2:
-                    args.Player.SendMessage("开关不能被其他玩家击中，告示牌不能被编辑，床不能被使用，门不能被使用，甚至在受保护的黏土罐中的植物也不能被", Color.LightGray);
-                    args.Player.SendMessage("收获，除非拥有黏土罐。", Color.LightGray);
+                    args.Player.SendMessage("受保护的开关不会被其他玩家触发，告示牌不能被编辑，床不能被被使用，\n未使用的门甚至受保护的陶罐中的植物都不能被挖", Color.LightGray);
+                    args.Player.SendMessage("除非拥有这个陶罐，否则无法收获其中的植物。", Color.LightGray);
                     args.Player.SendMessage(string.Empty, Color.LightGray);
-                    args.Player.SendMessage("更多信息和支持，请访问TShock论坛上的保护者帖子。", Color.LightGray);
+                    args.Player.SendMessage("如需更多信息和支持，请访问TShock论坛上的Protector版块。", Color.LightGray);
                     break;
             }
 
@@ -814,8 +814,8 @@ namespace Terraria.Plugins.CoderCow.Protector
                 }
                 else
                 {
-                    args.Player.SendErrorMessage("正确的语法: /protect [-p]");
-                    args.Player.SendInfoMessage("输入 /protect help 以获取更多关于此命令的帮助。");
+                    args.Player.SendErrorMessage("正确的语法：/protect [-p]");
+                    args.Player.SendInfoMessage("输入/protect help以获取此命令的更多帮助。");
                     return;
                 }
             }
@@ -829,7 +829,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                   editType != TileEditType.PlaceWall ||
                   editType != TileEditType.DestroyWall ||
                   editType != TileEditType.PlaceActuator
-                        )
+        )
                 {
                     this.TryCreateProtection(playerLocal, location);
 
@@ -838,7 +838,8 @@ namespace Terraria.Plugins.CoderCow.Protector
                 }
                 else if (editType == TileEditType.DestroyWall)
                 {
-                    playerLocal.SendErrorMessage("墙壁无法被保护。");
+                    playerLocal.SendErrorMessage("墙壁不能被保护。");
+
                     playerLocal.SendTileSquareCentered(location);
                     return new CommandInteractionResult { IsHandled = true, IsInteractionCompleted = true };
                 }
@@ -862,10 +863,10 @@ namespace Terraria.Plugins.CoderCow.Protector
             };
             interaction.TimeExpiredCallback += (playerLocal) =>
             {
-                playerLocal.SendErrorMessage("等待时间过长。下一次击中或使用的物体或方块将不会被保护。");
+                playerLocal.SendErrorMessage("等待时间过长。下一个被击中的物体或方块将不会被保护。");
             };
 
-            args.Player.SendInfoMessage("击中或使用一个物体或方块以保护它。");
+            args.Player.SendInfoMessage("击中或使用一个物体或方块以对其进行保护。");
         }
 
         private bool ProtectCommand_HelpCallback(CommandArgs args)
@@ -881,13 +882,14 @@ namespace Terraria.Plugins.CoderCow.Protector
             {
                 default:
                     args.Player.SendMessage("/protect 命令参考（第 1 页，共 1 页）", Color.Lime);
-                    args.Player.SendMessage("/protect|pt [-p]", Color.White);
-                    args.Player.SendMessage("保护选定的物体或方块。", Color.LightGray);
+                    args.Player.SendMessage("/protect 或 pt [-p]", Color.White);
+                    args.Player.SendMessage("保护选中的物体或方块。", Color.LightGray);
                     args.Player.SendMessage(string.Empty, Color.LightGray);
-                    args.Player.SendMessage("-p = 激活持久模式。该命令将持续有效，直到超时或输入了其他保护命令为止。", Color.LightGray);
-                    args.Player.SendMessage("    （如果持久模式被激活，则无需再次输入 /protect 命令来保持保护状态）", Color.LightGray);
+                    args.Player.SendMessage("-p = 激活持久模式。该命令将保持持久状态，直到其超时", Color.LightGray);
+                    args.Player.SendMessage("或者输入了任何其他Protector命令。", Color.LightGray);
                     break;
             }
+
             return true;
         }
         #endregion
@@ -907,8 +909,8 @@ namespace Terraria.Plugins.CoderCow.Protector
                 }
                 else
                 {
-                    args.Player.SendErrorMessage("正确的语法: /deprotect [-p]");
-                    args.Player.SendInfoMessage("输入 /deprotect help 以获取更多关于此命令的帮助。");
+                    args.Player.SendErrorMessage("正确的语法：/deprotect [-p]");
+                    args.Player.SendInfoMessage("正确的语法是：/deprotect [-p]");
                     return;
                 }
             }
@@ -922,7 +924,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                   editType != TileEditType.PlaceWall ||
                   editType != TileEditType.DestroyWall ||
                   editType != TileEditType.PlaceActuator
-                        )
+        )
                 {
                     this.TryRemoveProtection(playerLocal, location);
 
@@ -950,10 +952,10 @@ namespace Terraria.Plugins.CoderCow.Protector
             };
             interaction.TimeExpiredCallback += (playerLocal) =>
             {
-                playerLocal.SendMessage("等待时间过长。下一次击中或使用的物体或方块将不会被解除保护。", Color.Red);
+                playerLocal.SendMessage("等待时间过长。下一个击中的物体或方块将不会被取消保护了。", Color.Red);
             };
 
-            args.Player.SendInfoMessage("击中或使用一个受保护的物体或方块以解除保护。");
+            args.Player.SendInfoMessage("击中或使用受保护的物体或方块以取消其保护状态。");
         }
 
         private bool DeprotectCommand_HelpCallback(CommandArgs args)
@@ -968,15 +970,16 @@ namespace Terraria.Plugins.CoderCow.Protector
             switch (pageNumber)
             {
                 default:
-                    args.Player.SendMessage("命令 /deprotect 的参考信息（第 1 页，共 2 页）", Color.Lime);
-                    args.Player.SendMessage("/deprotect|dp [-p]", Color.White);
-                    args.Player.SendMessage("解除选定物体或方块的保护。", Color.LightGray);
+                    args.Player.SendMessage("/deprotect 命令参考（第 1 页，共 2 页）", Color.Lime);
+                    args.Player.SendMessage("/deprotect 或 dp [-p]", Color.White);
+                    args.Player.SendMessage("取消选中物体或方块的保护状态。", Color.LightGray);
                     args.Player.SendMessage(string.Empty, Color.LightGray);
-                    args.Player.SendMessage("-p = 激活持久模式。该命令将持续有效，直到超时或输入了其他保护命令为止。", Color.LightGray);
+                    args.Player.SendMessage("-p = 激活持久模式。该命令将保持持久状态，直到其超时", Color.LightGray);
+                    args.Player.SendMessage("或者输入了任何其他Protector命令", Color.LightGray);
                     break;
                 case 2:
-                    args.Player.SendMessage("只有所有者或管理员可以移除保护。如果选定的物体是银行钱箱，这个银行钱箱实例将从世界中移除，", Color.LightGray);
-                    args.Player.SendMessage("以便它可以再次实例化。", Color.LightGray);
+                    args.Player.SendMessage("只有拥有者或管理员才能移除保护。如果选中的物体", Color.LightGray);
+                    args.Player.SendMessage("是一个保险箱子，那么这个保险箱子的实例将会从世界中移除，以便它可能会被重新实例化。", Color.LightGray);
                     break;
             }
 
@@ -999,8 +1002,8 @@ namespace Terraria.Plugins.CoderCow.Protector
                 }
                 else
                 {
-                    args.Player.SendErrorMessage("正确的语法: /protectioninfo [-p]");
-                    args.Player.SendInfoMessage("输入 /protectioninfo help 以获取更多关于此命令的帮助。");
+                    args.Player.SendErrorMessage("正确的语法：/protectioninfo [-p]");
+                    args.Player.SendInfoMessage("输入/protectioninfo help以获取此命令的更多帮助。");
                     return;
                 }
             }
@@ -1014,7 +1017,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                   editType != TileEditType.PlaceWall ||
                   editType != TileEditType.DestroyWall ||
                   editType != TileEditType.PlaceActuator
-                        )
+        )
                 {
                     this.TryGetProtectionInfo(playerLocal, location);
 
@@ -1042,10 +1045,10 @@ namespace Terraria.Plugins.CoderCow.Protector
             };
             interaction.TimeExpiredCallback += (playerLocal) =>
             {
-                playerLocal.SendMessage("等待时间过长。下一次击中或使用的物体或方块的保护信息将不会显示。", Color.Red);
+                playerLocal.SendMessage("等待时间过长。下一个被击中的物体或方块将不会显示保护信息。", Color.Red);
             };
 
-            args.Player.SendInfoMessage("击中或使用一个受保护的物体或方块以获取其相关信息。", Color.White);
+            args.Player.SendInfoMessage("击中或使用受保护的物体或方块以获取其相关信息。");
         }
 
         private bool ProtectionInfoCommand_HelpCallback(CommandArgs args)
@@ -1060,13 +1063,15 @@ namespace Terraria.Plugins.CoderCow.Protector
             switch (pageNumber)
             {
                 default:
-                    args.Player.SendMessage("命令 /protectioninfo 的参考信息（第 1 页，共 1 页）", Color.Lime);
-                    args.Player.SendMessage("/protectioninfo|ptinfo|pi [-p]", Color.White);
+                    args.Player.SendMessage("/protectioninfo 命令参考（第 1 页，共 1 页）", Color.Lime);
+                    args.Player.SendMessage("/protectioninfo 或 ptinfo 或 pi [-p]", Color.White);
                     args.Player.SendMessage("显示有关选定保护的一些信息。", Color.LightGray);
                     args.Player.SendMessage(string.Empty, Color.LightGray);
-                    args.Player.SendMessage("-p = 激活持久模式。该命令将持续有效，直到超时或输入了其他保护命令为止。", Color.LightGray);
+                    args.Player.SendMessage("-p = 激活持续有效模式。该命令将持续有效，直到其超时", Color.LightGray);
+                    args.Player.SendMessage("或者输入了任何其他Protector命令", Color.LightGray);
                     break;
             }
+
             return true;
         }
         #endregion
@@ -1079,8 +1084,8 @@ namespace Terraria.Plugins.CoderCow.Protector
 
             if (args.Parameters.Count < 1)
             {
-                args.Player.SendErrorMessage("正确的语法: /share <玩家名称> [-p]");
-                args.Player.SendInfoMessage("输入 /share help 以获取更多关于此命令的帮助。");
+                args.Player.SendErrorMessage("正确语法: /share 玩家名字 [-p]");
+                args.Player.SendInfoMessage("输入/share help以获取此命令的更多帮助。");
                 return;
             }
 
@@ -1116,14 +1121,16 @@ namespace Terraria.Plugins.CoderCow.Protector
             switch (pageNumber)
             {
                 default:
-                    args.Player.SendMessage("命令 /share 的参考信息（第 1 页，共 2 页）", Color.Lime);
-                    args.Player.SendMessage("/share <玩家名称> [-p]", Color.White);
-                    args.Player.SendMessage("向选定的保护添加一个玩家共享。", Color.LightGray);
+                    args.Player.SendMessage("/share 命令参考（第 1 页，共 2 页）", Color.Lime);
+                    args.Player.SendMessage("/share 玩家名字 [-p]", Color.White);
+                    args.Player.SendMessage("为选定的保护添加一个玩家共享。", Color.LightGray);
                     args.Player.SendMessage(string.Empty, Color.LightGray);
-                    args.Player.SendMessage("玩家名称 = 要添加的玩家的名称。可以是确切的用户名或当前在线的玩家名称的一部分。", Color.LightGray);
+                    args.Player.SendMessage("玩家名称 = 要添加的玩家的名称。可以是精确的用户名或用户名的一部分。", Color.LightGray);
+                    args.Player.SendMessage("当前在线的玩家的名称或其名称的一部分.", Color.LightGray);
                     break;
                 case 2:
-                    args.Player.SendMessage("-p = 激活持久模式。该命令将持续有效，直到超时或输入了其他保护命令为止。", Color.LightGray);
+                    args.Player.SendMessage("-p = 激活持续有效模式。该命令将持续有效，直到其超时", Color.LightGray);
+                    args.Player.SendMessage("或者输入了任何其他Protector命令", Color.LightGray);
                     break;
             }
 
@@ -1139,8 +1146,8 @@ namespace Terraria.Plugins.CoderCow.Protector
 
             if (args.Parameters.Count < 1)
             {
-                args.Player.SendErrorMessage("正确的语法: /unshare <玩家名称>");
-                args.Player.SendErrorMessage("输入 /unshare help 以获取更多关于此命令的帮助。");
+                args.Player.SendErrorMessage("Proper syntax: /unshare <player name>");
+                args.Player.SendErrorMessage("Type /unshare help to get more help to this command.");
                 return;
             }
 
@@ -1176,14 +1183,16 @@ namespace Terraria.Plugins.CoderCow.Protector
             switch (pageNumber)
             {
                 default:
-                    args.Player.SendMessage("命令 /unshare 的参考信息（第 1 页，共 2 页）", Color.Lime);
-                    args.Player.SendMessage("/unshare <玩家名称>", Color.White);
-                    args.Player.SendMessage("从选定的保护中移除一个玩家共享。", Color.LightGray);
+                    args.Player.SendMessage("Command reference for /unshare (Page 1 of 2)", Color.Lime);
+                    args.Player.SendMessage("/unshare <player name>", Color.White);
+                    args.Player.SendMessage("Removes a player share from the selected protection.", Color.LightGray);
                     args.Player.SendMessage(string.Empty, Color.LightGray);
-                    args.Player.SendMessage("-p = 激活持久模式。该命令将持续有效，直到超时或输入了其他保护命令为止。", Color.LightGray);
+                    args.Player.SendMessage("-p = Activates persistent mode. The command will stay persistent until it times", Color.LightGray);
+                    args.Player.SendMessage("     out or any other Protector command is entered.", Color.LightGray);
                     break;
                 case 2:
-                    args.Player.SendMessage("玩家名称 = 要添加的玩家的名称。可以是确切的用户名或当前在线的玩家名称的一部分。", Color.LightGray);
+                    args.Player.SendMessage("player name = The name of the player to be added. Can either be an exact user", Color.LightGray);
+                    args.Player.SendMessage("name or part of the name of a player being currently online.", Color.LightGray);
                     break;
             }
 
@@ -1206,8 +1215,8 @@ namespace Terraria.Plugins.CoderCow.Protector
                 }
                 else
                 {
-                    args.Player.SendErrorMessage("正确的语法: /sharepublic [-p]");
-                    args.Player.SendInfoMessage("输入 /sharepublic help 以获取更多关于此命令的帮助。");
+                    args.Player.SendErrorMessage("Proper syntax: /sharepublic [-p]");
+                    args.Player.SendInfoMessage("Type /sharepublic help to get more help to this command.");
                     return;
                 }
             }
@@ -1227,13 +1236,15 @@ namespace Terraria.Plugins.CoderCow.Protector
             switch (pageNumber)
             {
                 default:
-                    args.Player.SendMessage("命令 /sharepublic 的参考信息（第 1 页，共 1 页）", Color.Lime);
+                    args.Player.SendMessage("Command reference for /sharepublic (Page 1 of 1)", Color.Lime);
                     args.Player.SendMessage("/sharepublic [-p]", Color.White);
-                    args.Player.SendMessage("允许所有人使用选定的物体。", Color.LightGray);
+                    args.Player.SendMessage("Allows everyone to use the selected object.", Color.LightGray);
                     args.Player.SendMessage(string.Empty, Color.LightGray);
-                    args.Player.SendMessage("-p = 激活持久模式。该命令将持续有效，直到超时或输入了其他保护命令为止。", Color.LightGray);
+                    args.Player.SendMessage("-p = Activates persistent mode. The command will stay persistent until it times", Color.LightGray);
+                    args.Player.SendMessage("     out or any other protector command is entered.", Color.LightGray);
                     break;
             }
+
             return true;
         }
         #endregion
@@ -1253,8 +1264,8 @@ namespace Terraria.Plugins.CoderCow.Protector
                 }
                 else
                 {
-                    args.Player.SendErrorMessage("正确的语法: /unsharepublic [-p]");
-                    args.Player.SendInfoMessage("输入 /unsharepublic help 以获取更多关于此命令的帮助。");
+                    args.Player.SendErrorMessage("Proper syntax: /unsharepublic [-p]");
+                    args.Player.SendInfoMessage("Type /unsharepublic help to get more help to this command.");
                     return;
                 }
             }
@@ -1274,13 +1285,15 @@ namespace Terraria.Plugins.CoderCow.Protector
             switch (pageNumber)
             {
                 default:
-                    args.Player.SendMessage("命令 /unsharepublic 的参考信息（第 1 页，共 1 页）", Color.Lime);
+                    args.Player.SendMessage("Command reference for /unsharepublic (Page 1 of 1)", Color.Lime);
                     args.Player.SendMessage("/unsharepublic [-p]", Color.White);
-                    args.Player.SendMessage("撤销所有人使用选定物体的权限。", Color.LightGray);
+                    args.Player.SendMessage("Revokes the permission for everyone to use the selected object.", Color.LightGray);
                     args.Player.SendMessage(string.Empty, Color.LightGray);
-                    args.Player.SendMessage("-p = 激活持久模式。该命令将持续有效，直到超时或输入了其他保护命令为止。", Color.LightGray);
+                    args.Player.SendMessage("-p = Activates persistent mode. The command will stay persistent until it times", Color.LightGray);
+                    args.Player.SendMessage("     out or any other protector command is entered.", Color.LightGray);
                     break;
             }
+
             return true;
         }
         #endregion
@@ -1293,8 +1306,8 @@ namespace Terraria.Plugins.CoderCow.Protector
 
             if (args.Parameters.Count < 1)
             {
-                args.Player.SendErrorMessage("正确的语法: /sharegroup <组名称>");
-                args.Player.SendErrorMessage("输入 /sharegroup help 以获取更多关于此命令的帮助。");
+                args.Player.SendErrorMessage("Proper syntax: /sharegroup <group name>");
+                args.Player.SendErrorMessage("Type /sharegroup help to get more help to this command.");
                 return;
             }
 
@@ -1313,7 +1326,8 @@ namespace Terraria.Plugins.CoderCow.Protector
 
             if (TShock.Groups.GetGroupByName(groupName) == null)
             {
-                args.Player.SendErrorMessage($"组 \"{groupName}\" 不存在。");
+                args.Player.SendErrorMessage($"The group \"{groupName}\" does not exist.");
+
                 return;
             }
 
@@ -1332,17 +1346,18 @@ namespace Terraria.Plugins.CoderCow.Protector
             switch (pageNumber)
             {
                 default:
-                    args.Player.SendMessage("命令 /sharegroup 的参考信息（第 1 页，共 2 页）", Color.Lime);
-                    args.Player.SendMessage("/sharegroup <组名称> [-p]", Color.White);
-                    args.Player.SendMessage("向选定的保护添加一个组共享。", Color.LightGray);
+                    args.Player.SendMessage("Command reference for /sharegroup (Page 1 of 2)", Color.Lime);
+                    args.Player.SendMessage("/sharegroup <group name> [-p]", Color.White);
+                    args.Player.SendMessage("Adds a group share to the selected protection.", Color.LightGray);
                     args.Player.SendMessage(string.Empty, Color.LightGray);
-                    args.Player.SendMessage("组名称 = 要添加的TShock组的名称。", Color.LightGray);
-                    args.Player.SendMessage("-p = 激活持久模式。该命令将持续有效，直到超时或输入了其他保护命令为止。", Color.LightGray);
+                    args.Player.SendMessage("group name = The name of the TShock group to be added.", Color.LightGray);
+                    args.Player.SendMessage("-p = Activates persistent mode. The command will stay persistent until it times", Color.LightGray);
                     break;
                 case 2:
                     args.Player.SendMessage("     out or any other Protector command is entered.", Color.LightGray);
                     break;
             }
+
             return true;
         }
         #endregion
@@ -1355,8 +1370,8 @@ namespace Terraria.Plugins.CoderCow.Protector
 
             if (args.Parameters.Count < 1)
             {
-                args.Player.SendErrorMessage("正确的语法: /unsharegroup <组名称>");
-                args.Player.SendErrorMessage("输入 /unsharegroup help 以获取更多关于此命令的帮助。");
+                args.Player.SendErrorMessage("Proper syntax: /unsharegroup <groupname>");
+                args.Player.SendErrorMessage("Type /unsharegroup help to get more help to this command.");
                 return;
             }
 
@@ -1408,7 +1423,7 @@ namespace Terraria.Plugins.CoderCow.Protector
         private void StartShareCommandInteraction(
           TSPlayer player, bool isPersistent, bool isShareOrUnshare, bool isGroup, bool isShareAll,
           object shareTarget = null, string shareTargetName = null
-            )
+    )
         {
             CommandInteraction interaction = this.StartOrResetCommandInteraction(player);
             interaction.DoesNeverComplete = isPersistent;
@@ -1419,7 +1434,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                   editType != TileEditType.PlaceWall ||
                   editType != TileEditType.DestroyWall ||
                   editType != TileEditType.PlaceActuator
-                        )
+        )
                 {
                     this.TryAlterProtectionShare(playerLocal, location, isShareOrUnshare, isGroup, isShareAll, shareTarget, shareTargetName);
 
@@ -1491,7 +1506,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                   editType != TileEditType.PlaceWall ||
                   editType != TileEditType.DestroyWall ||
                   editType != TileEditType.PlaceActuator
-                        )
+        )
                 {
                     this.TryLockChest(playerLocal, location);
 
@@ -1575,7 +1590,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                   editType != TileEditType.PlaceWall ||
                   editType != TileEditType.DestroyWall ||
                   editType != TileEditType.PlaceActuator
-                        )
+        )
                 {
                     IChest newChest;
                     this.TrySwapChestData(playerLocal, location, out newChest);
@@ -1688,7 +1703,7 @@ namespace Terraria.Plugins.CoderCow.Protector
             {
                 if (!TimeSpanEx.TryParseShort(
                   args.ParamsToSingleString(0, args.Parameters.Count - timeParameters), out refillTime
-                        ))
+        ))
                 {
                     invalidSyntax = true;
                 }
@@ -1710,7 +1725,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                   editType != TileEditType.PlaceWall ||
                   editType != TileEditType.DestroyWall ||
                   editType != TileEditType.PlaceActuator
-                        )
+        )
                 {
                     this.TrySetUpRefillChest(playerLocal, location, refillTime, oneLootPerPlayer, lootLimit, autoLock, autoEmpty);
 
@@ -1855,7 +1870,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                 {
                     if (!TimeSpanEx.TryParseShort(
                       args.ParamsToSingleString(1, args.Parameters.Count - timeParameters - 1), out refillTime
-                              ))
+          ))
                     {
                         invalidSyntax = true;
                     }
@@ -2009,7 +2024,7 @@ namespace Terraria.Plugins.CoderCow.Protector
             bool hasNoBankChestLimits = args.Player.Group.HasPermission(ProtectorPlugin.NoBankChestLimits_Permission);
             if (
               chestIndex < 1 || (chestIndex > this.Config.MaxBankChestsPerPlayer && !hasNoBankChestLimits)
-                  )
+      )
             {
                 string messageFormat;
                 if (!hasNoBankChestLimits)
@@ -2029,7 +2044,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                   editType != TileEditType.PlaceWall ||
                   editType != TileEditType.DestroyWall ||
                   editType != TileEditType.PlaceActuator
-                        )
+        )
                 {
                     this.TrySetUpBankChest(playerLocal, location, chestIndex);
 
@@ -2153,7 +2168,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                   editType != TileEditType.PlaceWall ||
                   editType != TileEditType.DestroyWall ||
                   editType != TileEditType.PlaceActuator
-                        )
+        )
                 {
                     dumpBankChest(playerLocal, location);
                     playerLocal.SendTileSquareCentered(location);
@@ -2292,7 +2307,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                   editType != TileEditType.PlaceWall ||
                   editType != TileEditType.DestroyWall ||
                   editType != TileEditType.PlaceActuator
-                        )
+        )
                 {
                     this.TrySetUpTradeChest(playerLocal, location, sellAmount, sellItem.netID, payAmount, payItemIdOrGroup, lootLimit);
 
@@ -2591,7 +2606,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                                 this.Config.AutoDeprotectEverythingOnDestruction &&
                                 player.Group.HasPermission(ProtectorPlugin.ProtectionMaster_Permission)
                               )
-                                            )
+            )
                             {
                                 if (isChest)
                                 {
@@ -2916,7 +2931,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                 return true;
             if (this.Config.LoginRequiredForChestUsage && !player.IsLoggedIn)
             {
-                player.SendErrorMessage("You have to be logged in to make use of chests.");
+                player.SendErrorMessage("您必须登录才能使用宝箱。");
                 return true;
             }
 
@@ -2925,7 +2940,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                 ChestKind kind = TerrariaUtils.Tiles.GuessChestKind(location);
                 if (kind == ChestKind.DungeonChest || kind == ChestKind.HardmodeDungeonChest)
                 {
-                    player.SendErrorMessage("Skeletron has not been defeated yet.");
+                    player.SendErrorMessage("骷髅王尚未被击败。");
                     return true;
                 }
             }
@@ -2958,7 +2973,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                     if (isTradeChest)
                         this.InitTrade(player, chest, protection);
                     else
-                        player.SendErrorMessage("This chest is protected.");
+                        player.SendErrorMessage("这个宝箱受到保护。");
 
                     return true;
                 }
@@ -2970,8 +2985,8 @@ namespace Terraria.Plugins.CoderCow.Protector
                     sellItem.stack = protection.TradeChestData.ItemToSellAmount;
 
                     string paymentDescription = this.PaymentItemDescription(protection.TradeChestData);
-                    player.SendMessage($"This is a trade chest selling {TShock.Utils.ItemTag(sellItem)} for {paymentDescription}", Color.OrangeRed);
-                    player.SendMessage("You have access to it, so you can modify it any time.", Color.LightGray);
+                    player.SendMessage($"这是一个交易宝箱，正在出售 {TShock.Utils.ItemTag(sellItem)} 以换取 {paymentDescription}", Color.OrangeRed);
+                    player.SendMessage("您有访问权限，所以您可以随时修改它。", Color.LightGray);
                 }
 
                 if (protection.RefillChestData != null)
@@ -2980,7 +2995,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                     if (this.CheckRefillChestLootability(refillChest, player))
                     {
                         if (refillChest.OneLootPerPlayer)
-                            player.SendMessage("You can loot this chest only once.", Color.OrangeRed);
+                            player.SendMessage("您只能掠夺这个宝箱一次。", Color.OrangeRed);
                     }
                     else
                     {
@@ -2994,17 +3009,17 @@ namespace Terraria.Plugins.CoderCow.Protector
                             if (this.ChestManager.RefillTimers.IsTimerRunning(refillChest.RefillTimer))
                             {
                                 TimeSpan timeLeft = (refillChest.RefillStartTime + refillChest.RefillTime) - DateTime.Now;
-                                player.SendMessage($"This chest will refill in {timeLeft.ToLongString()}.", Color.OrangeRed);
+                                player.SendMessage($"这个宝箱将在 {timeLeft.ToLongString()} 内补充。", Color.OrangeRed);
                             }
                             else
                             {
-                                player.SendMessage("This chest will refill its content.", Color.OrangeRed);
+                                player.SendMessage("这个宝箱将补充其内容。", Color.OrangeRed);
                             }
                         }
                     }
                     else
                     {
-                        player.SendMessage("This chest will refill its content.", Color.OrangeRed);
+                        player.SendMessage("这个宝箱将补充其内容。", Color.OrangeRed);
                     }
                 }
             }
@@ -3116,17 +3131,17 @@ namespace Terraria.Plugins.CoderCow.Protector
 
             string paymentDescription = this.PaymentItemDescription(tradeChestData);
 
-            player.SendMessage($"This is a trade chest owned by {TShock.Utils.ColorTag(GetUserName(protection.Owner), Color.Red)}.", Color.LightGray);
+            player.SendMessage($"这是一个由 {TShock.Utils.ColorTag(GetUserName(protection.Owner), Color.Red)} 拥有的交易宝箱。", Color.LightGray);
 
             Inventory chestInventory = new Inventory(chest.Items, specificPrefixes: false);
             int stock = chestInventory.Amount(sellItem.netID);
             if (stock < sellItem.stack)
             {
-                player.SendMessage($"It was selling {TShock.Utils.ItemTag(sellItem)} for {paymentDescription} but it is out of stock.", Color.LightGray);
+                player.SendMessage($"它原本正在出售 {TShock.Utils.ItemTag(sellItem)} 以换取 {paymentDescription}，但现在已缺货。", Color.LightGray);
                 return;
             }
 
-            player.SendMessage($"Click again to buy {TShock.Utils.ItemTag(sellItem)} for {paymentDescription}", Color.LightGray);
+            player.SendMessage($"再次点击购买 {TShock.Utils.ItemTag(sellItem)} 以换取 {paymentDescription}", Color.LightGray);
 
             CommandInteraction interaction = this.StartOrResetCommandInteraction(player);
             interaction.ChestOpenCallback += (playerLocal, chestLocation) =>
@@ -3137,7 +3152,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                 if (wasThisChestHit)
                 {
                     Item payItem = new Item();
-                    // this is important to check, otherwise players could use trade chests to easily duplicate items
+                    // 这非常重要，否则玩家可以使用交易宝箱轻松复制物品
                     if (!this.IsChestInUse(playerLocal, chest))
                     {
                         if (tradeChestData.ItemToPayGroup == null)
@@ -3167,12 +3182,12 @@ namespace Terraria.Plugins.CoderCow.Protector
                             }
 
                             if (!performedTrade)
-                                playerLocal.SendErrorMessage($"You don't have enought of any of the {paymentDescription}");
+                                playerLocal.SendErrorMessage($"您没有足够的任何一种 {paymentDescription}");
                         }
                     }
                     else
                     {
-                        player.SendErrorMessage("Another player is currently viewing the content of this chest.");
+                        player.SendErrorMessage("另一个玩家目前正在查看这个宝箱的内容。");
                     }
                 }
                 else
@@ -3200,7 +3215,7 @@ namespace Terraria.Plugins.CoderCow.Protector
             }
             catch (InvalidOperationException)
             {
-                player.SendErrorMessage($"You either don't have the needed {TShock.Utils.ItemTag(payItem)} to trade {TShock.Utils.ItemTag(sellItem)} or your inventory is full.");
+                player.SendErrorMessage($"您要么没有足够的 {TShock.Utils.ItemTag(payItem)} 来交易 {TShock.Utils.ItemTag(sellItem)}，要么您的背包已满。");
                 return;
             }
 
@@ -3216,7 +3231,7 @@ namespace Terraria.Plugins.CoderCow.Protector
             }
             catch (InvalidOperationException)
             {
-                player.SendErrorMessage("The items in the trade chest are either sold out or there's no space in it to add your payment.");
+                player.SendErrorMessage("交易宝箱中的物品已经售罄，或者没有空间放入您的付款物品。");
                 return;
             }
 
@@ -3226,7 +3241,7 @@ namespace Terraria.Plugins.CoderCow.Protector
             }
             catch (InvalidOperationException)
             {
-                player.SendErrorMessage($"The vendor doesn't allow more than {protection.TradeChestData.LootLimitPerPlayer} trades per player.");
+                player.SendErrorMessage($"商人不允许每个玩家进行超过 {protection.TradeChestData.LootLimitPerPlayer} 笔交易。");
                 return;
             }
 
@@ -3235,7 +3250,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                 chestInventory.ApplyUpdates(chestInvUpdates);
 
             protection.TradeChestData.AddJournalEntry(player.Name, sellItem, payItem);
-            player.SendSuccessMessage($"You've just traded {TShock.Utils.ItemTag(sellItem)} for {TShock.Utils.ItemTag(payItem)} from {TShock.Utils.ColorTag(GetUserName(protection.Owner), Color.Red)}.");
+            player.SendSuccessMessage($"您刚刚用 {TShock.Utils.ItemTag(sellItem)} 换取了 {TShock.Utils.ItemTag(payItem)}，交易对象是 {TShock.Utils.ColorTag(GetUserName(protection.Owner), Color.Red)}。");
         }
 
         public virtual bool HandleChestModifySlot(TSPlayer player, int chestIndex, int slotIndex, ItemData newItem)
@@ -3270,7 +3285,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                 if (
                   this.Config.AllowRefillChestContentChanges &&
                   (refillChest.Owner == player.Account.ID || player.Group.HasPermission(ProtectorPlugin.ProtectionMaster_Permission))
-                        )
+        )
                 {
                     refillChest.RefillItems[slotIndex] = newItem;
 
@@ -3278,7 +3293,7 @@ namespace Terraria.Plugins.CoderCow.Protector
 
                     if (refillChest.RefillTime == TimeSpan.Zero)
                     {
-                        player.SendSuccessMessage("The content of this refill chest was updated.");
+                        player.SendSuccessMessage("这个补充宝箱的内容已更新。");
                     }
                     else
                     {
@@ -3287,8 +3302,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                             if (this.ChestManager.RefillTimers.IsTimerRunning(refillChest.RefillTimer))
                                 this.ChestManager.RefillTimers.RemoveTimer(refillChest.RefillTimer);
                         }
-
-                        player.SendSuccessMessage("The content of this refill chest was updated and the timer was reset.");
+                        player.SendSuccessMessage("这个补充宝箱的内容已更新，定时器已重置。");
                     }
 
                     return false;
@@ -3316,7 +3330,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                 }
                 else
                 {
-                    player.SendErrorMessage("You can not put items into this chest.");
+                    player.SendErrorMessage("您不能将物品放入这个宝箱。");
                     return true;
                 }
             }
@@ -3348,7 +3362,7 @@ namespace Terraria.Plugins.CoderCow.Protector
             bool undoUnlock = false;
             if (!this.ProtectionManager.CheckProtectionAccess(protection, player, false))
             {
-                player.SendErrorMessage("This chest is protected, you can't unlock it.");
+                player.SendErrorMessage("这个宝箱受到保护，您不能解锁它。");
                 undoUnlock = true;
             }
             if (protection.RefillChestData != null && !this.CheckRefillChestLootability(protection.RefillChestData, player))
@@ -3432,7 +3446,7 @@ namespace Terraria.Plugins.CoderCow.Protector
             if (isInvalidBedSpawn)
             {
                 player.Teleport(Main.spawnTileX * TerrariaUtils.TileSize, (Main.spawnTileY - 3) * TerrariaUtils.TileSize);
-                this.PluginTrace.WriteLineWarning($"Player \"{player.Name}\" tried to spawn on an invalid location.");
+                this.PluginTrace.WriteLineWarning($"玩家 \"{player.Name}\" 试图在无效位置生成。");
 
                 allowNewSpawnSet = false;
             }
@@ -3440,8 +3454,8 @@ namespace Terraria.Plugins.CoderCow.Protector
             {
                 if (this.CheckProtected(player, bedTileLocation, false))
                 {
-                    player.SendErrorMessage("The bed you have set spawn at is protected, you can not spawn there.");
-                    player.SendErrorMessage("You were transported to your last valid spawn location instead.");
+                    player.SendErrorMessage("您设置的出生点床铺受到保护，您不能在那里出生。");
+                    player.SendErrorMessage("您被传送到了您的最后一个有效出生位置。");
 
                     if (player.TPlayer.SpawnX == -1 && player.TPlayer.SpawnY == -1)
                         player.Teleport(Main.spawnTileX * TerrariaUtils.TileSize, (Main.spawnTileY - 3) * TerrariaUtils.TileSize);
@@ -3644,28 +3658,28 @@ namespace Terraria.Plugins.CoderCow.Protector
             if (!player.IsLoggedIn)
             {
                 if (sendFailureMessages)
-                    player.SendErrorMessage("You're not logged in.");
+                    player.SendErrorMessage("您没有登录。");
 
                 return false;
             }
             if (player.HasPermission(ProtectorPlugin.RestrictProtections_Permission)
-               && (!player.HasBuildPermission(tileLocation.X, tileLocation.Y, false)
-               || TShock.Regions.InAreaRegion(tileLocation.X, tileLocation.Y).Count() == 0))
+                && (!player.HasBuildPermission(tileLocation.X, tileLocation.Y, false)
+                || TShock.Regions.InAreaRegion(tileLocation.X, tileLocation.Y).Count() == 0))
             {
-                player.SendErrorMessage("You cannot place protections here.");
+                player.SendErrorMessage("您不能在这里放置保护。");
                 return false;
             }
             try
             {
                 this.ProtectionManager.CreateProtection(player, tileLocation);
-                player.SendSuccessMessage("This object is now protected.");
+                player.SendSuccessMessage("这个物体现在受到保护。");
 
                 return true;
             }
             catch (ArgumentException ex)
             {
                 if (ex.ParamName == "tileLocation" && sendFailureMessages)
-                    player.SendErrorMessage("Nothing to protect here.");
+                    player.SendErrorMessage("这里没有可保护的物体。");
 
                 throw;
             }
@@ -3675,9 +3689,9 @@ namespace Terraria.Plugins.CoderCow.Protector
                 {
                     string message;
                     if (TerrariaUtils.Tiles.IsSolidBlockType(ex.BlockType, true))
-                        message = "Blocks of this type can not be protected.";
+                        message = "这类型的方块不能受到保护。";
                     else
-                        message = "Objects of this type can not be protected.";
+                        message = "这类型的物体不能受到保护。";
 
                     player.SendErrorMessage(message);
                 }
@@ -3687,24 +3701,23 @@ namespace Terraria.Plugins.CoderCow.Protector
                 if (sendFailureMessages)
                 {
                     player.SendErrorMessage(
-                      $"Protection capacity reached: {this.Config.MaxProtectionsPerPlayerPerWorld}.");
+                        $"保护容量已达到：{this.Config.MaxProtectionsPerPlayerPerWorld}。");
                 }
             }
             catch (AlreadyProtectedException)
             {
                 if (sendFailureMessages)
-                    player.SendErrorMessage("This object is already protected.");
+                    player.SendErrorMessage("这个物体已经受到保护。");
             }
             catch (TileProtectedException)
             {
                 if (sendFailureMessages)
-                    player.SendErrorMessage("This object is protected by someone else or is inside of a protected region.");
+                    player.SendErrorMessage("这个物体被其他人保护了，或者位于一个受保护的区域中。");
             }
             catch (Exception ex)
             {
-                player.SendErrorMessage("An unexpected internal error occured.");
-                this.PluginTrace.WriteLineError("Error on creating protection: ", ex.ToString());
-
+                player.SendErrorMessage("发生了意外的内部错误。");
+                this.PluginTrace.WriteLineError("创建保护时出错：", ex.ToString());
             }
 
             return false;
@@ -3713,12 +3726,12 @@ namespace Terraria.Plugins.CoderCow.Protector
         private bool TryAlterProtectionShare(
           TSPlayer player, DPoint tileLocation, bool isShareOrUnshare, bool isGroup, bool isShareAll,
           object shareTarget, string shareTargetName, bool sendFailureMessages = true
-            )
+    )
         {
             if (!player.IsLoggedIn)
             {
                 if (sendFailureMessages)
-                    player.SendErrorMessage("You're not logged in.");
+                    player.SendErrorMessage("您没有登录。");
 
                 return false;
             }
@@ -3731,11 +3744,11 @@ namespace Terraria.Plugins.CoderCow.Protector
 
                     if (isShareOrUnshare)
                     {
-                        player.SendSuccessMessage($"This object is now shared with everyone.");
+                        player.SendSuccessMessage($"这个物体现在与所有人共享。");
                     }
                     else
                     {
-                        player.SendSuccessMessage($"This object is not shared with everyone anymore.");
+                        player.SendSuccessMessage($"这个物体不再与所有人共享。");
                     }
                 }
                 else if (!isGroup)
@@ -3744,11 +3757,11 @@ namespace Terraria.Plugins.CoderCow.Protector
 
                     if (isShareOrUnshare)
                     {
-                        player.SendSuccessMessage($"This object is now shared with player \"{shareTargetName}\".");
+                        player.SendSuccessMessage($"这个物体现在与玩家 \"{shareTargetName}\" 共享。");
                     }
                     else
                     {
-                        player.SendSuccessMessage($"This object is not shared with player \"{shareTargetName}\" anymore.");
+                        player.SendSuccessMessage($"这个物体不再与玩家 \"{shareTargetName}\" 共享。");
                     }
                 }
                 else
@@ -3757,11 +3770,11 @@ namespace Terraria.Plugins.CoderCow.Protector
 
                     if (isShareOrUnshare)
                     {
-                        player.SendSuccessMessage($"This object is now shared with group \"{shareTargetName}\".");
+                        player.SendSuccessMessage($"这个物体现在与组 \"{shareTargetName}\" 共享。");
                     }
                     else
                     {
-                        player.SendSuccessMessage($"This object is not shared with group \"{shareTargetName}\" anymore.");
+                        player.SendSuccessMessage($"这个物体不再与组 \"{shareTargetName}\" 共享。");
                     }
                 }
 
@@ -3771,15 +3784,15 @@ namespace Terraria.Plugins.CoderCow.Protector
             {
                 if (isShareAll)
                 {
-                    player.SendErrorMessage($"This object is already shared with everyone.");
+                    player.SendErrorMessage($"这个物体已经与所有人共享。");
                 }
                 else if (!isGroup)
                 {
-                    player.SendErrorMessage($"This object is already shared with {shareTargetName}.");
+                    player.SendErrorMessage($"这个物体已经与玩家 \"{shareTargetName}\" 共享。");
                 }
                 else
                 {
-                    player.SendErrorMessage($"This object is already shared with group {shareTargetName}.");
+                    player.SendErrorMessage($"这个物体已经与组 \"{shareTargetName}\" 共享。");
                 }
 
                 return false;
@@ -3788,15 +3801,15 @@ namespace Terraria.Plugins.CoderCow.Protector
             {
                 if (isShareAll)
                 {
-                    player.SendErrorMessage($"This object isn't shared with everyone.");
+                    player.SendErrorMessage($"这个物体不与所有人共享。");
                 }
                 else if (!isGroup)
                 {
-                    player.SendErrorMessage($"This object isn't shared with {shareTargetName}.");
+                    player.SendErrorMessage($"这个物体不与玩家 \"{shareTargetName}\" 共享。");
                 }
                 else
                 {
-                    player.SendErrorMessage($"This object isn't shared with group {shareTargetName}.");
+                    player.SendErrorMessage($"这个物体不与组 \"{shareTargetName}\" 共享。");
                 }
 
                 return false;
@@ -3804,7 +3817,7 @@ namespace Terraria.Plugins.CoderCow.Protector
             catch (InvalidBlockTypeException)
             {
                 if (sendFailureMessages)
-                    player.SendErrorMessage("Objects of this type can not be shared with others.");
+                    player.SendErrorMessage("这类型的物体不能与其他人共享。");
 
                 return false;
             }
@@ -3814,11 +3827,11 @@ namespace Terraria.Plugins.CoderCow.Protector
                 {
                     if (ex.Permission == ProtectorPlugin.BankChestShare_Permission)
                     {
-                        player.SendErrorMessage("You're not allowed to share bank chests.");
+                        player.SendErrorMessage("您不允许共享银行宝箱。");
                     }
                     else
                     {
-                        player.SendErrorMessage("You're not allowed to share objects of this type.");
+                        player.SendErrorMessage("您不允许共享这类型的物体。");
                     }
                 }
 
@@ -3827,25 +3840,26 @@ namespace Terraria.Plugins.CoderCow.Protector
             catch (NoProtectionException)
             {
                 if (sendFailureMessages)
-                    player.SendErrorMessage("This object is not protected and thus can't be shared with others.");
+                    player.SendErrorMessage("这个物体没有受到保护，因此不能与其他人共享。");
 
                 return false;
             }
             catch (TileProtectedException)
             {
                 if (sendFailureMessages)
-                    player.SendErrorMessage("You have to be the owner this object to share it.");
+                    player.SendErrorMessage("您必须是这个物体的所有者才能共享它。");
 
                 return false;
             }
         }
+
 
         private bool TryRemoveProtection(TSPlayer player, DPoint tileLocation, bool sendFailureMessages = true)
         {
             if (!player.IsLoggedIn)
             {
                 if (sendFailureMessages)
-                    player.SendErrorMessage("You're not logged in.");
+                    player.SendErrorMessage("您没有登录。");
 
                 return false;
             }
@@ -3853,7 +3867,7 @@ namespace Terraria.Plugins.CoderCow.Protector
             try
             {
                 this.ProtectionManager.RemoveProtection(player, tileLocation);
-                player.SendSuccessMessage("Object is not protected anymore.");
+                player.SendSuccessMessage("物体不再受到保护。");
 
                 return true;
             }
@@ -3863,9 +3877,9 @@ namespace Terraria.Plugins.CoderCow.Protector
                 {
                     string message;
                     if (TerrariaUtils.Tiles.IsSolidBlockType(ex.BlockType, true))
-                        message = "Deprotecting this type of blocks is not allowed.";
+                        message = "不允许解除这类方块的保护。";
                     else
-                        message = "Deprotecting this type objects is not allowed.";
+                        message = "不允许解除这类物体的保护。";
 
                     player.SendErrorMessage(message);
                 }
@@ -3875,13 +3889,13 @@ namespace Terraria.Plugins.CoderCow.Protector
             catch (NoProtectionException)
             {
                 if (sendFailureMessages)
-                    player.SendErrorMessage("Object is not protected.");
+                    player.SendErrorMessage("物体没有受到保护。");
 
                 return false;
             }
             catch (TileProtectedException)
             {
-                player.SendErrorMessage("You're not the owner of this object.");
+                player.SendErrorMessage("您不是这个物体的所有者。");
 
                 return false;
             }
@@ -3904,7 +3918,7 @@ namespace Terraria.Plugins.CoderCow.Protector
             if (protection == null)
             {
                 if (sendFailureMessages)
-                    player.SendErrorMessage($"This object is not protected.");
+                    player.SendErrorMessage($"这个物体没有受到保护。");
 
                 return false;
             }
@@ -3917,28 +3931,27 @@ namespace Terraria.Plugins.CoderCow.Protector
 
             if (!canViewExtendedInfo)
             {
-                player.SendMessage($"This object is protected and not shared with you.", Color.LightGray);
+                player.SendMessage($"这个物体受到保护，并且没有与你共享。", Color.LightGray);
 
-                player.SendWarningMessage("You are not permitted to get more information about this protection.");
+                player.SendWarningMessage("你不被允许获取更多关于这个保护的信息。");
                 return true;
             }
 
             string ownerName;
             if (protection.Owner == -1)
-                ownerName = "{Server}";
+                ownerName = "{服务器}";
             else
                 ownerName = GetUserName(protection.Owner);
 
+            player.SendMessage($"这个物体受到保护。所有者是 {TShock.Utils.ColorTag(ownerName, Color.Red)}。", Color.LightGray);
 
-            player.SendMessage($"This object is protected. The owner is {TShock.Utils.ColorTag(ownerName, Color.Red)}.", Color.LightGray);
-
-            string creationTimeFormat = "unknown";
+            string creationTimeFormat = "未知";
             if (protection.TimeOfCreation != DateTime.MinValue)
-                creationTimeFormat = "{0:MM/dd/yy, h:mm tt} UTC ({1} ago)";
+                creationTimeFormat = "{0:MM/dd/yy, h:mm tt} UTC ({1} 前)";
 
             player.SendMessage(
               string.Format(
-                CultureInfo.InvariantCulture, "Protection created On: " + creationTimeFormat, protection.TimeOfCreation,
+                CultureInfo.InvariantCulture, "保护创建时间： " + creationTimeFormat, protection.TimeOfCreation,
                 (DateTime.UtcNow - protection.TimeOfCreation).ToLongString()
               ),
               Color.LightGray
@@ -3951,32 +3964,32 @@ namespace Terraria.Plugins.CoderCow.Protector
                 {
                     RefillChestMetadata refillChest = protection.RefillChestData;
                     if (refillChest.RefillTime != TimeSpan.Zero)
-                        player.SendMessage($"This is a refill chest with a timer set to {TShock.Utils.ColorTag(refillChest.RefillTime.ToLongString(), Color.Red)}.", Color.LightGray);
+                        player.SendMessage($"这是一个带有定时器的补充宝箱，定时器设置为 {TShock.Utils.ColorTag(refillChest.RefillTime.ToLongString(), Color.Red)}。", Color.LightGray);
                     else
-                        player.SendMessage("This is a refill chest without a timer.", Color.LightGray);
+                        player.SendMessage("这是一个没有定时器的补充宝箱。", Color.LightGray);
 
                     StringBuilder messageBuilder = new StringBuilder();
                     if (refillChest.OneLootPerPlayer || refillChest.RemainingLoots != -1)
                     {
-                        messageBuilder.Append("It can be looted ");
+                        messageBuilder.Append("它只能被掠夺 ");
                         if (refillChest.OneLootPerPlayer)
-                            messageBuilder.Append("once per player only");
+                            messageBuilder.Append("每个玩家只能掠夺一次");
                         if (refillChest.RemainingLoots != -1)
                         {
                             if (messageBuilder.Length > 0)
-                                messageBuilder.Append(" and ");
+                                messageBuilder.Append("和");
 
                             messageBuilder.Append(TShock.Utils.ColorTag(refillChest.RemainingLoots.ToString(), Color.Red));
-                            messageBuilder.Append(" more times in total");
+                            messageBuilder.Append("总共可以掠夺更多次");
                         }
-                        messageBuilder.Append('.');
+                        messageBuilder.Append('。');
                     }
 
                     if (refillChest.Looters != null)
                     {
-                        messageBuilder.Append("It was looted ");
+                        messageBuilder.Append("它已经被掠夺了");
                         messageBuilder.Append(TShock.Utils.ColorTag(refillChest.Looters.Count.ToString(), Color.Red));
-                        messageBuilder.Append(" times yet.");
+                        messageBuilder.Append("次。");
                     }
 
                     if (messageBuilder.Length > 0)
@@ -3985,7 +3998,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                 else if (protection.BankChestKey != BankChestDataKey.Invalid)
                 {
                     BankChestDataKey bankChestKey = protection.BankChestKey;
-                    player.SendMessage($"This is a bank chest instance with the number {bankChestKey.BankChestIndex}.", Color.LightGray);
+                    player.SendMessage($"这是一个银行宝箱实例，编号为 {bankChestKey.BankChestIndex}。", Color.LightGray);
                 }
                 else if (protection.TradeChestData != null)
                 {
@@ -3996,21 +4009,21 @@ namespace Terraria.Plugins.CoderCow.Protector
                     payItem.netDefaults(protection.TradeChestData.ItemToPayId);
                     payItem.stack = protection.TradeChestData.ItemToPayAmount;
 
-                    player.SendMessage($"This is a trade chest. It's selling {TShock.Utils.ItemTag(sellItem)} for {TShock.Utils.ItemTag(payItem)}", Color.LightGray);
+                    player.SendMessage($"这是一个交易宝箱。它正在出售 {TShock.Utils.ItemTag(sellItem)} 以换取 {TShock.Utils.ItemTag(payItem)}", Color.LightGray);
                 }
 
                 IChest chest = this.ChestManager.ChestFromLocation(protection.TileLocation);
                 if (chest.IsWorldChest)
-                    player.SendMessage($"It is stored as part of the world data (id: {TShock.Utils.ColorTag(chest.Index.ToString(), Color.Red)}).", Color.LightGray);
+                    player.SendMessage($"它作为世界数据的一部分被存储（id: {TShock.Utils.ColorTag(chest.Index.ToString(), Color.Red)}）。", Color.LightGray);
                 else
-                    player.SendMessage($"It is {TShock.Utils.ColorTag("not", Color.Red)} stored as part of the world data.", Color.LightGray);
+                    player.SendMessage($"它{TShock.Utils.ColorTag("不", Color.Red)}作为世界数据的一部分被存储。", Color.LightGray);
             }
 
             if (ProtectionManager.IsShareableBlockType(blockType))
             {
                 if (protection.IsSharedWithEveryone)
                 {
-                    player.SendMessage("Protection is shared with everyone.", Color.LightGray);
+                    player.SendMessage("保护已与所有人共享。", Color.LightGray);
                 }
                 else
                 {
@@ -4030,33 +4043,33 @@ namespace Terraria.Plugins.CoderCow.Protector
 
                     if (sharedListBuilder.Length == 0 && protection.SharedGroups == null)
                     {
-                        player.SendMessage($"Protection is {TShock.Utils.ColorTag("not", Color.Red)} shared with users or groups.", Color.LightGray);
+                        player.SendMessage($"保护{TShock.Utils.ColorTag("不", Color.Red)}与用户或组共享。", Color.LightGray);
                     }
                     else
                     {
                         if (sharedListBuilder.Length > 0)
-                            player.SendMessage($"Shared with users: {TShock.Utils.ColorTag(sharedListBuilder.ToString(), Color.Red)}", Color.LightGray);
+                            player.SendMessage($"与用户共享：{TShock.Utils.ColorTag(sharedListBuilder.ToString(), Color.Red)}", Color.LightGray);
                         else
-                            player.SendMessage($"Protection is {TShock.Utils.ColorTag("not", Color.Red)} shared with users.", Color.LightGray);
+                            player.SendMessage($"保护{TShock.Utils.ColorTag("不", Color.Red)}与用户共享。", Color.LightGray);
 
                         if (protection.SharedGroups != null)
-                            player.SendMessage($"Shared with groups: {TShock.Utils.ColorTag(protection.SharedGroups.ToString(), Color.Red)}", Color.LightGray);
+                            player.SendMessage($"与组共享：{TShock.Utils.ColorTag(protection.SharedGroups.ToString(), Color.Red)}", Color.LightGray);
                         else
-                            player.SendMessage($"Protection is {TShock.Utils.ColorTag("not", Color.Red)} shared with groups.", Color.LightGray);
+                            player.SendMessage($"保护{TShock.Utils.ColorTag("不", Color.Red)}与组共享。", Color.LightGray);
                     }
                 }
             }
 
             if (protection.TradeChestData != null && protection.TradeChestData.TransactionJournal.Count > 0)
             {
-                player.SendMessage($"Trade Chest Journal (Last {protection.TradeChestData.TransactionJournal.Count} Transactions)", Color.LightYellow);
+                player.SendMessage($"交易宝箱日志（最后 {protection.TradeChestData.TransactionJournal.Count} 笔交易）", Color.LightYellow);
                 protection.TradeChestData.TransactionJournal.ForEach(entry =>
                 {
                     string entryText = entry.Item1;
                     DateTime entryTime = entry.Item2;
                     TimeSpan timeSpan = DateTime.UtcNow - entryTime;
 
-                    player.SendMessage($"{entryText} {timeSpan.ToLongString()} ago.", Color.LightGray);
+                    player.SendMessage($"{entryText} {timeSpan.ToLongString()} 前。", Color.LightGray);
                 });
             }
 
@@ -4069,7 +4082,7 @@ namespace Terraria.Plugins.CoderCow.Protector
             if (tsUser != null)
                 return tsUser.Name;
             else
-                return string.Concat("{deleted user id: ", userId, "}");
+                return string.Concat("{已删除的用户ID: ", userId, "}");
         }
 
         private bool CheckProtected(TSPlayer player, DPoint tileLocation, bool fullAccessRequired)
@@ -4081,7 +4094,7 @@ namespace Terraria.Plugins.CoderCow.Protector
             if (this.ProtectionManager.CheckBlockAccess(player, tileLocation, fullAccessRequired, out protection))
                 return false;
 
-            player.SendErrorMessage("This object is protected.");
+            player.SendErrorMessage("这个物体受到保护。");
             return true;
         }
 
@@ -4094,12 +4107,12 @@ namespace Terraria.Plugins.CoderCow.Protector
             }
             catch (ArgumentException)
             {
-                player.SendErrorMessage("There is no chest here.");
+                player.SendErrorMessage("这里没有宝箱。");
                 return false;
             }
             catch (InvalidChestStyleException)
             {
-                player.SendErrorMessage("The chest must be an unlocked lockable chest.");
+                player.SendErrorMessage("宝箱必须是未锁定的可锁定宝箱。");
                 return false;
             }
         }
@@ -4111,7 +4124,7 @@ namespace Terraria.Plugins.CoderCow.Protector
             int tileID = TerrariaUtils.Tiles[anyChestTileLocation].type;
             if (tileID != TileID.Containers && tileID != TileID.Containers2 && tileID != TileID.Dressers)
             {
-                player?.SendErrorMessage("The selected tile is not a chest or dresser.");
+                player?.SendErrorMessage("选定的方块不是宝箱或衣柜。");
                 return false;
             }
 
@@ -4131,7 +4144,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                     bool isChestAvailable = this.WorldMetadata.ProtectorChests.Count < this.Config.MaxProtectorChests;
                     if (!isChestAvailable)
                     {
-                        player?.SendErrorMessage("The maximum of possible Protector chests has been reached.");
+                        player?.SendErrorMessage("已达到可能的保护者宝箱的最大数量。");
                         return false;
                     }
 
@@ -4149,7 +4162,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                     // Tell the client to remove the chest with the given index from its own chest array.
                     TSPlayer.All.SendData(PacketTypes.PlaceChest, string.Empty, 1, chestLocation.X, chestLocation.Y, 0, chest.Index);
                     TSPlayer.All.SendTileSquareCentered(chestLocation.X, chestLocation.Y, 2);
-                    player?.SendWarningMessage("This chest is now a Protector chest.");
+                    player?.SendWarningMessage("这个宝箱现在是一个保护者宝箱。");
                 }
             }
             else
@@ -4173,7 +4186,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                     }
                 }
 
-                // Prefer unset chests over unnamed chests.
+                // 优先考虑未设置的宝箱而非未命名的宝箱。
                 int availableChestIndex = availableEmptyChestIndex;
                 if (availableChestIndex == -1)
                     availableChestIndex = availableUnnamedChestIndex;
@@ -4181,7 +4194,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                 bool isChestAvailable = (availableChestIndex != -1);
                 if (!isChestAvailable)
                 {
-                    player?.SendErrorMessage("The maximum of possible world chests has been reached.");
+                    player?.SendErrorMessage("已达到世界宝箱的可能最大数量。");
                     return false;
                 }
 
@@ -4202,9 +4215,8 @@ namespace Terraria.Plugins.CoderCow.Protector
                 availableChest.item = content.Select(i => i.ToItem()).ToArray();
 
                 newChest = new ChestAdapter(availableChestIndex, availableChest);
-                player?.SendWarningMessage("This chest is now a world chest.");
+                player?.SendWarningMessage("这个宝箱现在是一个世界宝箱。");
             }
-
             return true;
         }
 
@@ -4233,19 +4245,19 @@ namespace Terraria.Plugins.CoderCow.Protector
         public bool TrySetUpRefillChest(
           TSPlayer player, DPoint tileLocation, TimeSpan? refillTime, bool? oneLootPerPlayer, int? lootLimit, bool? autoLock,
           bool? autoEmpty, bool sendMessages = true
-            )
+)
         {
             if (!player.IsLoggedIn)
             {
                 if (sendMessages)
-                    player.SendErrorMessage("You have to be logged in in order to set up refill chests.");
+                    player.SendErrorMessage("您必须登录才能设置补充宝箱。");
 
                 return false;
             }
 
             if (!this.ProtectionManager.CheckBlockAccess(player, tileLocation, true) && !player.Group.HasPermission(ProtectorPlugin.ProtectionMaster_Permission))
             {
-                player.SendErrorMessage("You don't own the protection of this chest.");
+                player.SendErrorMessage("您不拥有这个宝箱的保护权。");
                 return false;
             }
 
@@ -4253,14 +4265,14 @@ namespace Terraria.Plugins.CoderCow.Protector
             {
                 if (this.ChestManager.SetUpRefillChest(
                   player, tileLocation, refillTime, oneLootPerPlayer, lootLimit, autoLock, autoEmpty, false, true
-                        ))
+                ))
                 {
                     if (sendMessages)
                     {
-                        player.SendSuccessMessage("Refill chest successfully set up.");
+                        player.SendSuccessMessage("补充宝箱已成功设置。");
 
                         if (this.Config.AllowRefillChestContentChanges)
-                            player.SendSuccessMessage("As you are the owner of it you may still freely modify its contents.");
+                            player.SendSuccessMessage("作为所有者，您仍然可以自由修改其内容。");
                     }
                 }
                 else
@@ -4270,37 +4282,37 @@ namespace Terraria.Plugins.CoderCow.Protector
                         if (refillTime != null)
                         {
                             if (refillTime != TimeSpan.Zero)
-                                player.SendSuccessMessage($"Set the refill timer of this chest to {refillTime.Value.ToLongString()}.");
+                                player.SendSuccessMessage($"已将这个宝箱的补充定时器设置为 {refillTime.Value.ToLongString()}。");
                             else
-                                player.SendSuccessMessage("This chest will now refill instantly.");
+                                player.SendSuccessMessage("这个宝箱现在可以立即补充。");
                         }
                         if (oneLootPerPlayer != null)
                         {
                             if (oneLootPerPlayer.Value)
-                                player.SendSuccessMessage("This chest can now be looted once per player only.");
+                                player.SendSuccessMessage("这个宝箱现在每个玩家只能掠夺一次。");
                             else
-                                player.SendSuccessMessage("This chest can now be looted freely.");
+                                player.SendSuccessMessage("这个宝箱现在可以自由掠夺。");
                         }
                         if (lootLimit != null)
                         {
                             if (lootLimit.Value != -1)
-                                player.SendSuccessMessage($"This chest can now be looted {lootLimit} more times.");
+                                player.SendSuccessMessage($"这个宝箱现在还可以被掠夺 {lootLimit} 次。");
                             else
-                                player.SendSuccessMessage("This chest can now be looted endlessly.");
+                                player.SendSuccessMessage("这个宝箱现在可以无限次掠夺。");
                         }
                         if (autoLock != null)
                         {
                             if (autoLock.Value)
-                                player.SendSuccessMessage("This chest locks itself automatically when it gets looted.");
+                                player.SendSuccessMessage("这个宝箱在被掠夺时会自动锁定。");
                             else
-                                player.SendSuccessMessage("This chest will not lock itself automatically anymore.");
+                                player.SendSuccessMessage("这个宝箱将不再在被掠夺时自动锁定。");
                         }
                         if (autoEmpty != null)
                         {
                             if (autoEmpty.Value)
-                                player.SendSuccessMessage("This chest empties itself automatically when it gets looted.");
+                                player.SendSuccessMessage("这个宝箱在被掠夺时会自动清空。");
                             else
-                                player.SendSuccessMessage("This chest will not empty itself automatically anymore.");
+                                player.SendSuccessMessage("这个宝箱将不再在被掠夺时自动清空。");
                         }
                     }
                 }
@@ -4321,7 +4333,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                 if (ex.ParamName == "tileLocation")
                 {
                     if (sendMessages)
-                        player.SendErrorMessage("There is no chest here.");
+                        player.SendErrorMessage("这里没有宝箱。");
 
                     return false;
                 }
@@ -4331,21 +4343,21 @@ namespace Terraria.Plugins.CoderCow.Protector
             catch (MissingPermissionException)
             {
                 if (sendMessages)
-                    player.SendErrorMessage("You are not allowed to define refill chests.");
+                    player.SendErrorMessage("您不允许定义补充宝箱。");
 
                 return false;
             }
             catch (NoProtectionException)
             {
                 if (sendMessages)
-                    player.SendErrorMessage("The chest must be protected first.");
+                    player.SendErrorMessage("宝箱必须先受保护。");
 
                 return false;
             }
             catch (ChestIncompatibilityException)
             {
                 if (sendMessages)
-                    player.SendErrorMessage("A chest can not be a refill- and bank chest at the same time.");
+                    player.SendErrorMessage("一个宝箱不能同时是补充宝箱和银行宝箱。");
 
                 return false;
             }
@@ -4353,8 +4365,7 @@ namespace Terraria.Plugins.CoderCow.Protector
             {
                 if (sendMessages)
                 {
-                    player.SendErrorMessage("Error: There are no chest data for this chest available. This world's data might be");
-                    player.SendErrorMessage("corrupted.");
+                    player.SendErrorMessage("错误：没有这个宝箱的宝箱数据可用。这个世界可能已损坏。");
                 }
 
                 return false;
@@ -4621,7 +4632,7 @@ namespace Terraria.Plugins.CoderCow.Protector
             if (
               !this.Config.AllowRefillChestContentChanges ||
               (player.Account.ID != refillChest.Owner && !player.Group.HasPermission(ProtectorPlugin.ProtectionMaster_Permission))
-                  )
+      )
             {
                 if (refillChest.RemainingLoots == 0)
                 {
