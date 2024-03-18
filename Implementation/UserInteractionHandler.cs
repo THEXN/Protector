@@ -2278,19 +2278,19 @@ namespace Terraria.Plugins.CoderCow.Protector
                 itemsToLookup = TShock.Utils.GetItemByIdOrName(payItemRaw);
                 if (itemsToLookup.Count == 0)
                 {
-                    args.Player.SendErrorMessage($"Unable to guess a valid item type from \"{payItemRaw}\".");
+                    args.Player.SendErrorMessage($"无法从 \"{payItemRaw}\" 猜测一个有效的物品类型。");
                     return;
                 }
                 if (itemsToLookup.Count > 1)
                 {
-                    args.Player.SendErrorMessage("Found multiple matches for the given <pay item>: " + string.Join(", ", itemsToLookup));
+                    args.Player.SendErrorMessage("找到多个与给定的 <支付物品> 匹配的物品：" + string.Join(", ", itemsToLookup));
                     return;
                 }
                 payItemIdOrGroup = itemsToLookup[0].netID;
 
                 if (sellItem.netID == (int)payItemIdOrGroup || (TerrariaUtils.Items.IsCoinType(sellItem.netID) && TerrariaUtils.Items.IsCoinType((int)payItemIdOrGroup)))
                 {
-                    args.Player.SendErrorMessage("The item to be sold should be different from the item to pay with.");
+                    args.Player.SendErrorMessage("要出售的物品应该与支付物品不同。");
                     return;
                 }
             }
@@ -2325,7 +2325,7 @@ namespace Terraria.Plugins.CoderCow.Protector
             };
             interaction.TimeExpiredCallback += (playerLocal) =>
             {
-                playerLocal.SendMessage("Waited too long. No trade chest will be created.", Color.Red);
+                playerLocal.SendMessage("等待时间过长。不会创建交易宝箱。", Color.Red);
             };
 
             string priceInfo = "";
@@ -2334,7 +2334,7 @@ namespace Terraria.Plugins.CoderCow.Protector
         priceInfo = $" This will cost you {this.Config.TradeChestPayment} {this.PluginCooperationHandler.Seconomy_MoneyName()}";
 #endif
 
-            args.Player.SendInfoMessage("Open a chest to convert it into a trade chest." + priceInfo);
+            args.Player.SendInfoMessage("打开一个宝箱将其转换为交易宝箱。" + priceInfo);
         }
 
         private bool TradeChestCommand_HelpCallback(CommandArgs args)
@@ -2349,23 +2349,23 @@ namespace Terraria.Plugins.CoderCow.Protector
             switch (pageNumber)
             {
                 default:
-                    args.Player.SendMessage("Command reference for /tradechest (Page 1 of 3)", Color.Lime);
-                    args.Player.SendMessage("/tradechest|/tchest <sell amount> <sell item> <pay amount> <pay item or group> [limit]", Color.White);
-                    args.Player.SendMessage("sell amount = The amount of items to sell to the player per click on the chest.", Color.LightGray);
-                    args.Player.SendMessage("sell item = The type of item to sell.", Color.LightGray);
-                    args.Player.SendMessage("pay amount = The amount of <pay item> to take from the player's inventory when they buy.", Color.LightGray);
-                    args.Player.SendMessage("pay item or group = The item type to take from the player when they buy. This may also be an item group name.", Color.LightGray);
-                    args.Player.SendMessage("limit = Optional. Amount of times a single player is allowed to buy from this chest.", Color.LightGray);
+                    args.Player.SendMessage("命令 /tradechest 的参考信息（第 1 页，共 3 页）", Color.Lime);
+                    args.Player.SendMessage("/tradechest|/tchest <出售数量> <出售物品> <支付数量> <支付物品或组> [限制]", Color.White);
+                    args.Player.SendMessage("出售数量 = 每次点击宝箱时向玩家出售的物品数量。", Color.LightGray);
+                    args.Player.SendMessage("出售物品 = 要出售的物品类型。", Color.LightGray);
+                    args.Player.SendMessage("支付数量 = 当玩家购买时，要从玩家背包中取出的 <支付物品> 的数量。", Color.LightGray);
+                    args.Player.SendMessage("支付物品或组 = 当玩家购买时，要从玩家那里取出的物品类型。这也可能是一个物品组名称。", Color.LightGray);
+                    args.Player.SendMessage("限制 = 可选。单个玩家允许从这个宝箱购买的次数。", Color.LightGray);
                     break;
                 case 2:
-                    args.Player.SendMessage("Converts a chest to a special chest which can sell its content to other players.", Color.LightGray);
-                    args.Player.SendMessage("You may also use this command to alter an existing trade chest.", Color.LightGray);
-                    args.Player.SendMessage("Other players buy from trade chests by just clicking and only the owner, shared users or admins can view the content of the trade chest.", Color.LightGray);
-                    args.Player.SendMessage("The payment of the purchasers is also stored in the chest, so make sure there's always enough space available. Also make sure", Color.LightGray);
-                    args.Player.SendMessage("the chest is always filled with enough goods or players will not be able to buy from you.", Color.LightGray);
+                    args.Player.SendMessage("将一个宝箱转换为一个特殊的宝箱，可以向其他玩家出售其内容。", Color.LightGray);
+                    args.Player.SendMessage("您也可以使用这个命令来更改一个现有的交易宝箱。", Color.LightGray);
+                    args.Player.SendMessage("其他玩家通过简单点击交易宝箱购买，只有所有者、共享用户或管理员可以查看交易宝箱的内容。", Color.LightGray);
+                    args.Player.SendMessage("购买者的支付也存储在宝箱中，所以确保始终有足够的空间可用。还要确保", Color.LightGray);
+                    args.Player.SendMessage("宝箱始终装满足够的商品，否则玩家将无法从您那里购买。", Color.LightGray);
                     break;
                 case 3:
-                    args.Player.SendMessage("Note that prefixes are not regarded for the payment or for the item to be sold.", Color.LightGray);
+                    args.Player.SendMessage("请注意，前缀不会被考虑用于支付或要出售的物品。", Color.LightGray);
                     break;
             }
 
@@ -2382,8 +2382,8 @@ namespace Terraria.Plugins.CoderCow.Protector
 
             if (args.Parameters.Count == 0)
             {
-                args.Player.SendErrorMessage("Proper syntax: /scanchests <item name> [<page>]");
-                args.Player.SendInfoMessage("Type /scanchests help to get more information about this command.");
+                args.Player.SendErrorMessage("正确的语法: /scanchests <物品名称> [<页码>]");
+                args.Player.SendInfoMessage("输入 /scanchests help 以获取更多关于这个命令的信息。");
                 return;
             }
 
@@ -2403,7 +2403,7 @@ namespace Terraria.Plugins.CoderCow.Protector
 
                 if (pageNumber < 1)
                 {
-                    args.Player.SendErrorMessage($"\"{lastParam}\" is not a valid page number.");
+                    args.Player.SendErrorMessage($"\"{lastParam}\" 不是有效的页码。");
                     return;
                 }
             }
@@ -2411,7 +2411,7 @@ namespace Terraria.Plugins.CoderCow.Protector
             List<Item> itemsToLookup = TShock.Utils.GetItemByIdOrName(itemNamePart);
             if (itemsToLookup.Count == 0)
             {
-                args.Player.SendErrorMessage($"Unable to guess a valid item type from \"{itemNamePart}\".");
+                args.Player.SendErrorMessage($"无法从 \"{itemNamePart}\" 猜测一个有效的物品类型。");
                 return;
             }
 
@@ -2434,8 +2434,8 @@ namespace Terraria.Plugins.CoderCow.Protector
 
             PaginationTools.SendPage(args.Player, pageNumber, results, new PaginationTools.Settings
             {
-                HeaderFormat = $"The Following Chests Contain \"{itemNamePart}\" (Page {{0}} of {{1}})",
-                NothingToDisplayString = $"No chest contains items matching \"{itemNamePart}\"",
+                HeaderFormat = $"以下宝箱包含 \"{itemNamePart}\" (第 {{0}} 页，共 {{1}} 页)",
+                NothingToDisplayString = $"没有宝箱包含与 \"{itemNamePart}\" 匹配的物品",
                 LineTextColor = Color.LightGray,
                 MaxLinesPerPage = 10,
                 LineFormatter = (lineData, dataIndex, pageNumberLocal) =>
@@ -2449,20 +2449,20 @@ namespace Terraria.Plugins.CoderCow.Protector
 
                     string foundItemsString = string.Join(" ", foundItems.Select(i => TShock.Utils.ItemTag(i.ToItem())));
 
-                    string chestOwner = "{not protected}";
+                    string chestOwner = "{未受保护}";
                     ProtectionEntry protection = this.ProtectionManager.GetProtectionAt(chestLocation);
                     if (protection != null)
                     {
                         UserAccount tsUser = TShock.UserAccounts.GetUserAccountByID(protection.Owner);
-                        chestOwner = tsUser?.Name ?? $"{{user id: {protection.Owner}}}";
+                        chestOwner = tsUser?.Name ?? $"{{用户 ID: {protection.Owner}}}";
                     }
 
-                    return new Tuple<string, Color>($"{dataIndex}. Chest owned by {TShock.Utils.ColorTag(chestOwner, Color.Red)} contains {foundItemsString}", Color.LightGray);
+                    return new Tuple<string, Color>($"{dataIndex}. 由 {TShock.Utils.ColorTag(chestOwner, Color.Red)} 拥有的宝箱包含 {foundItemsString}", Color.LightGray);
                 }
             });
 
             if (results.Count > 0)
-                args.Player.SendSuccessMessage("Type /tpchest <result index> to teleport to the respective chest.");
+                args.Player.SendSuccessMessage("输入 /tpchest <结果索引> 以传送到相应的宝箱。");
         }
 
         private bool ScanChestsCommand_HelpCallback(CommandArgs args)
@@ -2477,11 +2477,11 @@ namespace Terraria.Plugins.CoderCow.Protector
             switch (pageNumber)
             {
                 default:
-                    args.Player.SendMessage("Command reference for /scanchests (Page 1 of 1)", Color.Lime);
-                    args.Player.SendMessage("/scanchests <item name> [page]", Color.White);
-                    args.Player.SendMessage("Searches all chests in the current world for items matching the given name. The user will be able to teleport to the chests found by this command using /tpchest.", Color.LightGray);
+                    args.Player.SendMessage("命令 /scanchests 的参考信息（第 1 页，共 1 页）", Color.Lime);
+                    args.Player.SendMessage("/scanchests <物品名称> [页码]", Color.White);
+                    args.Player.SendMessage("在当前世界中搜索所有宝箱，寻找与给定名称匹配的物品。用户可以使用 /tpchest 命令传送到通过这个命令找到的宝箱。", Color.LightGray);
                     args.Player.SendMessage(string.Empty, Color.LightGray);
-                    args.Player.SendMessage("item name = Part of name of the item(s) to check for.", Color.LightGray);
+                    args.Player.SendMessage("物品名称 = 要检查的物品（们）名称的一部分。", Color.LightGray);
                     break;
             }
 
@@ -2497,22 +2497,22 @@ namespace Terraria.Plugins.CoderCow.Protector
 
             if (args.Parameters.Count != 1)
             {
-                args.Player.SendErrorMessage("Proper syntax: /tpchest <result index>");
-                args.Player.SendInfoMessage("Type /tpchest help to get more information about this command.");
+                args.Player.SendErrorMessage("正确的语法: /tpchest <结果索引>");
+                args.Player.SendInfoMessage("输入 /tpchest help 以获取更多关于这个命令的信息。");
                 return;
             }
 
             DPoint[] chestLocations;
             if (!this.scanChestsResults.TryGetValue(args.Player, out chestLocations))
             {
-                args.Player.SendErrorMessage("You have to use /scanchests before using this command.");
+                args.Player.SendErrorMessage("在使用这个命令之前，您必须先使用 /scanchests。");
                 return;
             }
 
             int chestIndex;
             if (!int.TryParse(args.Parameters[0], out chestIndex) || chestIndex < 1 || chestIndex > chestLocations.Length)
             {
-                args.Player.SendErrorMessage($"\"{args.Parameters[0]}\" is not a valid result index.");
+                args.Player.SendErrorMessage($"\"{args.Parameters[0]}\" 不是一个有效的结果索引。");
                 return;
             }
 
@@ -2532,11 +2532,11 @@ namespace Terraria.Plugins.CoderCow.Protector
             switch (pageNumber)
             {
                 default:
-                    args.Player.SendMessage("Command reference for /tpchest (Page 1 of 1)", Color.Lime);
-                    args.Player.SendMessage("/tpchest <result index>", Color.White);
-                    args.Player.SendMessage("Teleports you to a chest that was found by the /scanchests command.", Color.LightGray);
+                    args.Player.SendMessage("命令 /tpchest 的参考信息（第 1 页，共 1 页）", Color.Lime);
+                    args.Player.SendMessage("/tpchest <结果索引>", Color.White);
+                    args.Player.SendMessage("将您传送到由 /scanchests 命令找到的宝箱。", Color.LightGray);
                     args.Player.SendMessage(string.Empty, Color.LightGray);
-                    args.Player.SendMessage("result index = The index of the search result.", Color.LightGray);
+                    args.Player.SendMessage("结果索引 = 搜索结果的索引。", Color.LightGray);
                     break;
             }
 
@@ -2634,15 +2634,13 @@ namespace Terraria.Plugins.CoderCow.Protector
                                 this.ProtectionManager.RemoveProtection(player, protection.TileLocation, false);
 
                                 if (this.Config.NotifyAutoDeprotections)
-                                    player.SendWarningMessage("The object is not protected anymore.");
+                                    player.SendWarningMessage("这个物体不再受到保护。");
                             }
                             else
                             {
-                                player.SendErrorMessage("The object is protected.");
-
+                                player.SendErrorMessage("这个物体受到保护。");
                                 if (protection.TradeChestData != null)
-                                    player.SendWarningMessage("If you want to trade with this chest, right click it first.");
-
+                                    player.SendWarningMessage("如果您想与这个宝箱进行交易，请先右键点击它。");
                                 player.SendTileSquareCentered(location);
                                 return true;
                             }
@@ -2737,8 +2735,8 @@ namespace Terraria.Plugins.CoderCow.Protector
             catch (LimitEnforcementException)
             {
                 player.SendTileSquareCentered(location.X, location.Y, 2);
-                player.SendErrorMessage("The limit of maximum possible chests has been reached. Please report this to a server administrator.");
-                this.PluginTrace.WriteLineWarning($"Chest limit of {Main.chest.Length + this.Config.MaxProtectorChests - 1} has been reached!");
+                player.SendErrorMessage("已达到可能的最大宝箱数量上限。请向服务器管理员报告此问题。");
+                this.PluginTrace.WriteLineWarning($"已达到 {Main.chest.Length + this.Config.MaxProtectorChests - 1} 个宝箱的上限！");
             }
 
             if (this.Config.AutoProtectedTiles[tileToPlace])
@@ -2752,36 +2750,36 @@ namespace Terraria.Plugins.CoderCow.Protector
             try
             {
                 if (forPlayer.HasPermission(ProtectorPlugin.RestrictProtections_Permission)
-                 && (!forPlayer.HasBuildPermission(location.X, location.Y, false)
-                 || TShock.Regions.InAreaRegion(location.X, location.Y).Count() == 0))
+                    && (!forPlayer.HasBuildPermission(location.X, location.Y, false)
+                    || TShock.Regions.InAreaRegion(location.X, location.Y).Count() == 0))
                     return false;
 
                 this.ProtectionManager.CreateProtection(forPlayer, location, false);
 
                 if (this.Config.NotifyAutoProtections)
-                    forPlayer.SendSuccessMessage("This object is now protected.");
+                    forPlayer.SendSuccessMessage("这个物体现在受到保护。");
 
                 return true;
             }
             catch (PlayerNotLoggedInException)
             {
-                forPlayer.SendWarningMessage("This object could'nt be protected because you're not logged in.");
+                forPlayer.SendWarningMessage("这个物体无法被保护，因为您没有登录。");
             }
             catch (LimitEnforcementException)
             {
-                forPlayer.SendWarningMessage("This object couldn't be protected because you've reached your protection capacity.");
+                forPlayer.SendWarningMessage("这个物体无法被保护，因为您已达到保护容量上限。");
             }
             catch (TileProtectedException)
             {
-                this.PluginTrace.WriteLineError("Error: A block was tried to be auto protected where tile placement should not be possible.");
+                this.PluginTrace.WriteLineError("错误：尝试在一个不应允许放置方块的位置自动保护方块。");
             }
             catch (AlreadyProtectedException)
             {
-                this.PluginTrace.WriteLineError("Error: A block was tried to be auto protected on the same position of an existing protection.");
+                this.PluginTrace.WriteLineError("错误：尝试在现有保护的同一位置自动保护方块。");
             }
             catch (Exception ex)
             {
-                this.PluginTrace.WriteLineError("Unexpected exception was thrown during auto protection: \n" + ex);
+                this.PluginTrace.WriteLineError("在自动保护过程中出现了意外的异常：\n" + ex);
             }
 
             return false;
@@ -2799,13 +2797,13 @@ namespace Terraria.Plugins.CoderCow.Protector
             bool isAllowed = true;
             if (this.CheckProtected(player, chest.Location, true))
             {
-                player.SendErrorMessage("You have to be the owner of the chest in order to rename it.");
+                player.SendErrorMessage("您必须是宝箱的所有者才能重命名它。");
                 isAllowed = false;
             }
 
             if (this.Config.LoginRequiredForChestUsage && !player.IsLoggedIn)
             {
-                player.SendErrorMessage("You have to be logged in in order to rename chests.");
+                player.SendErrorMessage("您必须登录才能重命名宝箱。");
                 isAllowed = false;
             }
 
@@ -2815,16 +2813,16 @@ namespace Terraria.Plugins.CoderCow.Protector
                 if (chest.IsWorldChest)
                     originalName = chest.Name;
 
-                // The name change will already have happened locally for the player, so gotta send the original name back to them.
+                // 名称更改对于玩家来说已经发生，所以必须将原始名称发送回他们。
                 player.SendData(PacketTypes.ChestName, originalName, chest.Index, chest.Location.X, chest.Location.Y);
                 return true;
             }
             else
             {
-                // Only world chests can have names, so attempt to convert it into one.
+                // 只有世界宝箱可以有名称，所以尝试将其转换为一个。
                 if (!chest.IsWorldChest && !this.TrySwapChestData(null, chest.Location, out chest))
                 {
-                    player.SendErrorMessage("The maximum amount of named chests for this world has been reached.");
+                    player.SendErrorMessage("这个世界命名的宝箱数量已达到上限。");
                     return true;
                 }
 
