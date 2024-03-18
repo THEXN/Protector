@@ -26,7 +26,7 @@ namespace Terraria.Plugins.CoderCow.Protector {
 
       Version fileVersion = new Version(result.Version);
 
-      // Ensure compatibility with older versions
+      // 确保与旧版本兼容
       if (fileVersion < new Version(1, 2)) {
         foreach (KeyValuePair<DPoint,ProtectionEntry> protectionPair in result.Protections) {
           DPoint location = protectionPair.Key;
