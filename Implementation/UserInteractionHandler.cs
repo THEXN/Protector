@@ -306,7 +306,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                             args.Player.SendMessage("/protector cleanup 命令参考（第 1 页，共 1 页）", Color.Lime);
                             args.Player.SendMessage("/protector cleanup", Color.White);
                             args.Player.SendMessage("移除所有不再存在于TShock数据库中的用户所拥有的保护", Color.LightGray);
-                            args.Player.SendMessage(string.Empty, Color.LightGray);
+                            args.Player.SendMessage("参数详解：", Color.White);
                             args.Player.SendMessage("-d = 不破坏设置保护时所在的图格。", Color.LightGray);
                             return true;
                         }
@@ -368,7 +368,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                             args.Player.SendMessage("/protector removeall 命令参考（第 1 页，共 1 页）", Color.Lime);
                             args.Player.SendMessage("/protector removeall <region <区域名>|user <用户名>> [-d]", Color.White);
                             args.Player.SendMessage("移除指定区域内或用户的所有保护。", Color.LightGray);
-                            args.Player.SendMessage(string.Empty, Color.LightGray);
+                            args.Player.SendMessage("参数详解：", Color.White);
                             args.Player.SendMessage("region <区域名> = 移除<区域>内的所有保护。", Color.LightGray);
                             args.Player.SendMessage("user <用户名> = 移除此世界中<用户>拥有的所有保护。", Color.LightGray);
                             args.Player.SendMessage("-d = 不破坏设置保护时所在的图格（或方块）。", Color.LightGray);
@@ -877,7 +877,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                     args.Player.SendMessage("/protect 命令参考（第 1 页，共 1 页）", Color.Lime);
                     args.Player.SendMessage("/protect 或 pt [-p]", Color.White);
                     args.Player.SendMessage("保护选中的物体或方块。", Color.LightGray);
-                    args.Player.SendMessage(string.Empty, Color.LightGray);
+                    args.Player.SendMessage("参数详解：", Color.White);
                     args.Player.SendMessage("-p = 激活持久模式。该命令将保持持久状态，直到其超时", Color.LightGray);
                     args.Player.SendMessage("或者输入了任何其他Protector命令。", Color.LightGray);
                     break;
@@ -966,7 +966,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                     args.Player.SendMessage("/deprotect 命令参考（第 1 页，共 1 页）", Color.Lime);
                     args.Player.SendMessage("/deprotect|dp [-p]", Color.White);
                     args.Player.SendMessage("取消选择的对象或方块的保护。", Color.LightGray);
-                    args.Player.SendMessage(string.Empty, Color.LightGray);
+                    args.Player.SendMessage("参数详解：", Color.White);
                     args.Player.SendMessage("-p = 激活持久模式。命令会一直保持生效，直到超时或输入其他 Protector 命令。", Color.LightGray);
                     args.Player.SendMessage("只有所有者或管理员可以移除保护。如果选择的对象是一个银行箱，", Color.LightGray);
                     args.Player.SendMessage("这个银行箱实例将从世界中移除，以便可以再次实例化。", Color.LightGray);
@@ -1057,7 +1057,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                     args.Player.SendMessage("/protectioninfo 命令参考", Color.Lime);
                     args.Player.SendMessage("/protectioninfo 或 ptinfo 或 pi [-p]", Color.White);
                     args.Player.SendMessage("显示有关选定保护的一些信息。", Color.LightGray);
-                    args.Player.SendMessage(string.Empty, Color.LightGray);
+                    args.Player.SendMessage("参数详解：", Color.White);
                     args.Player.SendMessage("-p = 激活持续有效模式。该命令将持续有效，直到其超时或者输入了任何其他 Protector 命令。", Color.LightGray);
                     break;
             }
@@ -1114,7 +1114,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                     args.Player.SendMessage("/share 命令参考", Color.Lime);
                     args.Player.SendMessage("/share 玩家名字 [-p]", Color.White);
                     args.Player.SendMessage("为选定的保护添加一个玩家共享。", Color.LightGray);
-                    args.Player.SendMessage(string.Empty, Color.LightGray);
+                    args.Player.SendMessage("参数详解：", Color.White);
                     args.Player.SendMessage("-p = 激活持续有效模式。该命令将持续有效，直到其超时或者输入了任何其他 Protector 命令。", Color.LightGray);
                     args.Player.SendMessage("玩家名称 = 要添加的玩家的名称。可以是确切的用户名称，或者是当前在线的玩家的名称的一部分。", Color.LightGray);
                     break;
@@ -1172,7 +1172,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                     args.Player.SendMessage("/unshare 命令参考", Color.Lime);
                     args.Player.SendMessage("/unshare 玩家名字 [-p]", Color.White);
                     args.Player.SendMessage("从选定的保护中移除玩家的共享权限。", Color.LightGray);
-                    args.Player.SendMessage(string.Empty, Color.LightGray);
+                    args.Player.SendMessage("参数详解：", Color.White);
                     args.Player.SendMessage("-p = 激活持久模式。该命令将保持持久性，直到它过期或输入其他保护者命令。", Color.LightGray);
                     args.Player.SendMessage("玩家名称 = 要添加的玩家的名称。可以是确切的用户名称，或者是当前在线的玩家的名称的一部分。", Color.LightGray);
                     break;
@@ -1221,7 +1221,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                     args.Player.SendMessage("/sharepublic 命令参考（第1页，共1页）", Color.Lime);
                     args.Player.SendMessage("/sharepublic [-p]", Color.White);
                     args.Player.SendMessage("允许所有人使用选定的对象。", Color.LightGray);
-                    args.Player.SendMessage(string.Empty, Color.LightGray);
+                    args.Player.SendMessage("参数详解：", Color.White);
                     args.Player.SendMessage("-p = 激活持久模式。该命令将保持持久性，直到它过期或输入其他保护者命令", Color.LightGray);
                     break;
             }
@@ -1269,7 +1269,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                     args.Player.SendMessage("/unsharepublic 命令参考（第1页，共1页）", Color.Lime);
                     args.Player.SendMessage("/unsharepublic [-p]", Color.White);
                     args.Player.SendMessage("撤销了所有人使用选定对象的权限。", Color.LightGray);
-                    args.Player.SendMessage(string.Empty, Color.LightGray);
+                    args.Player.SendMessage("参数详解：", Color.White);
                     args.Player.SendMessage("-p = 激活持久模式。该命令将保持持久性，直到它过期或输入其他保护者命令", Color.LightGray);
                     break;
             }
@@ -1326,17 +1326,15 @@ namespace Terraria.Plugins.CoderCow.Protector
             switch (pageNumber)
             {
                 default:
-                    args.Player.SendMessage("/sharegroup 命令参考（第1页，共2页）", Color.Lime);
+                    args.Player.SendMessage("/sharegroup 命令参考", Color.Lime);
                     args.Player.SendMessage("/sharegroup 用户组名 [-p]", Color.White);
                     args.Player.SendMessage("为选定的保护添加用户组共享权限。", Color.LightGray);
-                    args.Player.SendMessage(string.Empty, Color.LightGray);
-                    args.Player.SendMessage("用户组组名称 = 要添加的TShock组的名称。", Color.LightGray);
+                    args.Player.SendMessage("用户组名称 = 要添加的 TShock 组的名称。", Color.LightGray);
+                    args.Player.SendMessage("参数详解：", Color.White);
                     args.Player.SendMessage("-p = 激活持久模式。该命令将保持持久性，直到它过期。", Color.LightGray);
                     break;
-                case 2:
-                    args.Player.SendMessage("或输入其他保护者命令。.", Color.LightGray);
-                    break;
             }
+
 
             return true;
         }
@@ -1386,7 +1384,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                     args.Player.SendMessage("/unsharegroup 命令参考（第1页，共2页）", Color.Lime);
                     args.Player.SendMessage("/unsharegroup 用户组名 [-p]", Color.White);
                     args.Player.SendMessage("从选定的保护中移除用户组共享权限。", Color.LightGray);
-                    args.Player.SendMessage(string.Empty, Color.LightGray);
+                    args.Player.SendMessage("参数详解：", Color.White);
                     args.Player.SendMessage("用户组组名称 = 要添加的TShock组的名称。", Color.LightGray);
                     args.Player.SendMessage("-p = 激活持久模式。该命令将保持持久性，直到它过期。", Color.LightGray);
                     break;
@@ -1527,7 +1525,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                     args.Player.SendMessage("/lockchest 命令参考（第1页，共2页）", Color.Lime);
                     args.Player.SendMessage("/lockchest或 /lchest [-p]", Color.White);
                     args.Player.SendMessage("锁定选定的箱子，需要一把钥匙才能打开它.", Color.LightGray);
-                    args.Player.SendMessage(string.Empty, Color.LightGray);
+                    args.Player.SendMessage("参数详解：", Color.White);
                     args.Player.SendMessage("-p = 激活持久模式。该命令将保持持久性，直到它过期。", Color.LightGray);
                     args.Player.SendMessage("或输入其他保护者命令。", Color.LightGray);
                     break;
@@ -1614,7 +1612,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                     args.Player.SendMessage("/swapchest 或 /schest [-p]", Color.White);
                     args.Player.SendMessage("将选定箱子的数据交换为世界数据或保护者数据。", Color.LightGray);
                     args.Player.SendMessage("这不会改变箱子的内容或其保护状态，但会移除其名称。", Color.LightGray);
-                    args.Player.SendMessage(string.Empty, Color.LightGray);
+                    args.Player.SendMessage("参数详解：", Color.White);
                     args.Player.SendMessage("-p = 激活持久模式。该命令将保持持久性，直到它过期。", Color.LightGray);
                     args.Player.SendMessage("或输入其他保护者命令。", Color.LightGray);
                     break;
@@ -1744,7 +1742,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                     args.Player.SendMessage("命令 /refillchest 的参考信息（第 1 页，共 5 页）", Color.Lime);
                     args.Player.SendMessage("/refillchest|/rchest [时间] [+ot|-ot] [+ll 数量|-ll] [+al|-al] [+ae|-ae] [-p]", Color.White);
                     args.Player.SendMessage("将一个宝箱转换为一个特殊的宝箱，可以自动补充其内容。", Color.LightGray);
-                    args.Player.SendMessage(string.Empty, Color.LightGray);
+                    args.Player.SendMessage("参数详解：", Color.White);
                     args.Player.SendMessage("时间 = 示例：2h, 2h30m, 2h30m10s, 1d6h 等。", Color.LightGray);
                     args.Player.SendMessage("+ot = 宝箱只能被每个玩家掠夺一次。", Color.LightGray);
                     break;
@@ -1956,7 +1954,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                     args.Player.SendMessage("命令 /refillchestmany 的参考信息（第 1 页，共 3 页）", Color.Lime);
                     args.Player.SendMessage("/refillchestmany|/rchestmany <选择器> [时间] [+ot|-ot] [+ll 数量|-ll] [+al|-al] [+ae|-ae] [+fl]", Color.White);
                     args.Player.SendMessage("将所有选中的宝箱转换为补充宝箱或更改它们。", Color.LightGray);
-                    args.Player.SendMessage(string.Empty, Color.LightGray);
+                    args.Player.SendMessage("参数详解：", Color.White);
                     args.Player.SendMessage("选择器 = 地牢, 天堂, 海洋, 阴影, 困难地牢 或 金字塔", Color.LightGray);
                     args.Player.SendMessage("时间 = 示例：2h, 2h30m, 2h30m10s, 1d6h 等。", Color.LightGray);
                     break;
@@ -1973,7 +1971,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                     args.Player.SendMessage("天堂 = 被锁定的金宝箱，位于地表以上。", Color.LightGray);
                     args.Player.SendMessage("海洋 = 未锁定的金宝箱，位于海洋生物群系的水下。", Color.LightGray);
                     args.Player.SendMessage("阴影 = 世界最后七分之一区域锁定的阴影宝箱。", Color.LightGray);
-                    args.Player.SendMessage(string.Empty, Color.LightGray);
+                    args.Player.SendMessage("参数详解：", Color.White);
                     args.Player.SendMessage("要获取有关补充宝箱及其参数的更多信息，请输入 /help rchest。", Color.LightGray);
                     break;
             }
@@ -2071,19 +2069,19 @@ namespace Terraria.Plugins.CoderCow.Protector
                 case 2:
                     args.Player.SendMessage("编号 = 一个基于 1 的数字，用于唯一标识银行宝箱。", Color.LightGray);
                     args.Player.SendMessage("通常，第一个创建的银行宝箱分配数字 '1'，下一个分配数字 '2' 等。", Color.LightGray);
-                    args.Player.SendMessage(string.Empty, Color.LightGray);
+                    args.Player.SendMessage("参数详解：", Color.White);
                     args.Player.SendMessage("为了被转换为银行宝箱，一个宝箱必须受到保护，并且玩家必须拥有它。", Color.LightGray);
                     args.Player.SendMessage("此外，如果这是银行宝箱的第一个实例，那么宝箱的内容将被视为新的银行宝箱内容。如果", Color.LightGray);
                     break;
                 case 3:
                     args.Player.SendMessage("已经实例化过带有该编号的银行宝箱，那么宝箱必须为空，以便可以安全地被银行宝箱的内容覆盖。", Color.LightGray);
-                    args.Player.SendMessage(string.Empty, Color.LightGray);
+                    args.Player.SendMessage("参数详解：", Color.White);
                     args.Player.SendMessage("要移除一个银行宝箱实例，只需 /deprotect 它。", Color.LightGray);
                     break;
                 case 4:
                     args.Player.SendMessage("玩家可以拥有的银行宝箱数量通常受配置限制，还需要额外的权限", Color.LightGray);
                     args.Player.SendMessage("来与其他玩家共享银行宝箱。", Color.LightGray);
-                    args.Player.SendMessage(string.Empty, Color.LightGray);
+                    args.Player.SendMessage("参数详解：", Color.White);
                     args.Player.SendMessage("在一个世界中，只能存在一个具有相同编号的银行宝箱实例。", Color.White);
                     break;
                 case 5:
@@ -2455,7 +2453,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                     args.Player.SendMessage("命令 /scanchests 的参考信息（第 1 页，共 1 页）", Color.Lime);
                     args.Player.SendMessage("/scanchests <物品名称> [页码]", Color.White);
                     args.Player.SendMessage("在当前世界中搜索所有宝箱，寻找与给定名称匹配的物品。用户可以使用 /tpchest 命令传送到通过这个命令找到的宝箱。", Color.LightGray);
-                    args.Player.SendMessage(string.Empty, Color.LightGray);
+                    args.Player.SendMessage("参数详解：", Color.White);
                     args.Player.SendMessage("物品名称 = 要检查的物品（们）名称的一部分。", Color.LightGray);
                     break;
             }
@@ -2510,7 +2508,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                     args.Player.SendMessage("命令 /tpchest 的参考信息（第 1 页，共 1 页）", Color.Lime);
                     args.Player.SendMessage("/tpchest <结果索引>", Color.White);
                     args.Player.SendMessage("将您传送到由 /scanchests 命令找到的宝箱。", Color.LightGray);
-                    args.Player.SendMessage(string.Empty, Color.LightGray);
+                    args.Player.SendMessage("参数详解：", Color.White);
                     args.Player.SendMessage("结果索引 = 搜索结果的索引。", Color.LightGray);
                     break;
             }
