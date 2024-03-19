@@ -1331,7 +1331,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                     args.Player.SendMessage("为选定的保护添加用户组共享权限。", Color.LightGray);
                     args.Player.SendMessage("用户组名称 = 要添加的 TShock 组的名称。", Color.LightGray);
                     args.Player.SendMessage("参数详解：", Color.White);
-                    args.Player.SendMessage("-p = 激活持久模式。该命令将保持持久性，直到它过期。", Color.LightGray);
+                    args.Player.SendMessage("-p = 激活持久模式。该命令将保持持久性，直到它过期或输入其他保护者命令", Color.LightGray);
                     break;
             }
 
@@ -1381,17 +1381,16 @@ namespace Terraria.Plugins.CoderCow.Protector
             switch (pageNumber)
             {
                 default:
-                    args.Player.SendMessage("/unsharegroup 命令参考（第1页，共2页）", Color.Lime);
-                    args.Player.SendMessage("/unsharegroup 用户组名 [-p]", Color.White);
+                    args.Player.SendMessage("/unsharegroup 命令参考", Color.Lime);
+                    args.Player.SendMessage("/unsharegroup <用户组名> [-p]", Color.White);
                     args.Player.SendMessage("从选定的保护中移除用户组共享权限。", Color.LightGray);
                     args.Player.SendMessage("参数详解：", Color.White);
-                    args.Player.SendMessage("用户组组名称 = 要添加的TShock组的名称。", Color.LightGray);
-                    args.Player.SendMessage("-p = 激活持久模式。该命令将保持持久性，直到它过期。", Color.LightGray);
-                    break;
-                case 2:
-                    args.Player.SendMessage("或输入其他保护者命令。.", Color.LightGray);
+                    args.Player.SendMessage("用户组组名称 = 要添加的 TShock 组的名称。", Color.LightGray);
+                    args.Player.SendMessage("-p = 激活持久模式。该命令将保持持久性，直到它过期或输入其他保护者命令", Color.LightGray);
+                    args.Player.SendMessage("请注意，并非所有类型的箱子都可以被锁定。", Color.LightGray);
                     break;
             }
+
 
             return true;
         }
@@ -1522,14 +1521,11 @@ namespace Terraria.Plugins.CoderCow.Protector
             switch (pageNumber)
             {
                 default:
-                    args.Player.SendMessage("/lockchest 命令参考（第1页，共2页）", Color.Lime);
+                    args.Player.SendMessage("/lockchest 命令参考", Color.Lime);
                     args.Player.SendMessage("/lockchest或 /lchest [-p]", Color.White);
                     args.Player.SendMessage("锁定选定的箱子，需要一把钥匙才能打开它.", Color.LightGray);
                     args.Player.SendMessage("参数详解：", Color.White);
-                    args.Player.SendMessage("-p = 激活持久模式。该命令将保持持久性，直到它过期。", Color.LightGray);
-                    args.Player.SendMessage("或输入其他保护者命令。", Color.LightGray);
-                    break;
-                case 2:
+                    args.Player.SendMessage("-p = 激活持久模式。该命令将保持持久性，直到它过期或输入其他保护者命令", Color.LightGray);
                     args.Player.SendMessage("请注意，并非所有类型的箱子都可以被锁定。", Color.LightGray);
                     break;
             }
@@ -1610,11 +1606,10 @@ namespace Terraria.Plugins.CoderCow.Protector
                 default:
                     args.Player.SendMessage("输入/swapchest help 来获取这个命令的更多帮助。", Color.Lime);
                     args.Player.SendMessage("/swapchest 或 /schest [-p]", Color.White);
-                    args.Player.SendMessage("将选定箱子的数据交换为世界数据或保护者数据。", Color.LightGray);
+                    args.Player.SendMessage("将选定箱子的数据交换为世界数据或保护者插件数据。", Color.LightGray);
                     args.Player.SendMessage("这不会改变箱子的内容或其保护状态，但会移除其名称。", Color.LightGray);
                     args.Player.SendMessage("参数详解：", Color.White);
-                    args.Player.SendMessage("-p = 激活持久模式。该命令将保持持久性，直到它过期。", Color.LightGray);
-                    args.Player.SendMessage("或输入其他保护者命令。", Color.LightGray);
+                    args.Player.SendMessage("-p = 激活持久模式。该命令将保持持久性，直到它过期或输入其他保护者命令", Color.LightGray);
                     break;
             }
 
@@ -1739,36 +1734,34 @@ namespace Terraria.Plugins.CoderCow.Protector
             switch (pageNumber)
             {
                 default:
-                    args.Player.SendMessage("命令 /refillchest 的参考信息（第 1 页，共 5 页）", Color.Lime);
+                    args.Player.SendMessage("命令 /refillchest 的参考信息（第 1 页，共 3 页）", Color.Lime);
                     args.Player.SendMessage("/refillchest|/rchest [时间] [+ot|-ot] [+ll 数量|-ll] [+al|-al] [+ae|-ae] [-p]", Color.White);
                     args.Player.SendMessage("将一个宝箱转换为一个特殊的宝箱，可以自动补充其内容。", Color.LightGray);
                     args.Player.SendMessage("参数详解：", Color.White);
                     args.Player.SendMessage("时间 = 示例：2h, 2h30m, 2h30m10s, 1d6h 等。", Color.LightGray);
-                    args.Player.SendMessage("+ot = 宝箱只能被每个玩家掠夺一次。", Color.LightGray);
+                    args.Player.SendMessage("+ot = 宝箱只能被每个玩家拿取一次。", Color.LightGray);
+                    args.Player.SendMessage("+ll 数量 = 宝箱只能被总共拿取给定的次数，过了次数后不再被重新填充，重复设置不重置。", Color.LightGray);
+                    args.Player.SendMessage("+al = 被拿取后，宝箱会自动上锁。-al取消。", Color.LightGray);
+                    args.Player.SendMessage("+ae = 被拿取后，宝箱会自动清空，无论内容如何。", Color.LightGray);
+                    args.Player.SendMessage("-p = 激活持久模式。该命令将持续有效，直到超时或输入了其他保护命令为止。", Color.LightGray);
                     break;
                 case 2:
-                    args.Player.SendMessage("+ll 数量 = 宝箱只能被总共掠夺给定的次数。", Color.LightGray);
-                    args.Player.SendMessage("+al = 被掠夺后，宝箱会自动锁定。", Color.LightGray);
-                    args.Player.SendMessage("+ae = 被掠夺后，宝箱会自动清空，无论内容如何。", Color.LightGray);
-                    args.Player.SendMessage("-p = 激活持久模式。该命令将持续有效，直到超时或输入了其他保护命令为止。", Color.LightGray);
-                    args.Player.SendMessage("如果应用了 +ot 或 +ll，玩家必须登录才能掠夺它。", Color.LightGray);
-                    break;
-                case 3:
-                    args.Player.SendMessage("要从现有的补充宝箱中移除一个特性，请在它前面加上 '-'：", Color.LightGray);
+                    args.Player.SendMessage("命令 /refillchest 的参考信息（第 2 页，共 3 页）", Color.Lime);
+                    args.Player.SendMessage("如果应用了 +ot 或 +ll，玩家必须登录才能拿取它。", Color.LightGray);
+                    args.Player.SendMessage("要从现有的补充宝箱中移除一个特性，请在它前面加上 '-'如：：", Color.LightGray);
                     args.Player.SendMessage("  /refillchest -ot", Color.White);
                     args.Player.SendMessage("从选定的宝箱中移除 'ot' 特性。", Color.LightGray);
                     args.Player.SendMessage("要移除定时器，只需省略时间参数。", Color.LightGray);
+                    break;
+                case 3:
+                    args.Player.SendMessage("命令 /refillchest 的参考信息（第 3 页，共 3 页）", Color.Lime);
                     args.Player.SendMessage("示例 #1：让一个宝箱在1小时30分钟后补充其内容：", Color.LightGray);
-                    break;
-                case 4:
                     args.Player.SendMessage("  /refillchest 1h30m", Color.White);
-                    args.Player.SendMessage("示例 #2：让一个宝箱每个玩家只能掠夺一次，没有补充定时器：", Color.LightGray);
+                    args.Player.SendMessage("示例 #2：让一个宝箱每个玩家只能拿取一次，没有补充定时器：", Color.LightGray);
                     args.Player.SendMessage("  /refillchest +ot", Color.White);
-                    args.Player.SendMessage("示例 #3：让一个宝箱每个玩家只能掠夺一次，带有30分钟的补充定时器：", Color.LightGray);
+                    args.Player.SendMessage("示例 #3：让一个宝箱每个玩家只能拿取一次，带有30分钟的补充定时器：", Color.LightGray);
                     args.Player.SendMessage("  /refillchest 30m +ot", Color.White);
-                    break;
-                case 5:
-                    args.Player.SendMessage("示例 #4：让一个宝箱每个玩家只能掠夺一次，总共只能掠夺10次：", Color.LightGray);
+                    args.Player.SendMessage("示例 #4：让一个宝箱每个玩家只能拿取一次，总共只能拿取10次：", Color.LightGray);
                     args.Player.SendMessage("  /refillchest +ot +ll 10", Color.White);
                     break;
             }
@@ -1858,21 +1851,27 @@ namespace Terraria.Plugins.CoderCow.Protector
             switch (selector)
             {
                 case "dungeon":
+                case "地牢":
                     chestKindToSelect = ChestKind.DungeonChest;
                     break;
                 case "sky":
+                case "空岛":
                     chestKindToSelect = ChestKind.SkyIslandChest;
                     break;
                 case "ocean":
+                case "海洋":
                     chestKindToSelect = ChestKind.OceanChest;
                     break;
                 case "shadow":
+                case "地狱":
                     chestKindToSelect = ChestKind.HellShadowChest;
                     break;
                 case "hardmodedungeon":
+                case "困难地牢":
                     chestKindToSelect = ChestKind.HardmodeDungeonChest;
                     break;
                 case "pyramid":
+                case "金字塔":
                     chestKindToSelect = ChestKind.PyramidChest;
                     break;
                 default:
@@ -1955,22 +1954,22 @@ namespace Terraria.Plugins.CoderCow.Protector
                     args.Player.SendMessage("/refillchestmany|/rchestmany <选择器> [时间] [+ot|-ot] [+ll 数量|-ll] [+al|-al] [+ae|-ae] [+fl]", Color.White);
                     args.Player.SendMessage("将所有选中的宝箱转换为补充宝箱或更改它们。", Color.LightGray);
                     args.Player.SendMessage("参数详解：", Color.White);
-                    args.Player.SendMessage("选择器 = 地牢, 天堂, 海洋, 阴影, 困难地牢 或 金字塔", Color.LightGray);
+                    args.Player.SendMessage("选择器 = dungeon/地牢, sky/空岛, ocean/海洋, shadow/地狱, hardmodedungeon/困难地牢 或 pyramid/金字塔", Color.LightGray);
                     args.Player.SendMessage("时间 = 示例：2h, 2h30m, 2h30m10s, 1d6h 等。", Color.LightGray);
                     break;
                 case 2:
-                    args.Player.SendMessage("+ot = 宝箱只能被每个玩家掠夺一次。", Color.LightGray);
-                    args.Player.SendMessage("+ll = 宝箱只能被总共掠夺给定的次数。", Color.LightGray);
-                    args.Player.SendMessage("+al = 被掠夺后，宝箱会自动锁定。", Color.LightGray);
-                    args.Player.SendMessage("+ae = 被掠夺后，宝箱会自动清空，无论内容如何。", Color.LightGray);
-                    args.Player.SendMessage("+fl = 宝箱内的物品类型会放入宝箱中，产生公平的掠夺。", Color.LightGray);
+                    args.Player.SendMessage("+ot = 宝箱只能被每个玩家拿取一次。", Color.LightGray);
+                    args.Player.SendMessage("+ll = 宝箱只能被总共拿取给定的次数。", Color.LightGray);
+                    args.Player.SendMessage("+al = 被拿取后，宝箱会自动锁定。", Color.LightGray);
+                    args.Player.SendMessage("+ae = 被拿取后，宝箱会自动清空，无论内容如何。", Color.LightGray);
+                    args.Player.SendMessage("+fl = 会在箱子内放置一个与箱子类型相同的物品，以保证战利品公平分配。", Color.LightGray);
                     args.Player.SendMessage("这个命令预期在全新的世界中使用，指定的选择器可能也会选择玩家宝箱。这是如何区分宝箱种类：", Color.LightGray);
                     break;
                 case 3:
-                    args.Player.SendMessage("地牢 = 被锁定的金宝箱，后面有自然地牢墙壁。", Color.LightGray);
-                    args.Player.SendMessage("天堂 = 被锁定的金宝箱，位于地表以上。", Color.LightGray);
-                    args.Player.SendMessage("海洋 = 未锁定的金宝箱，位于海洋生物群系的水下。", Color.LightGray);
-                    args.Player.SendMessage("阴影 = 世界最后七分之一区域锁定的阴影宝箱。", Color.LightGray);
+                    args.Player.SendMessage("dungeon/地牢 = 被锁定的金宝箱，后面有自然地牢墙壁。", Color.LightGray);
+                    args.Player.SendMessage("sky/空岛 = 被锁定的金宝箱，位于地表以上。", Color.LightGray);
+                    args.Player.SendMessage("ocean/海洋 = 未锁定的金宝箱，位于海洋生物群系的水下。", Color.LightGray);
+                    args.Player.SendMessage("shadow/地狱 = 世界最后七分之一区域锁定的阴影宝箱。", Color.LightGray);
                     args.Player.SendMessage("参数详解：", Color.White);
                     args.Player.SendMessage("要获取有关补充宝箱及其参数的更多信息，请输入 /help rchest。", Color.LightGray);
                     break;
@@ -2004,9 +2003,9 @@ namespace Terraria.Plugins.CoderCow.Protector
             {
                 string messageFormat;
                 if (!hasNoBankChestLimits)
-                    messageFormat = "银行宝箱编号必须在 1 到 {0} 之间。";
+                    messageFormat = "银行箱编号必须在 1 到 {0} 之间。";
                 else
-                    messageFormat = "银行宝箱编号必须大于 1。";
+                    messageFormat = "银行箱编号必须大于 1。";
 
                 args.Player.SendErrorMessage(string.Format(messageFormat, this.Config.MaxBankChestsPerPlayer));
                 return;
@@ -2042,10 +2041,10 @@ namespace Terraria.Plugins.CoderCow.Protector
             };
             interaction.TimeExpiredCallback += (playerLocal) =>
             {
-                playerLocal.SendMessage("等待时间过长。不会创建银行宝箱。", Color.Red);
+                playerLocal.SendMessage("等待时间过长。不会创建银行箱。", Color.Red);
             };
 
-            args.Player.SendInfoMessage("打开一个宝箱将其转换为银行宝箱。");
+            args.Player.SendInfoMessage("打开一个宝箱将其转换为银行箱。");
         }
 
         private bool BankChestCommand_HelpCallback(CommandArgs args)
@@ -2062,30 +2061,30 @@ namespace Terraria.Plugins.CoderCow.Protector
                 default:
                     args.Player.SendMessage("命令 /bankchest 的参考信息（第 1 页，共 5 页）", Color.Lime);
                     args.Player.SendMessage("/bankchest|/bchest <编号>", Color.White);
-                    args.Player.SendMessage("将一个受保护的宝箱转换为一个银行宝箱实例。银行宝箱将其内容存储在一个单独的", Color.LightGray);
+                    args.Player.SendMessage("将一个受保护的宝箱转换为一个银行箱实例。银行箱将其内容存储在一个单独的", Color.LightGray);
                     args.Player.SendMessage("与世界无关的数据库中 - 无论它们在世界中实例化在哪里，其内容保持不变。", Color.LightGray);
                     args.Player.SendMessage("它们基本上就像存钱罐一样，但服务器端处理。", Color.LightGray);
                     break;
                 case 2:
-                    args.Player.SendMessage("编号 = 一个基于 1 的数字，用于唯一标识银行宝箱。", Color.LightGray);
-                    args.Player.SendMessage("通常，第一个创建的银行宝箱分配数字 '1'，下一个分配数字 '2' 等。", Color.LightGray);
+                    args.Player.SendMessage("编号 = 一个基于 1 的数字，用于唯一标识银行箱。", Color.LightGray);
+                    args.Player.SendMessage("通常，第一个创建的银行箱分配数字 '1'，下一个分配数字 '2' 等。", Color.LightGray);
                     args.Player.SendMessage("参数详解：", Color.White);
-                    args.Player.SendMessage("为了被转换为银行宝箱，一个宝箱必须受到保护，并且玩家必须拥有它。", Color.LightGray);
-                    args.Player.SendMessage("此外，如果这是银行宝箱的第一个实例，那么宝箱的内容将被视为新的银行宝箱内容。如果", Color.LightGray);
+                    args.Player.SendMessage("为了被转换为银行箱，一个宝箱必须受到保护，并且玩家必须拥有它。", Color.LightGray);
+                    args.Player.SendMessage("此外，如果这是银行箱的第一个实例，那么宝箱的内容将被视为新的银行箱内容。如果", Color.LightGray);
                     break;
                 case 3:
-                    args.Player.SendMessage("已经实例化过带有该编号的银行宝箱，那么宝箱必须为空，以便可以安全地被银行宝箱的内容覆盖。", Color.LightGray);
+                    args.Player.SendMessage("已经实例化过带有该编号的银行箱，那么宝箱必须为空，以便可以安全地被银行箱的内容覆盖。", Color.LightGray);
                     args.Player.SendMessage("参数详解：", Color.White);
-                    args.Player.SendMessage("要移除一个银行宝箱实例，只需 /deprotect 它。", Color.LightGray);
+                    args.Player.SendMessage("要移除一个银行箱实例，只需 /deprotect 它。", Color.LightGray);
                     break;
                 case 4:
-                    args.Player.SendMessage("玩家可以拥有的银行宝箱数量通常受配置限制，还需要额外的权限", Color.LightGray);
-                    args.Player.SendMessage("来与其他玩家共享银行宝箱。", Color.LightGray);
+                    args.Player.SendMessage("玩家可以拥有的银行箱数量通常受配置限制，还需要额外的权限", Color.LightGray);
+                    args.Player.SendMessage("来与其他玩家共享银行箱。", Color.LightGray);
                     args.Player.SendMessage("参数详解：", Color.White);
-                    args.Player.SendMessage("在一个世界中，只能存在一个具有相同编号的银行宝箱实例。", Color.White);
+                    args.Player.SendMessage("在一个世界中，只能存在一个具有相同编号的银行箱实例。", Color.White);
                     break;
                 case 5:
-                    args.Player.SendMessage("示例 #1：创建一个编号为 1 的银行宝箱：", Color.LightGray);
+                    args.Player.SendMessage("示例 #1：创建一个编号为 1 的银行箱：", Color.LightGray);
                     args.Player.SendMessage("  /bankchest 1", Color.White);
                     break;
             }
@@ -2121,12 +2120,12 @@ namespace Terraria.Plugins.CoderCow.Protector
                 {
                     if (protection.BankChestKey == BankChestDataKey.Invalid)
                     {
-                        args.Player.SendErrorMessage("这不是一个银行宝箱。");
+                        args.Player.SendErrorMessage("这不是一个银行箱。");
                         return;
                     }
 
                     protection.BankChestKey = BankChestDataKey.Invalid;
-                    args.Player.SendSuccessMessage("银行宝箱内容已成功卸载，银行宝箱实例已移除。");
+                    args.Player.SendSuccessMessage("银行箱内容已成功卸载，银行箱实例已移除。");
                     return;
                 }
 
@@ -2160,9 +2159,9 @@ namespace Terraria.Plugins.CoderCow.Protector
             };
             interaction.TimeExpiredCallback += (player) =>
             {
-                player.SendErrorMessage("等待时间过长，不会卸载银行宝箱。");
+                player.SendErrorMessage("等待时间过长，不会卸载银行箱。");
             };
-            args.Player.SendInfoMessage("打开一个银行宝箱以卸载其内容。");
+            args.Player.SendInfoMessage("打开一个银行箱以卸载其内容。");
         }
 
         private bool DumpBankChestCommand_HelpCallback(CommandArgs args)
@@ -2179,8 +2178,8 @@ namespace Terraria.Plugins.CoderCow.Protector
                 default:
                     args.Player.SendMessage("命令 /dumpbankchest 的参考信息（第 1 页，共 2 页）", Color.Lime);
                     args.Player.SendMessage("/dumpbankchest|dbchest [-p]", Color.White);
-                    args.Player.SendMessage("移除一个银行宝箱实例但保留其内容，实际上是所有物品的复制。", Color.LightGray);
-                    args.Player.SendMessage("这使您能够将银行宝箱当作宝箱模板使用。", Color.LightGray);
+                    args.Player.SendMessage("移除一个银行箱实例但保留其内容，实际上是所有物品的复制。", Color.LightGray);
+                    args.Player.SendMessage("这使您能够将银行箱当作宝箱模板使用。", Color.LightGray);
                     break;
                 case 2:
                     args.Player.SendMessage("-p = 激活持久模式。该命令将持续有效，直到超时或输入了其他保护命令为止。", Color.LightGray);
@@ -2336,8 +2335,6 @@ namespace Terraria.Plugins.CoderCow.Protector
                     args.Player.SendMessage("其他玩家通过简单点击交易宝箱购买，只有所有者、共享用户或管理员可以查看交易宝箱的内容。", Color.LightGray);
                     args.Player.SendMessage("购买者的支付也存储在宝箱中，所以确保始终有足够的空间可用。还要确保", Color.LightGray);
                     args.Player.SendMessage("宝箱始终装满足够的商品，否则玩家将无法从您那里购买。", Color.LightGray);
-                    break;
-                case 3:
                     args.Player.SendMessage("请注意，前缀不会被考虑用于支付或要出售的物品。", Color.LightGray);
                     break;
             }
@@ -2422,7 +2419,7 @@ namespace Terraria.Plugins.CoderCow.Protector
 
                     string foundItemsString = string.Join(" ", foundItems.Select(i => TShock.Utils.ItemTag(i.ToItem())));
 
-                    string chestOwner = "{未受保护}";
+                    string chestOwner = "{not protected}";
                     ProtectionEntry protection = this.ProtectionManager.GetProtectionAt(chestLocation);
                     if (protection != null)
                     {
@@ -2932,7 +2929,7 @@ namespace Terraria.Plugins.CoderCow.Protector
 
             if (this.IsChestInUse(player, chest))
             {
-                player.SendErrorMessage("Another player is already viewing the content of this chest.");
+                player.SendErrorMessage("另一位玩家正在查看此箱子的内容。.");
                 return true;
             }
 
@@ -2966,7 +2963,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                     if (this.CheckRefillChestLootability(refillChest, player))
                     {
                         if (refillChest.OneLootPerPlayer)
-                            player.SendMessage("您只能掠夺这个宝箱一次。", Color.OrangeRed);
+                            player.SendMessage("您只能拿取这个宝箱一次。", Color.OrangeRed);
                     }
                     else
                     {
@@ -3798,7 +3795,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                 {
                     if (ex.Permission == ProtectorPlugin.BankChestShare_Permission)
                     {
-                        player.SendErrorMessage("您不允许共享银行宝箱。");
+                        player.SendErrorMessage("您不允许共享银行箱。");
                     }
                     else
                     {
@@ -3942,23 +3939,23 @@ namespace Terraria.Plugins.CoderCow.Protector
                     StringBuilder messageBuilder = new StringBuilder();
                     if (refillChest.OneLootPerPlayer || refillChest.RemainingLoots != -1)
                     {
-                        messageBuilder.Append("它只能被掠夺 ");
+                        messageBuilder.Append("它只能被拿取 ");
                         if (refillChest.OneLootPerPlayer)
-                            messageBuilder.Append("每个玩家只能掠夺一次");
+                            messageBuilder.Append("每个玩家只能拿取一次");
                         if (refillChest.RemainingLoots != -1)
                         {
                             if (messageBuilder.Length > 0)
                                 messageBuilder.Append("和");
 
                             messageBuilder.Append(TShock.Utils.ColorTag(refillChest.RemainingLoots.ToString(), Color.Red));
-                            messageBuilder.Append("总共可以掠夺更多次");
+                            messageBuilder.Append("总共可以拿取更多次");
                         }
                         messageBuilder.Append('。');
                     }
 
                     if (refillChest.Looters != null)
                     {
-                        messageBuilder.Append("它已经被掠夺了");
+                        messageBuilder.Append("它已经被拿取了");
                         messageBuilder.Append(TShock.Utils.ColorTag(refillChest.Looters.Count.ToString(), Color.Red));
                         messageBuilder.Append("次。");
                     }
@@ -3969,7 +3966,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                 else if (protection.BankChestKey != BankChestDataKey.Invalid)
                 {
                     BankChestDataKey bankChestKey = protection.BankChestKey;
-                    player.SendMessage($"这是一个银行宝箱实例，编号为 {bankChestKey.BankChestIndex}。", Color.LightGray);
+                    player.SendMessage($"这是一个银行箱实例，编号为 {bankChestKey.BankChestIndex}。", Color.LightGray);
                 }
                 else if (protection.TradeChestData != null)
                 {
@@ -4053,7 +4050,7 @@ namespace Terraria.Plugins.CoderCow.Protector
             if (tsUser != null)
                 return tsUser.Name;
             else
-                return string.Concat("{已删除的用户ID: ", userId, "}");
+                return string.Concat("{deleted user id: ", userId, "}");
         }
 
         private bool CheckProtected(TSPlayer player, DPoint tileLocation, bool fullAccessRequired)
@@ -4260,30 +4257,30 @@ namespace Terraria.Plugins.CoderCow.Protector
                         if (oneLootPerPlayer != null)
                         {
                             if (oneLootPerPlayer.Value)
-                                player.SendSuccessMessage("这个宝箱现在每个玩家只能掠夺一次。");
+                                player.SendSuccessMessage("这个宝箱现在每个玩家只能拿取一次。");
                             else
-                                player.SendSuccessMessage("这个宝箱现在可以自由掠夺。");
+                                player.SendSuccessMessage("这个宝箱现在可以自由拿取。");
                         }
                         if (lootLimit != null)
                         {
                             if (lootLimit.Value != -1)
-                                player.SendSuccessMessage($"这个宝箱现在还可以被掠夺 {lootLimit} 次。");
+                                player.SendSuccessMessage($"这个宝箱现在还可以被拿取 {lootLimit} 次。");
                             else
-                                player.SendSuccessMessage("这个宝箱现在可以无限次掠夺。");
+                                player.SendSuccessMessage("这个宝箱现在可以无限次拿取。");
                         }
                         if (autoLock != null)
                         {
                             if (autoLock.Value)
-                                player.SendSuccessMessage("这个宝箱在被掠夺时会自动锁定。");
+                                player.SendSuccessMessage("这个宝箱在被拿取时会自动锁定。");
                             else
-                                player.SendSuccessMessage("这个宝箱将不再在被掠夺时自动锁定。");
+                                player.SendSuccessMessage("这个宝箱将不再在被拿取时自动锁定。");
                         }
                         if (autoEmpty != null)
                         {
                             if (autoEmpty.Value)
-                                player.SendSuccessMessage("这个宝箱在被掠夺时会自动清空。");
+                                player.SendSuccessMessage("这个宝箱在被拿取时会自动清空。");
                             else
-                                player.SendSuccessMessage("这个宝箱将不再在被掠夺时自动清空。");
+                                player.SendSuccessMessage("这个宝箱将不再在被拿取时自动清空。");
                         }
                     }
                 }
@@ -4328,7 +4325,7 @@ namespace Terraria.Plugins.CoderCow.Protector
             catch (ChestIncompatibilityException)
             {
                 if (sendMessages)
-                    player.SendErrorMessage("一个宝箱不能同时是补充宝箱和银行宝箱。");
+                    player.SendErrorMessage("一个宝箱不能同时是补充宝箱和银行箱。");
 
                 return false;
             }
@@ -4348,7 +4345,7 @@ namespace Terraria.Plugins.CoderCow.Protector
             if (!player.IsLoggedIn)
             {
                 if (sendMessages)
-                    player.SendErrorMessage("您必须登录才能设置银行宝箱。");
+                    player.SendErrorMessage("您必须登录才能设置银行箱。");
 
                 return false;
             }
@@ -4364,7 +4361,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                 this.ChestManager.SetUpBankChest(player, tileLocation, bankChestIndex, true);
 
                 player.SendSuccessMessage(string.Format(
-                  $"这个宝箱现在是您的银行宝箱实例，编号为 {TShock.Utils.ColorTag(bankChestIndex.ToString(), Color.Red)}。"
+                  $"这个宝箱现在是您的银行箱实例，编号为 {TShock.Utils.ColorTag(bankChestIndex.ToString(), Color.Red)}。"
                 ));
 
                 return true;
@@ -4385,9 +4382,9 @@ namespace Terraria.Plugins.CoderCow.Protector
                     {
                         string messageFormat;
                         if (!player.Group.HasPermission(ProtectorPlugin.NoBankChestLimits_Permission))
-                            messageFormat = "银行宝箱编号必须在 1 和 {0} 之间。";
+                            messageFormat = "银行箱编号必须在 1 和 {0} 之间。";
                         else
-                            messageFormat = "银行宝箱编号必须大于 1。";
+                            messageFormat = "银行箱编号必须大于 1。";
 
                         player.SendErrorMessage(string.Format(messageFormat, actualEx.ActualValue));
                     }
@@ -4400,14 +4397,14 @@ namespace Terraria.Plugins.CoderCow.Protector
             catch (MissingPermissionException)
             {
                 if (sendMessages)
-                    player.SendErrorMessage("您不允许定义银行宝箱。");
+                    player.SendErrorMessage("您不允许定义银行箱。");
 
                 return false;
             }
             catch (InvalidBlockTypeException)
             {
                 if (sendMessages)
-                    player.SendErrorMessage("只有宝箱可以转换为银行宝箱。");
+                    player.SendErrorMessage("只有宝箱可以转换为银行箱。");
 
                 return false;
             }
@@ -4421,21 +4418,21 @@ namespace Terraria.Plugins.CoderCow.Protector
             catch (ChestNotEmptyException)
             {
                 if (sendMessages)
-                    player.SendErrorMessage("宝箱必须为空才能在这里恢复银行宝箱。");
+                    player.SendErrorMessage("宝箱必须为空才能在这里恢复银行箱。");
 
                 return false;
             }
             catch (ChestTypeAlreadyDefinedException)
             {
                 if (sendMessages)
-                    player.SendErrorMessage("这个宝箱已经是银行宝箱了。");
+                    player.SendErrorMessage("这个宝箱已经是银行箱了。");
 
                 return false;
             }
             catch (ChestIncompatibilityException)
             {
                 if (sendMessages)
-                    player.SendErrorMessage("银行宝箱不能同时是补充宝箱或交易宝箱。");
+                    player.SendErrorMessage("银行箱不能同时是补充宝箱或交易宝箱。");
 
                 return false;
             }
@@ -4453,7 +4450,7 @@ namespace Terraria.Plugins.CoderCow.Protector
             {
                 if (sendMessages)
                 {
-                    player.SendErrorMessage($"这个世界中已经有编号为 {bankChestIndex} 的您的银行宝箱实例。");
+                    player.SendErrorMessage($"这个世界中已经有编号为 {bankChestIndex} 的您的银行箱实例。");
                     player.SendErrorMessage("");
                 }
 
@@ -4531,7 +4528,7 @@ namespace Terraria.Plugins.CoderCow.Protector
             catch (ChestIncompatibilityException)
             {
                 if (sendMessages)
-                    player.SendErrorMessage("交易宝箱不能同时是银行宝箱。");
+                    player.SendErrorMessage("交易宝箱不能同时是银行箱。");
             }
             catch (NoChestDataException)
             {
@@ -4608,7 +4605,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                 if (refillChest.RemainingLoots == 0)
                 {
                     if (sendReasonMessages)
-                        player.SendErrorMessage("这个宝箱附有限制每人只能掠夺一次的限制，因此不能再被掠夺了。");
+                        player.SendErrorMessage("这个宝箱附有限制每人只能拿取一次的限制，因此不能再被拿取了。");
 
                     return false;
                 }
@@ -4622,7 +4619,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                     if (refillChest.Looters.Contains(player.Account.ID))
                     {
                         if (sendReasonMessages)
-                            player.SendErrorMessage("每个玩家只能掠夺这个宝箱一次。");
+                            player.SendErrorMessage("每个玩家只能拿取这个宝箱一次。");
                         return false;
                     }
                 }
