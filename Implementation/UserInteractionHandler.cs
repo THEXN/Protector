@@ -963,18 +963,16 @@ namespace Terraria.Plugins.CoderCow.Protector
             switch (pageNumber)
             {
                 default:
-                    args.Player.SendMessage("/deprotect 命令参考（第 1 页，共 2 页）", Color.Lime);
-                    args.Player.SendMessage("/deprotect 或 dp [-p]", Color.White);
-                    args.Player.SendMessage("取消选中物体或方块的保护状态。", Color.LightGray);
+                    args.Player.SendMessage("/deprotect 命令参考（第 1 页，共 1 页）", Color.Lime);
+                    args.Player.SendMessage("/deprotect|dp [-p]", Color.White);
+                    args.Player.SendMessage("取消选择的对象或方块的保护。", Color.LightGray);
                     args.Player.SendMessage(string.Empty, Color.LightGray);
-                    args.Player.SendMessage("-p = 激活持久模式。该命令将保持持久状态，直到其超时", Color.LightGray);
-                    args.Player.SendMessage("或者输入了任何其他Protector命令", Color.LightGray);
-                    break;
-                case 2:
-                    args.Player.SendMessage("只有拥有者或管理员才能移除保护。如果选中的物体", Color.LightGray);
-                    args.Player.SendMessage("是一个银行箱子，那么这个银行箱子的实例将会从世界中移除，以便它可能会被重新实例化。", Color.LightGray);
+                    args.Player.SendMessage("-p = 激活持久模式。命令会一直保持生效，直到超时或输入其他 Protector 命令。", Color.LightGray);
+                    args.Player.SendMessage("只有所有者或管理员可以移除保护。如果选择的对象是一个银行箱，", Color.LightGray);
+                    args.Player.SendMessage("这个银行箱实例将从世界中移除，以便可以再次实例化。", Color.LightGray);
                     break;
             }
+
 
             return true;
         }
@@ -1056,12 +1054,11 @@ namespace Terraria.Plugins.CoderCow.Protector
             switch (pageNumber)
             {
                 default:
-                    args.Player.SendMessage("/protectioninfo 命令参考（第 1 页，共 1 页）", Color.Lime);
+                    args.Player.SendMessage("/protectioninfo 命令参考", Color.Lime);
                     args.Player.SendMessage("/protectioninfo 或 ptinfo 或 pi [-p]", Color.White);
                     args.Player.SendMessage("显示有关选定保护的一些信息。", Color.LightGray);
                     args.Player.SendMessage(string.Empty, Color.LightGray);
-                    args.Player.SendMessage("-p = 激活持续有效模式。该命令将持续有效，直到其超时", Color.LightGray);
-                    args.Player.SendMessage("或者输入了任何其他Protector命令", Color.LightGray);
+                    args.Player.SendMessage("-p = 激活持续有效模式。该命令将持续有效，直到其超时或者输入了任何其他 Protector 命令。", Color.LightGray);
                     break;
             }
 
@@ -1114,16 +1111,12 @@ namespace Terraria.Plugins.CoderCow.Protector
             switch (pageNumber)
             {
                 default:
-                    args.Player.SendMessage("/share 命令参考（第 1 页，共 2 页）", Color.Lime);
+                    args.Player.SendMessage("/share 命令参考", Color.Lime);
                     args.Player.SendMessage("/share 玩家名字 [-p]", Color.White);
                     args.Player.SendMessage("为选定的保护添加一个玩家共享。", Color.LightGray);
                     args.Player.SendMessage(string.Empty, Color.LightGray);
-                    args.Player.SendMessage("玩家名称 = 要添加的玩家的名称。可以是精确的用户名或用户名的一部分。", Color.LightGray);
-                    args.Player.SendMessage("当前在线的玩家的名称或其名称的一部分.", Color.LightGray);
-                    break;
-                case 2:
-                    args.Player.SendMessage("-p = 激活持续有效模式。该命令将持续有效，直到其超时", Color.LightGray);
-                    args.Player.SendMessage("或者输入了任何其他Protector命令", Color.LightGray);
+                    args.Player.SendMessage("-p = 激活持续有效模式。该命令将持续有效，直到其超时或者输入了任何其他 Protector 命令。", Color.LightGray);
+                    args.Player.SendMessage("玩家名称 = 要添加的玩家的名称。可以是确切的用户名称，或者是当前在线的玩家的名称的一部分。", Color.LightGray);
                     break;
             }
 
@@ -1176,16 +1169,12 @@ namespace Terraria.Plugins.CoderCow.Protector
             switch (pageNumber)
             {
                 default:
-                    args.Player.SendMessage("/unshare 命令参考（第1页，共2页）", Color.Lime);
-                    args.Player.SendMessage("/unshare 玩家名字", Color.White);
+                    args.Player.SendMessage("/unshare 命令参考", Color.Lime);
+                    args.Player.SendMessage("/unshare 玩家名字 [-p]", Color.White);
                     args.Player.SendMessage("从选定的保护中移除玩家的共享权限。", Color.LightGray);
                     args.Player.SendMessage(string.Empty, Color.LightGray);
-                    args.Player.SendMessage("-p = 激活持久模式。该命令将保持持久性，直到它过期", Color.LightGray);
-                    args.Player.SendMessage("或输入其他保护者命令。", Color.LightGray);
-                    break;
-                case 2:
-                    args.Player.SendMessage("玩家名称 = 要添加的玩家的名称。可以是确切的用户名称，", Color.LightGray);
-                    args.Player.SendMessage("或者是当前在线的玩家的名称的一部分。", Color.LightGray);
+                    args.Player.SendMessage("-p = 激活持久模式。该命令将保持持久性，直到它过期或输入其他保护者命令。", Color.LightGray);
+                    args.Player.SendMessage("玩家名称 = 要添加的玩家的名称。可以是确切的用户名称，或者是当前在线的玩家的名称的一部分。", Color.LightGray);
                     break;
             }
 
@@ -1233,8 +1222,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                     args.Player.SendMessage("/sharepublic [-p]", Color.White);
                     args.Player.SendMessage("允许所有人使用选定的对象。", Color.LightGray);
                     args.Player.SendMessage(string.Empty, Color.LightGray);
-                    args.Player.SendMessage("-p = 激活持久模式。该命令将保持持久性，直到它过期。", Color.LightGray);
-                    args.Player.SendMessage("或输入其他保护者命令。", Color.LightGray);
+                    args.Player.SendMessage("-p = 激活持久模式。该命令将保持持久性，直到它过期或输入其他保护者命令", Color.LightGray);
                     break;
             }
 
@@ -1282,8 +1270,7 @@ namespace Terraria.Plugins.CoderCow.Protector
                     args.Player.SendMessage("/unsharepublic [-p]", Color.White);
                     args.Player.SendMessage("撤销了所有人使用选定对象的权限。", Color.LightGray);
                     args.Player.SendMessage(string.Empty, Color.LightGray);
-                    args.Player.SendMessage("-p = 激活持久模式。该命令将保持持久性，直到它过期。", Color.LightGray);
-                    args.Player.SendMessage("或输入其他保护者命令。", Color.LightGray);
+                    args.Player.SendMessage("-p = 激活持久模式。该命令将保持持久性，直到它过期或输入其他保护者命令", Color.LightGray);
                     break;
             }
 
